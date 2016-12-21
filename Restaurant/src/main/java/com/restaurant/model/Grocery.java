@@ -1,9 +1,11 @@
 package com.restaurant.model;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
+import javax.persistence.ManyToOne;
+@Entity
 public class Grocery {
 	
 	@Id
@@ -18,6 +20,16 @@ public class Grocery {
 	
 	@Column(nullable = false)
 	private double price;
+	
+	@ManyToOne(optional = false)
+	private RestaurantManager restaurantManager;
+	
+	@ManyToOne(optional = true)
+	private WantedItems wantedItems;
+	
+	
+	@ManyToOne(optional = false)
+	private Offer offer;
 
 	public Grocery() {
 		super();

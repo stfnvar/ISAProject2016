@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -22,21 +23,22 @@ public class RestaurantSegment {
 	@Column(nullable = false)
 	private String type;
 	
-	@Column(nullable = false)
+	@ManyToOne(optional = false)
 	private Restaurant restaurant;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "table")
-	private Set<Table> tables;
+	
+	//@OneToMany(fetch = FetchType.LAZY, targetEntity=Table.class,  mappedBy = "restaurantSegment")
+	//private Set<Table> tables;
+
+	
+	//@OneToMany(fetch = FetchType.LAZY, targetEntity=Reservation.class, mappedBy="restaurantSegment")
+	//private Set<Reservation> reservations;
+
 	
 	public RestaurantSegment() {
 		super();
 	}
 
-	public RestaurantSegment(String name, String type, Restaurant restaurant) {
-		super();
-		this.name = name;
-		this.type = type;
-		this.restaurant = restaurant;
-	}
+
 	
 }

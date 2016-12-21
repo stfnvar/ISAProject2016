@@ -2,12 +2,17 @@ package com.restaurant.model;
 
 import java.util.Set;
 
-import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
+@Entity
+@javax.persistence.Table(name="ORDER_order")
 public class Order {
 	
 	
@@ -15,13 +20,19 @@ public class Order {
 	@GeneratedValue
 	private Long id;
 	
-	//@Column(nullable = false)
-	//private Table table;
+	@ManyToOne(optional = false)
+	private Table table;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "drink")
+	@OneToMany(fetch = FetchType.LAZY, targetEntity=Drink.class, mappedBy = "order")
 	private Set<Drink> drinks;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "meal")
+	
+	@OneToMany(fetch = FetchType.LAZY, targetEntity=Meal.class, mappedBy = "order")
 	private Set<Meal> meals;
+	
+	
+
+	
+	public Order(){}
 	
 }

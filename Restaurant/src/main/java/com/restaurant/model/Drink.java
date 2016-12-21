@@ -23,16 +23,22 @@ public class Drink {
 	private double price;
 	
 	@ManyToOne(optional = false)
-	private Menu menu;
+	private DrinkCard drinkCard;
+	
+	@ManyToOne(optional = false)
+	private Order order;
+	
+	@ManyToOne(optional = false)
+	private Offer offer;
+	
+	@ManyToOne(optional = true)
+	private WantedItems wantedItems;
+	
+	
 
 	public Drink() {
 		super();
 	}
 
-	public Drink(String name, Menu menu) {
-		super();
-		this.name = name;
-		this.menu = menu;
-	}
 	
 }

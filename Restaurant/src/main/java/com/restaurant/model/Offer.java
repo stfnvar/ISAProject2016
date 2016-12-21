@@ -4,11 +4,13 @@ import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
+@Entity
 public class Offer {
 	
 	@Id
@@ -24,24 +26,21 @@ public class Offer {
 	@Column(nullable = false)
 	private int warranty;
 	
-	@Column(nullable = false)
+	@ManyToOne(optional = false)
 	private RestaurantManager restaurantManager;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "grocery")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "offer")
 	private Set<Grocery> groceries;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "offer")
+	private Set<Drink> drinks;
+	
+	@ManyToOne(optional = false)
+	private Offerer offerer;
 
 	public Offer() {
 		super();
 	}
 
-	public Offer(double price, Date deliveryDeadline, int warranty, RestaurantManager restaurantManager,
-			Set<Grocery> groceries) {
-		super();
-		this.price = price;
-		this.deliveryDeadline = deliveryDeadline;
-		this.warranty = warranty;
-		this.restaurantManager = restaurantManager;
-		this.groceries = groceries;
-	}
-	
+
 }

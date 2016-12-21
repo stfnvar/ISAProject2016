@@ -1,10 +1,14 @@
 package com.restaurant.model;
 
+import javax.persistence.Entity;
+
+@Entity
 public class Bartender extends Worker{
 
-	public Bartender(String username, String password, String name, String surname, String email) {
-		super(username, password, name, surname, email);
-		// TODO Auto-generated constructor stub
-	}
+	
+	
+	
+	
+	public Bartender(){}
 
 }

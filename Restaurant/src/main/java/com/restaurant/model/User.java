@@ -2,16 +2,25 @@ package com.restaurant.model;
 
 import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
+@Entity
 public class User extends Person{
+	
+	
 		
-		@OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-		private Set<User> friends;
+		@OneToMany(fetch = FetchType.LAZY, targetEntity=FriendshipTable.class, mappedBy = "user")
+		private Set<FriendshipTable> friends;
 		
-		public User(String username, String password, String name, String surname, String email) {
-			super(username, password, name, surname, email);
-			// TODO Auto-generated constructor stub
+		
+		
+		protected User(){
+			super();
 		}
+	
+		
 }

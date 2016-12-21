@@ -3,23 +3,19 @@ package com.restaurant.model;
 import java.util.Set;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
-public class Offerer {
+@Entity
+public class Offerer extends Person{
 	
-	@Id
-	@GeneratedValue
-	private Long id;
 	
-	@Column(nullable = false)
-	private String name;
-	
-	@Column(nullable = false)
-	private String email;
-	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "offer")
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "offerer")
 	private Set<Offer> offers;
+	
+	@Column(nullable = true)
+	private String companyName;
+	
+
 }

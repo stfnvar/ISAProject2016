@@ -1,16 +1,20 @@
 package com.restaurant.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-@Entity
-public abstract class Person {
-	
+@MappedSuperclass
+public abstract class Person implements Serializable{
 	@Id
+	@Column(name="ID")
 	@GeneratedValue
 	private Long id;
+
 
 	@Column(nullable = false)
 	private String username;
@@ -26,13 +30,8 @@ public abstract class Person {
 	
 	@Column(nullable = false)
 	private String email;
+	
+	public Person(){}
 
-	public Person(String username, String password, String name, String surname, String email) {
-		super();
-		this.username = username;
-		this.password = password;
-		this.name = name;
-		this.surname = surname;
-		this.email = email;
-	}
+
 }

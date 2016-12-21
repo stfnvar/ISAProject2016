@@ -29,8 +29,17 @@ public class Meal {
 	@ManyToOne(optional = false)
 	private Menu menu;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rating")
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "rating")
+	//private Set<Rating> ratings;
+	
+	@ManyToOne(optional = true)
+	private Order order;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "meal")
 	private Set<Rating> ratings;
+	
+	@ManyToOne(optional = false)
+	private Drink drink;
 	
 	public Meal() {
 		super();

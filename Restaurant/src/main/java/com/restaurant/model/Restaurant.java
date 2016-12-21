@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -23,32 +24,39 @@ public class Restaurant {
 	@Column(nullable = false)
 	private String description;
 	
-	@Column(nullable = false)
+	@OneToMany(fetch = FetchType.LAZY, targetEntity=RestaurantManager.class, mappedBy = "restaurant")
+	private Set<RestaurantManager>  restaurantManager;
+	
+	@OneToOne(fetch = FetchType.LAZY,targetEntity=Menu.class, mappedBy="restaurant")
 	private Menu menu;
 
-	@Column(nullable = false)
-	private DrinkCard drinkCard;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "rating")
+	
+	@OneToMany(fetch = FetchType.LAZY, targetEntity=DrinkCard.class, mappedBy = "restaurant")
+	private Set<DrinkCard> drinkCards;
+	
+
+	@OneToMany(fetch = FetchType.LAZY, targetEntity=Table.class, mappedBy = "restaurant")
+	private Set<Table> tables;
+	
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
 	private Set<Rating> ratings;
 	
-	//@Column - konfiguracija sedenja
 	
-	@Column(nullable = false)
-	private RestaurantManager restaurantManager;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantSegment")
-	private Set<RestaurantSegment> restaurantSegments;
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
+	//private Set<Reservation> reservations;
+	
+
+	
+	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantSegment")
+	//private Set<RestaurantSegment> restaurantSegments;
 	
 	public Restaurant() {
 		super();
 	}
 	
-	public Restaurant(String name, String description, RestaurantManager restaurantManager) {
-		super();
-		this.name = name;
-		this.description = description;
-		this.restaurantManager = restaurantManager;
-	}
+	
 	
 }

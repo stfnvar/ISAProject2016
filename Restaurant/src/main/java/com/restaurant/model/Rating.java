@@ -1,13 +1,10 @@
 package com.restaurant.model;
 
-import java.util.Set;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -20,17 +17,23 @@ public class Rating {
 	@Column(nullable = false)
 	private double rating;
 	
-	@Column(nullable = false)
-	private User user;
+	@Column(nullable = true)
+	private int experience;
+	
+
+	@ManyToOne(optional = true)
+	private Restaurant restaurant;
+
+	@ManyToOne(optional = true)
+	private Meal meal;
+	
+	@ManyToOne(optional = true)
+	private Waiter waiter;
 
 	public Rating() {
 		super();
 	}
 
-	public Rating(double rating, User user) {
-		super();
-		this.rating = rating;
-		this.user = user;
-	}
+	
 	
 }
