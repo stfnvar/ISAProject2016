@@ -11,10 +11,8 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class Person implements Serializable{
 	@Id
-	@Column(name="ID")
 	@GeneratedValue
 	private Long id;
-
 
 	@Column(nullable = false)
 	private String username;
@@ -33,5 +31,30 @@ public abstract class Person implements Serializable{
 	
 	public Person(){}
 
+	public Long getId() {
+		return id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getSurname() {
+		return surname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+	
+	
 
 }

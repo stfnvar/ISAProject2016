@@ -10,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 public class RestaurantSegment {
 	
@@ -21,15 +25,14 @@ public class RestaurantSegment {
 	private String name;
 
 	@Column(nullable = false)
-	private String type;
+	private String typeOf;
 	
 	@ManyToOne(optional = false)
+	@JsonBackReference
 	private Restaurant restaurant;
-	
 	
 	//@OneToMany(fetch = FetchType.LAZY, targetEntity=Table.class,  mappedBy = "restaurantSegment")
 	//private Set<Table> tables;
-
 	
 	//@OneToMany(fetch = FetchType.LAZY, targetEntity=Reservation.class, mappedBy="restaurantSegment")
 	//private Set<Reservation> reservations;
@@ -39,6 +42,18 @@ public class RestaurantSegment {
 		super();
 	}
 
-
 	
+	public String getName() {
+		return name;
+	}
+
+
+	public String getTypeOf() {
+		return typeOf;
+	}
+
+
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
 }

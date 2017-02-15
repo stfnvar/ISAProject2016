@@ -17,9 +17,7 @@ public class DrinkCard {
 	
 	@ManyToOne(optional = false)
 	private Restaurant restaurant;
-	
-	@OneToMany(fetch = FetchType.LAZY, targetEntity=Meal.class, mappedBy = "drink")
-	private Set<Meal> meals;
+
 	
 	public DrinkCard() {
 		super();
@@ -29,4 +27,13 @@ public class DrinkCard {
 		super();
 		this.restaurant = restaurant;
 	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+	
 }

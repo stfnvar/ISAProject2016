@@ -29,26 +29,41 @@ public class Meal {
 	@ManyToOne(optional = false)
 	private Menu menu;
 	
-	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "rating")
-	//private Set<Rating> ratings;
-	
 	@ManyToOne(optional = true)
 	private Order order;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "meal")
 	private Set<Rating> ratings;
 	
-	@ManyToOne(optional = false)
-	private Drink drink;
-	
 	public Meal() {
 		super();
 	}
-	
-	public Meal(String name, Menu menu) {
-		super();
-		this.name = name;
-		this.menu = menu;
+
+	public String getName() {
+		return name;
 	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	
+	
+	
 	
 }

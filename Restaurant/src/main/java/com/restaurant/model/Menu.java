@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 
 @Entity
@@ -17,7 +17,7 @@ public class Menu {
 	@GeneratedValue
 	private Long id;
 	
-	@OneToOne(optional = false)
+	@ManyToOne(optional = false)
 	private Restaurant restaurant;
 	
 	@OneToMany(fetch = FetchType.LAZY,targetEntity=Meal.class, mappedBy = "menu")
@@ -27,9 +27,20 @@ public class Menu {
 		super();
 	}
 	
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
 	public Menu(Restaurant restaurant) {
-		super();
 		
 	}
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 }

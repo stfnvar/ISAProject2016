@@ -25,10 +25,10 @@ public class Drink {
 	@ManyToOne(optional = false)
 	private DrinkCard drinkCard;
 	
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	private Order order;
 	
-	@ManyToOne(optional = false)
+	@ManyToOne(optional = true)
 	private Offer offer;
 	
 	@ManyToOne(optional = true)
@@ -38,6 +38,30 @@ public class Drink {
 
 	public Drink() {
 		super();
+	}
+
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+
+	public double getPrice() {
+		return price;
 	}
 
 	

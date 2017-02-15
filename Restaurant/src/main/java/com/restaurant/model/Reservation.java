@@ -18,8 +18,6 @@ public class Reservation {
 	@GeneratedValue
 	private Long id;
 	
-	
-	
 	@ManyToOne(optional = false)
 	private Restaurant restaurant;
 	
