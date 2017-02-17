@@ -15,9 +15,6 @@ public class RestaurantManager extends Person {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantManager")
 	private Set<WantedItems> wantedItems;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurantManager")
-	private Set<Waiter> waiter;
-	
 	@ManyToOne(optional = false)
 	private Restaurant restaurant;
 	
@@ -28,5 +25,4 @@ public class RestaurantManager extends Person {
 	public Restaurant getRestaurant() {
 		return restaurant;
 	}
-
 }

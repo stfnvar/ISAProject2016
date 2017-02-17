@@ -5,12 +5,19 @@ insert into restaurant(description, name) values ('Goody', 'MNRestoran');
 insert into restaurant(description, name) values ('Allrighty', 'MKRestoran');
 insert into restaurant(description, name) values ('Greaty', 'MGRestoran');
 
---Menadzeri restorana
-insert into restaurant_manager(email, name, password, surname, username, restaurant_id) values ('mm@gmail.com', 'Mirko', 'mirko', 'Mikac', 'mirko', 1);
-insert into restaurant_manager(email, name, password, surname, username, restaurant_id) values ('sv@gmail.com', 'Stefan', 'stefan', 'Varajic', 'stefan', 2);
-insert into restaurant_manager(email, name, password, surname, username, restaurant_id) values ('mn@gmail.com', 'Milos', 'milos', 'Nisic', 'milos', 3);
-insert into restaurant_manager(email, name, password, surname, username, restaurant_id) values ('mk@gmail.com', 'Marko', 'marko', 'Kljajic', 'kljajic', 4);
-insert into restaurant_manager(email, name, password, surname, username, restaurant_id) values ('mg@gmail.com', 'Milan', 'milan', 'Gvero', 'gvero', 5);
+--Person
+insert into person(email, name, password, surname, username) values ('mm@gmail.com', 'Mirko', 'mirko', 'Mikac', 'mirko');
+insert into person(email, name, password, surname, username) values ('sv@gmail.com', 'Stefan', 'stefan', 'Varajic', 'stefan');
+insert into person(email, name, password, surname, username) values ('mn@gmail.com', 'Milos', 'milos', 'Nisic', 'milos');
+insert into person(email, name, password, surname, username) values ('mk@gmail.com', 'Marko', 'marko', 'Kljajic', 'kljajic');
+insert into person(email, name, password, surname, username) values ('mg@gmail.com', 'Milan', 'milan', 'Gvero', 'gvero');
+
+--Restaurant Manager
+insert into restaurant_manager(id, restaurant_id) values (1, 1);
+insert into restaurant_manager(id, restaurant_id) values (2, 2);
+insert into restaurant_manager(id, restaurant_id) values (3, 3);
+insert into restaurant_manager(id, restaurant_id) values (4, 4);
+insert into restaurant_manager(id, restaurant_id) values (5, 5);
 
 --Segmenti restorana
 insert into restaurant_segment(name, type_of, restaurant_id) values('Balcony Hall', 'NO_SMOKING', 1);

@@ -3,21 +3,20 @@ package com.restaurant.model;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
-@MappedSuperclass
-public abstract class Worker implements Serializable{
-	
-	@Id //signifies the primary key
-    @Column(name="ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long Id;
+@Entity
+@Inheritance(strategy=InheritanceType.JOINED)
+public class Worker extends Person{
 	
 	@Column(nullable = false)
 	@Enumerated(EnumType.ORDINAL)
@@ -30,6 +29,6 @@ public abstract class Worker implements Serializable{
 	private int workingHours;
 	
 	@ManyToOne(optional = false)
-	private RestaurantManager restaurantManager;
+	private Restaurant restaurant;
 
 }

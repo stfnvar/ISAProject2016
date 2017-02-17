@@ -21,7 +21,7 @@ public class FriendshipTable {
 	private String name;
 	
 	@ManyToOne(optional = false)
-	private User user;
+	private Guest user;
 	
 	
 	public FriendshipTable(){}

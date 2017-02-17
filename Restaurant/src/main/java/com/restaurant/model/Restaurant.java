@@ -28,6 +28,9 @@ public class Restaurant implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY, targetEntity=RestaurantManager.class, mappedBy="restaurant")
 	private Set<RestaurantManager> restaurantManagers;
 	
+	@OneToMany(fetch = FetchType.LAZY, targetEntity=RestaurantManager.class, mappedBy="restaurant")
+	private Set<Worker> workers;
+	
 	@OneToMany(fetch = FetchType.LAZY, targetEntity=Menu.class, mappedBy="restaurant")
 	private Set<Menu> menus;
 	

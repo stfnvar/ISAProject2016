@@ -6,10 +6,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
-@MappedSuperclass
-public abstract class Person implements Serializable{
+@Entity
+@Inheritance(strategy=InheritanceType.JOINED)
+public class Person implements Serializable{
+	
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -22,7 +25,7 @@ public abstract class Person implements Serializable{
 
 	@Column(nullable = false)
 	private String name;
-
+	
 	@Column(nullable = false)
 	private String surname;
 	
@@ -55,6 +58,7 @@ public abstract class Person implements Serializable{
 		return email;
 	}
 	
-	
-
+	public void setId(Long id){
+		this.id = id;
+	}
 }

@@ -1,61 +1,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Restaurant</title>
+<meta charset="UTF-8">
+<title>RestNet</title>
 
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!--
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-<script src="js/read.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+-->
+ 
+<script type="text/javascript" src="js/angular.js"></script>
+<script type="text/javascript" src="js/jquery-3.0.0.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/angular-route.min.js"></script>
 
-<style type="text/css">
-[ng\:cloak], [ng-cloak], .ng-cloak {
-  display: none !important;
-}
-</style>
+
+<script src="js/app.js"></script>
+<script src="js/controller.js"></script>
+<script src="js/service.js"></script>
+<script src="js/route.js"></script>
+
+
+<script src="js/controller/loginController.js"></script>	
+<script src="js/service/loginService.js"></script>
+
+<script src="js/controller/registerController.js"></script>
+<script src="js/service/registerService.js"></script>
+
+<script type="text/javascript" src="js/index.js"></script>
 
 </head>
-<body data-ng-app="read">
-	<div data-ng-controller="con">
-  	<h1>Restaurant profile:</h1>
-  	<!-- <button data-ng-click="restaurantProfile()">Restaurant</button> -->	
-  	<p>ID: <input type="text" data-ng-model="restaurant.id"></p>
-  	<p>Name: <input type="text" data-ng-model="restaurant.name"></p>
-  	<p>Description: <input type="text" data-ng-model="restaurant.description"></p>
-	<input type="button" value="Izmeni">
-		
-	<h2>Restaurant segments:</h2>
-	<div data-ng-repeat="i in rangeRestaurantSegments">
-		<p data-ng-model="restaurantSegments">Restaurant segment {{i + 1}}</p>
-		<p data-ng-model="restaurantSegments">Name:{{restaurantSegments[i].name}}</p>
-		<p data-ng-model="restaurantSegments">Type:{{restaurantSegments[i].typeOf}}</p>
-		<input type="button" value="Izmeni">
-		<input type="button" value="Obrisi">
-	</div>
-	
-	<h2>Jelovnik:</h2>
-	<div data-ng-repeat="i in rangeMeals">
-		<p>Jelo {{i + 1}}</p>
-		<p>Name:{{meals[i].name}}</p>
-		<p>Description:{{meals[i].description}}</p>
-		<p>Price:{{meals[i].price}}</p>
-		<input type="button" value="Izmeni">
-		<input type="button" value="Obrisi">
-	</div>
-	
-	
-	<h2>Pica:</h2>
-	<div data-ng-repeat="i in rangeDrinks">
-		<p>Pice {{i + 1}}</p>
-		<p>Name:{{drinks[i].name}}</p>
-		<p>Description:{{drinks[i].description}}</p>
-		<p>Price:{{drinks[i].price}}</p>
-		<input type="button" value="Izmeni">
-		<input type="button" value="Obrisi">
-	</div>
-	</div>
-<div>
-<div data-ng-view></div>
-</div>
+
+<body ng-app="restaurantApp">
+	<div ng-view></div>
 </body>
 </html>
-
