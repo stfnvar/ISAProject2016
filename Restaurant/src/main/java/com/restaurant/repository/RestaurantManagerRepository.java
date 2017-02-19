@@ -7,6 +7,6 @@ import com.restaurant.model.RestaurantManager;
 
 public interface RestaurantManagerRepository extends JpaRepository<RestaurantManager, Long>{
 		
-	RestaurantManager findOne(Long id);
+	RestaurantManager findById(Long id);
 	
 }

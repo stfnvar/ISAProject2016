@@ -11,6 +11,7 @@ import com.restaurant.model.DrinkCard;
 import com.restaurant.model.Meal;
 import com.restaurant.model.Menu;
 import com.restaurant.model.Restaurant;
+import com.restaurant.model.RestaurantManager;
 import com.restaurant.model.RestaurantSegment;
 import com.restaurant.model.Worker;
 import com.restaurant.repository.DrinkCardRepository;
@@ -83,6 +84,12 @@ public class RestaurantManagerServiceImpl implements RestaurantManagerService {
 	public Set<Drink> getDrinkCardDrinks(Long id) {
 		// TODO Auto-generated method stub
 		return drinkRepository.findByDrinkCard_Id(id);
+	}
+
+	@Override
+	public RestaurantManager findOneById(long id) {
+		
+		return restaurantManagerRepository.findById(id);
 	}
 	
 }

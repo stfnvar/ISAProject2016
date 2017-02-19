@@ -4,4 +4,8 @@ import com.restaurant.model.Guest;
 
 public interface GuestService {
 	Guest save(Guest guest);
+	
+	Guest findOneById(Long id);
+	
+	void activateAccount(long id);
 }

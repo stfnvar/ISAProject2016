@@ -16,5 +16,19 @@ public class GuestServiceImpl implements GuestService{
 	public Guest save(Guest guest) {
 		return guestRepository.save(guest);
 	}
+
+	@Override
+	public Guest findOneById(Long id) {
+		
+		return guestRepository.findById(id);
+	}
+
+	@Override
+	public void activateAccount(long id) {
+		
+		 guestRepository.updateActive(id);
+		
+	}
+	
 	
 }

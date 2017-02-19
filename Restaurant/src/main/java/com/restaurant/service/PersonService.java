@@ -6,6 +6,10 @@ public interface PersonService {
 	
 	Person findOneByUsername(String username);
 	
+	Person findOneByEmail(String email);
+	
+	Person findOneByEmailAndPassword(String email, String password);
+	
 	Person save(Person person);
 	
 }

@@ -10,5 +10,13 @@ public class Administrator extends Person{
 	private boolean supreme;
 	
 	public Administrator(){}
+
+	public boolean isSupreme() {
+		return supreme;
+	}
+
+	public void setSupreme(boolean supreme) {
+		this.supreme = supreme;
+	}
 	
 }

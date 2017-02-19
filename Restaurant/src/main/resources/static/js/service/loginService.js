@@ -1,13 +1,18 @@
 var loginService = angular.module('restaurantApp.loginService', []);
 
 loginService.factory('loginService', function($http) {
+	var temp={};
 	
-	var temp = {};
-	
-	temp.login = function(user) {
+	 temp.login = function(user) {
 		return $http.post('/account/login', user);
 	}
-	return temp;
+	 temp.whoIsLogged = function() {
+			return $http.get('/account/loggedin');
+		}
+	 return temp;
 
+	
 })
+
+
 

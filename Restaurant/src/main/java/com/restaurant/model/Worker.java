@@ -28,6 +28,38 @@ public class Worker extends Person{
 	@Column(nullable = false)
 	private int workingHours;
 	
+	public WorkerType getType() {
+		return type;
+	}
+
+	public void setType(WorkerType type) {
+		this.type = type;
+	}
+
+	public int getShift() {
+		return shift;
+	}
+
+	public void setShift(int shift) {
+		this.shift = shift;
+	}
+
+	public int getWorkingHours() {
+		return workingHours;
+	}
+
+	public void setWorkingHours(int workingHours) {
+		this.workingHours = workingHours;
+	}
+
+	public Restaurant getRestaurant() {
+		return restaurant;
+	}
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	}
+
 	@ManyToOne(optional = false)
 	private Restaurant restaurant;
 

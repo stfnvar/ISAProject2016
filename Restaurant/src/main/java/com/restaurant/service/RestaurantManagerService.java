@@ -29,4 +29,6 @@ public interface RestaurantManagerService {
 	
 	Set<Drink> getDrinkCardDrinks(Long id);
 	
+	RestaurantManager findOneById(long id);
+	
 }
