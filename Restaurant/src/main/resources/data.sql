@@ -11,7 +11,19 @@ insert into person(email, name, password, surname, username) values ('sv@gmail.c
 insert into person(email, name, password, surname, username) values ('mn@gmail.com', 'Milos', 'milos', 'Nisic', 'milos');
 insert into person(email, name, password, surname, username) values ('mk@gmail.com', 'Marko', 'marko', 'Kljajic', 'kljajic');
 insert into person(email, name, password, surname, username) values ('mg@gmail.com', 'Milan', 'milan', 'Gvero', 'gvero');
+--for guests
+insert into person(email, name, password, surname, username) values ('a@a.com', 'Aladin', 'aa', 'Aleksic', 'a@a.com');
+insert into person(email, name, password, surname, username) values ('b@b.com', 'Aladin', 'bb', 'Aleksic', 'b@b.com');
+insert into person(email, name, password, surname, username) values ('c@c.com', 'Aladin', 'cc', 'Aleksic', 'c@c.com');
+insert into person(email, name, password, surname, username) values ('d@d.com', 'Aladin', 'dd', 'Aleksic', 'd@d.com');
+insert into person(email, name, password, surname, username) values ('e@e.com', 'Aladin', 'ee', 'Aleksic', 'e@e.com');
 
+--guests
+insert into guest(id, active) values ('6', '1');
+insert into guest(id, active) values ('7', '1');
+insert into guest(id, active) values ('8', '1');
+insert into guest(id, active) values ('9', '1');
+insert into guest(id, active) values ('10', '1');
 --Restaurant Manager
 insert into restaurant_manager(id, restaurant_id) values (1, 1);
 insert into restaurant_manager(id, restaurant_id) values (2, 2);

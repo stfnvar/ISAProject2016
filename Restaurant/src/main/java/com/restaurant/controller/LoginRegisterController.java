@@ -114,7 +114,7 @@ public class LoginRegisterController {
 	public MessageWithObj whoIsLogged(HttpServletRequest req) {
 		
 		if(req.getSession().getAttribute("guest")!=null){
-			return new MessageWithObj("U sesiji", true, (Person)req.getSession().getAttribute("guest"));
+			return new MessageWithObj("U sesiji", true, req.getSession().getAttribute("guest"));
 			
 		}else return new MessageWithObj("Sesija prazna", false, null);
 	}
@@ -140,5 +140,33 @@ public class LoginRegisterController {
 		
 		return "Activation completed!";
 	}
+	
+	//update naloga gosta
+	@Transactional
+	@RequestMapping(value = "/updateGuest")
+	public MessageWithObj activateAccount(@RequestBody Person person, HttpServletRequest req) {
+		
+		Person per = personServiceImpl.findOneByEmail(person.getEmail());
+
+		guestServiceImpl.updateOneGuest(per.getId(), person.getName(), person.getSurname(),
+				person.getEmail(), person.getPassword());
+		
+		per = personServiceImpl.findOneByEmail(person.getEmail());
+		
+		req.getSession().removeAttribute("guest");
+		req.getSession().setAttribute("guest", per);
+		
+		
+		return new MessageWithObj("Update completed", true, null);
+	}
+	
+	@RequestMapping(value = "/test")
+	public MessageWithObj testing( HttpServletRequest req) {
+		
+		long id = ((Person)req.getSession().getAttribute("guest")).getId();
+		return new MessageWithObj("prijatelji sedmice", true, guestServiceImpl.getFriends(id) );
+	}
+	
+
 	
 }

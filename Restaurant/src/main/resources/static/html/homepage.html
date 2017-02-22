@@ -1,12 +1,152 @@
 <div ng-cloak ng-controller="guestController">
 
 <ul>
-  <li><a href="#home">My Profile</a></li>
-  <li><a href="#news">Restaurans</a></li>
-  <li><a href="#contact">Other</a></li> 
+  <li><a href="#/homepage">My Profile</a></li>
+  <li><a href="#news" ng-click="RestoranFunc()">Restaurants</a></li>
+  <li><a href="#contact" ng-click="PrijateljiFunc()">Friends</a></li> 
   <li style="float:right"><a class="logout" ng-click="OdjavaFunc()" href="#">LOGOUT</a></li>
   <li style="float:right"><a class="active" href="#">{{email}}</a></li>
 </ul>
+
+
+<div class="container">
+	<div class="row">
+		
+        
+        
+       <div class="col-md-5 ">
+
+<div class="panel panel-default">
+  <div class="panel-heading">  <h4 >Guest Profile</h4></div>
+   <div class="panel-body">
+       
+    <div id="info-form"class="box box-info">
+        
+            <div class="box-body">
+                     <div class="col-sm-6">
+                     <div  align="center"> <img alt="User Pic" src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg" id="profile-image1" class="img-circle img-responsive"> 
+                
+                <input id="profile-image-upload" class="hidden" type="file">
+<div style="color:#999;" >click here to change profile image</div>
+                <!--Upload Image Js And Css-->
+
+                     </div>
+              
+              <br>
+    
+              <!-- /input-group -->
+            </div>
+            <div class="col-sm-6">
+            <h4 style="color:#00b1b1;">{{name}} {{surname}}</h4>
+              <span><p>Guest</p></span>            
+            </div>
+            <div class="clearfix"></div>
+            <hr style="margin:5px 0 5px 0;">
+  
+
+              
+<div class="col-sm-5 col-xs-6 tital " >First Name:</div><div id="name"  class="col-sm-7 col-xs-6 "></div>
+     <div class="clearfix"></div>
+	<div class="bot-border"></div>
+
+
+
+<div class="col-sm-5 col-xs-6 tital " >Last Name:</div><div id="surname"  class="col-sm-7"></div>
+  <div class="clearfix"></div>
+  <div class="bot-border"></div>
+
+<div class="col-sm-5 col-xs-6 tital " >Email</div><div id="email"  class="col-sm-7"></div>
+
+  <div class="clearfix"></div>
+  <div class="bot-border"></div>
+
+<div class="col-sm-5 col-xs-6 tital " >Password</div><div id="sifra"  class="col-sm-7"></div>
+
+   <div class="clearfix"></div>
+   <div class="bot-border"></div>
+
+
+<div  class="col-sm-5 col-xs-6 tital " ></div><div  id="btnDiv" class="col-sm-7"><button id="changeInfoBtn" type="button" class="btn btn-primary btn-xs" ng-click="ChangeInfoFun()">Change info</button></div>
+
+   <div class="clearfix"></div>
+<div class="bot-border"></div>
+
+
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+        </div>
+       
+            
+    </div> 
+    </div>
+</div>  
+<div class="row">
+ <div class="col-md-3 ">
+ <table id="friends"  class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="x in friends">
+        <td>{{x.name}}</td>
+        <td>{{x.surname}}</td>
+        <td><button type="button" class="btn btn-primary btn-xs">remove</button></td>
+      </tr>
+  
+    </tbody>
+  </table>
+ 
+ 
+ </div>
+  <div class="col-md-3 ">
+  <input id="search" type="text" size="12" ><input type="button" value="Search">
+   <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Add</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>??SEARCH</td>
+        <td>??SEARCH</td>
+        
+      </tr>
+
+    </tbody>
+  </table>
+  
+  
+ </div>
+ 
+ </div>
+
+    <script>
+              $(function() {
+    $('#profile-image1').on('click', function() {
+        $('#profile-image-upload').click();
+    });
+});       
+              </script> 
+       
+       
+       
+       
+       
+       
+       
+       
+       
+   </div>
+</div>
 
 
 </div>
