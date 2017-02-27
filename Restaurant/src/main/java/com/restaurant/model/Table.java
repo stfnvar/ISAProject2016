@@ -21,30 +21,17 @@ public class Table {
 	@GeneratedValue
 	private Long id;
 	
-	
-	
-	@Column(nullable = false)
-	private boolean currentlyReserved;
-	
-	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
-	//private Set<Reservation> reservation;
-	
 	@ManyToOne(optional = false)
 	private RestaurantSegment restaurantSegment;
 	
 	@ManyToOne(optional = false)
 	private Restaurant restaurant;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "table")
+	@OneToMany(fetch = FetchType.LAZY, targetEntity=Order.class, mappedBy = "table")
 	private Set<Order> order;
-	/*
-    @OneToOne(optional=false,cascade=CascadeType.ALL, 
-    	       mappedBy="order",targetEntity=Invoice.class)
-    	       private Ord invoice; 
-    */
+
 	
-    @OneToOne(optional=false)
-    @JoinColumn(name = "RESERVATION_ID") 
-    private Reservation reservation; 
+    @OneToMany(mappedBy="tables",targetEntity=Reservation.class)
+    private Set<Reservation> reservations; 
 	
 }

@@ -6,4 +6,7 @@ var service = angular.module('restaurantApp.service', ['restaurantApp.registerSe
 													 'restaurantApp.waiterService',
 													 'restaurantApp.adminService',
 													 'restaurantApp.restmanagerService',
+													 'restaurantApp.restaurantService'
+												
+													
 													 ]);

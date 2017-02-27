@@ -60,3 +60,19 @@ insert into drink_card(restaurant_id) values (5);
 insert into drink (name, description, price, drink_card_id) values ("Pivo", "pivo", 100, 1);
 insert into drink (name, description, price, drink_card_id) values ("Vino", "vino", 120, 1);
 insert into drink (name, description, price, drink_card_id) values ("Rakija", "rakija", 150, 1);
+
+--prijatelji
+INSERT INTO `git`.`friendship_table` (`g1_id`, `g2_id`) VALUES ('7', '6');
+INSERT INTO `git`.`friendship_table` (`g1_id`, `g2_id`) VALUES ('6', '7');
+INSERT INTO `git`.`friendship_table` (`g1_id`, `g2_id`) VALUES ('7', '8');
+INSERT INTO `git`.`friendship_table` (`g1_id`, `g2_id`) VALUES ('8', '7');
+INSERT INTO `git`.`friendship_table` (`g1_id`, `g2_id`) VALUES ('7', '9');
+INSERT INTO `git`.`friendship_table` (`g1_id`, `g2_id`) VALUES ('9', '7');
+INSERT INTO `git`.`friendship_table` (`g1_id`, `g2_id`) VALUES ('7', '10');
+INSERT INTO `git`.`friendship_table` (`g1_id`, `g2_id`) VALUES ('10', '7');
+
+--stolovi
+INSERT INTO `git`.`table_table` (`id`, `restaurant_id`, `restaurant_segment_id`) VALUES ('2', '1', '2');
+INSERT INTO `git`.`table_table` (`id`, `restaurant_id`, `restaurant_segment_id`) VALUES ('3', '1', '2');
+INSERT INTO `git`.`table_table` (`id`, `restaurant_id`, `restaurant_segment_id`) VALUES ('4', '2', '1');
+INSERT INTO `git`.`table_table` (`id`, `restaurant_id`, `restaurant_segment_id`) VALUES ('5', '2', '2');

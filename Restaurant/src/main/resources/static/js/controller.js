@@ -6,4 +6,6 @@ var controller = angular.module('restaurantApp.controller', ['restaurantApp.regi
 															'restaurantApp.waiterController',
 															'restaurantApp.cookController',
 															'restaurantApp.bartenderController',
+															'restaurantApp.restaurantController'
+															
 															]);

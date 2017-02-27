@@ -1,5 +1,7 @@
 package com.restaurant.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
@@ -21,6 +23,7 @@ import com.restaurant.model.Person;
 import com.restaurant.model.RestaurantManager;
 import com.restaurant.model.Worker;
 import com.restaurant.service.AdminServiceImpl;
+import com.restaurant.service.Friendship;
 import com.restaurant.service.GuestServiceImpl;
 import com.restaurant.service.PersonServiceImpl;
 import com.restaurant.service.RestaurantManagerServiceImpl;
@@ -39,8 +42,6 @@ public class LoginRegisterController {
 	AdminServiceImpl adminServiceImpl;
 	@Autowired
 	RestaurantManagerServiceImpl restManagerServiceImpl;
-	
-
 	@Autowired
 	GuestServiceImpl guestServiceImpl;
 	
@@ -131,7 +132,7 @@ public class LoginRegisterController {
 	//aktiviranje naloga
 	@Transactional
 	@RequestMapping(value = "/activate/{email}")
-	public String activateAccount(@PathVariable String email) {
+	public String activateAccount(@PathVariable("email") String email) {
 		
 		
 		Person person = personServiceImpl.findOneByEmail(email);
@@ -164,9 +165,78 @@ public class LoginRegisterController {
 	public MessageWithObj testing( HttpServletRequest req) {
 		
 		long id = ((Person)req.getSession().getAttribute("guest")).getId();
-		return new MessageWithObj("prijatelji sedmice", true, guestServiceImpl.getFriends(id) );
+		List<Friendship> friends;
+		
+		try {
+		friends = guestServiceImpl.getFriends(id);
+		}catch(NullPointerException ex){
+			return new MessageWithObj("Nema prijatelja", false, null);
+		}
+	
+		return new MessageWithObj("prijatelji ulogovanog", true, friends );
+	
+		
+		
+			
 	}
 	
+	@Transactional
+	@RequestMapping(value = "/rmfriend/{id}")
+	public void removeFriend(@PathVariable("id") String friendId, HttpServletRequest req) {
+		
+		long id1 = ((Person)req.getSession().getAttribute("guest")).getId();
+		long id2 = Long.parseLong(friendId);
+		
+		 guestServiceImpl.removeOneFriendship(id1, id2);
+		 guestServiceImpl.removeOneFriendship(id2, id1);
 
+	}
+	@RequestMapping(value = "/notfriends")
+	public MessageWithObj notFriends( HttpServletRequest req) {
+		
+		long id = ((Person)req.getSession().getAttribute("guest")).getId();
+		return new MessageWithObj("neprijatelji ulogovanog", true, guestServiceImpl.getNotFriends(id) );
+	}
 	
+	@RequestMapping(value = "/search/{op}/{name}/{surname}")
+	public MessageWithObj searchResults(@PathVariable("op") String op,@PathVariable("name") String name,
+	@PathVariable("surname") String surname, HttpServletRequest req) {
+		long current = ((Person)req.getSession().getAttribute("guest")).getId();
+		if(op.equals("or")){
+			if(name.equals("!x!")){
+				return new MessageWithObj("Po imenu OR" ,true ,guestServiceImpl.findGuestsBySurname(surname, current));
+			}else
+				return new MessageWithObj("Po prezimenu OR" ,true ,guestServiceImpl.findGuestsByName(name,current));
+		}else{
+			return new MessageWithObj("And pretraga", true, guestServiceImpl.findGuestsByNameAndSurname(name, surname,current));
+		}
+
+	}
+	
+	@RequestMapping(value = "/searchFriends/{op}/{name}/{surname}")
+	public MessageWithObj searchFriends(@PathVariable("op") String op,@PathVariable("name") String name,
+	@PathVariable("surname") String surname, HttpServletRequest req) {
+		long current = ((Person)req.getSession().getAttribute("guest")).getId();
+		if(op.equals("or")){
+			if(name.equals("!x!")){
+				return new MessageWithObj("Po imenu OR" ,true ,guestServiceImpl.findFriendsBySurname(surname, current));
+			}else
+				return new MessageWithObj("Po prezimenu OR" ,true ,guestServiceImpl.findFriendsByName(name,current));
+		}else{
+			return new MessageWithObj("And pretraga", true, guestServiceImpl.findFriendsByNameAndSurname(name, surname,current));
+		}
+
+	}
+	
+	
+	@Transactional
+	@RequestMapping(value = "/addfriend/{id}", method = RequestMethod.POST)
+	public void addFriend(@PathVariable("id") String id, HttpServletRequest req){
+	
+		long id1 = ((Person)req.getSession().getAttribute("guest")).getId();
+		long id2 = Long.parseLong(id);
+		
+		guestServiceImpl.becomeFriends(id1, id2);
+		guestServiceImpl.becomeFriends(id2, id1);
+	}
 }

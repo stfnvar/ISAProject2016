@@ -1,9 +1,10 @@
 <div ng-cloak ng-controller="guestController">
 
 <ul>
-  <li><a href="#/homepage">My Profile</a></li>
-  <li><a href="#news" ng-click="RestoranFunc()">Restaurants</a></li>
-  <li><a href="#contact" ng-click="PrijateljiFunc()">Friends</a></li> 
+	<li><a href="#/home" ng-click="HomeMnu()">Home</a></li>
+  <li><a href="#/homepage" ng-click="PrifileMnu()">My Profile</a></li>
+  <li><a href="#/restaurants" ng-click="RestaurantsMnu()">Restaurants</a></li>
+  <li><a href="#/friends" ng-click="FriendsMnu()">Friends</a></li> 
   <li style="float:right"><a class="logout" ng-click="OdjavaFunc()" href="#">LOGOUT</a></li>
   <li style="float:right"><a class="active" href="#">{{email}}</a></li>
 </ul>
@@ -83,7 +84,26 @@
     </div>
 </div>  
 <div class="row">
- <div class="col-md-3 ">
+ <div class="col-md-3" id="friendsSection">
+ <div id="searchFriends" ><center><table border="1" width="30%">
+  
+                <tbody><tr>
+                    <th align="left"><font size="2" face="Arial">Name</font>	</th>
+                    <td><input id="searchNameFriend" type="text" size="16" name="name"></td>
+                    <td><select id="searchSwitchFriend"  size="1">
+                        <option value="and">and </option>
+                        <option value="or">or</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <th align="left"><font size="2" face="Arial">Surname</font></th>
+                    <td><input id="searchSurnameFriend" type="text" size="16" ></td>
+                     <td><button type="button"  size="8"  class="btn btn-info btn-xs" ng-click="searchFriends()">Search</button></td>
+                </tr>
+            </tbody></table>
+            </center>
+            <p id="errFriend"></p>
+            </div>
  <table id="friends"  class="table">
     <thead>
       <tr>
@@ -92,11 +112,11 @@
         <th>Remove</th>
       </tr>
     </thead>
-    <tbody>
-      <tr ng-repeat="x in friends">
+    <tbody id="friendsBody">
+      <tr ng-repeat="x in friends | orderBy:['name','surname']">
         <td>{{x.name}}</td>
         <td>{{x.surname}}</td>
-        <td><button type="button" class="btn btn-primary btn-xs">remove</button></td>
+        <td><button data-bid="{{x.id}}" type="button" class="btn btn-primary btn-xs" ng-click="removeFriend(x.id)">remove</button></td>
       </tr>
   
     </tbody>
@@ -105,8 +125,26 @@
  
  </div>
   <div class="col-md-3 ">
-  <input id="search" type="text" size="12" ><input type="button" value="Search">
-   <table class="table">
+  <div id="searchPeople"><center><table border="1" width="30%">
+  
+                <tbody><tr>
+                    <th align="left"><font size="2" face="Arial">Name</font>	</th>
+                    <td><input id="searchName" type="text" size="16" name="name"></td>
+                    <td><select id="searchSwitch"  size="1">
+                        <option value="and">and </option>
+                        <option value="or">or</option>
+                    </select></td>
+                </tr>
+                <tr>
+                    <th align="left"><font size="2" face="Arial">Surname</font></th>
+                    <td><input id="searchSurname" type="text" size="16" ></td>
+                     <td><button type="button"  size="8"  class="btn btn-info btn-xs" ng-click="searchPeople()">Search</button></td>
+                </tr>
+            </tbody></table>
+            </center>
+            <p id="err"></p>
+            </div>
+   <table id="enemies" class="table">
     <thead>
       <tr>
         <th>Name</th>
@@ -114,11 +152,11 @@
         <th>Add</th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <td>??SEARCH</td>
-        <td>??SEARCH</td>
-        
+    <tbody id="enemiesBody">
+      <tr ng-repeat="y in enemies">
+         <td>{{y.name}}</td>
+        <td>{{y.surname}}</td>
+        <td><button data-baid="{{y.id}}" type="button" class="btn btn-primary btn-xs" ng-click="addFriend(y.id)">add</button></td>
       </tr>
 
     </tbody>

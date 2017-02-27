@@ -22,7 +22,13 @@ app.config(function($routeProvider) {
         templateUrl : "html/waiter.html"
     }).when("/admin", {
         templateUrl : "html/admin.html"
+    }).when("/friends", {
+        templateUrl : "html/friends.html"
+    }).when("/restaurants", {
+        templateUrl : "html/restaurants.html"
     }).when("/restmanager", {
         templateUrl : "html/restmanager.html"
+    }).when("/error", {
+        templateUrl : "html/error.html"
     });
 });

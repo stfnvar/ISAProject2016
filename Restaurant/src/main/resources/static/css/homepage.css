@@ -49,5 +49,12 @@ li a:hover:not(.active) {
 	.tital{ font-size:16px; font-weight:500;}
 	 .bot-border{ border-bottom:1px #f8f8f8 solid;  margin:5px 0  5px 0}
 	 
+#friendsSection{
+	margin-right: 10px;
+}
+
+.likeLinks td>a:hover{
+	background-color: yellow;
 	
+}
 

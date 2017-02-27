@@ -18,7 +18,8 @@ public class FriendshipTable {
 	private Long id;
 	
 	@ManyToMany
-    @JoinTable(name="has_friends", joinColumns={@JoinColumn(name="guest_id")}, inverseJoinColumns={@JoinColumn(name="friend_id")})
+    @JoinTable(name="has_friends", joinColumns={@JoinColumn(name="guest_id")},
+    inverseJoinColumns={@JoinColumn(name="friend_id")})
     private Set<Guest> friends;
 	
 	 
