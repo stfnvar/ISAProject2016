@@ -43,10 +43,18 @@ public class Meal {
 		return name;
 	}
 
+	public Menu getMenu() {
+		return menu;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	public Long getId(){
+		return id;
+	}
+	
 	public String getDescription() {
 		return description;
 	}

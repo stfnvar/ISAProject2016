@@ -33,5 +33,11 @@ public class PersonServiceImpl implements PersonService{
 		
 		return personRepository.findByEmailAndPassword(email, password);
 	}
+
+	@Override
+	public Person findOne(Long id) {
+
+		return personRepository.findOne(id);
+	}
 	
 }

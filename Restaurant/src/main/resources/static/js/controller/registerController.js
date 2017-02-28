@@ -1,9 +1,6 @@
 var registerController = angular.module('restaurantApp.registerController', []);
 
 registerController.controller('registerController', function($scope, registerService) {
-	
-	
-
 
 	$scope.register = function(){
 		

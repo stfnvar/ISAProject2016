@@ -18,11 +18,6 @@ loginController.controller('loginController', function($scope, $location, loginS
 			password : $scope.password
 		}
 		
-		if(user.email=='' || user.password==''){
-			$scope.errlog='Fields can not be empty...';
-			return;
-		}
-		
 		var str = JSON.stringify(user);
 		
 		loginService.login(str).success(function(data) {

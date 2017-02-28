@@ -1,0 +1,77 @@
+<div ng-cloak ng-controller="restmanager_reportsController">
+
+	<ul>
+		<li style="float: right"><a class="logout"
+			ng-click="OdjavaFunc()" href="#">LOGOUT</a></li>
+		<li style="float: right"><a class="active" href="#restmanager">Homepage</a></li>
+	</ul>
+
+
+	<div class=container>
+		<div class="row">
+			<div class="col-md-5">
+				<div class="thumbnail" style="padding: 0">
+					<div class="caption">
+						<h5>
+							<b>{{restaurant.name}}</b>
+						</h5>
+						<h4>{{restaurantRating}}</h4>
+					</div>
+					<div class="row">
+						<div class="col-md-2">
+							<button id="buttonCancelName" name="buttonCancelName"
+								class="btn btn-default" ng-click="refreshRating()">Refresh</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+			<h3>Waiter Reports</h3>
+				<form validate class="simple-form">
+					<div class="thumbnail" style="padding: 0">
+						<div class="caption">
+
+							<h5>
+								Name:<input required="required" type="text" ng-model="waiter.name">
+								Surname:<input required="required" type="text" ng-model="waiter.surname">
+							</h5>
+							Rating:<h4 ng-bind="waiterRatingData"></h4>
+						</div>
+						<div class="row">
+							<div class="col-md-2">
+								<input type="submit" value="Get rating" class="btn btn-default"
+									ng-click="waiterRating(waiter)" />
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+			<div class="col-md-5">
+			<h3>Meal Reports</h3>
+				<form validate class="simple-form">
+					<div class="thumbnail" style="padding: 0">
+						<div class="caption">
+
+							<h5>
+								Name:<input required="required" type="text" ng-model="meal.name">
+							</h5>
+							Rating:<h4 ng-bind="mealRatingData"></h4>
+						</div>
+						<div class="row">
+							<div class="col-md-2">
+								<input type="submit" value="Get rating"
+									ng-click="mealRating(meal)" class="btn btn-default" />
+							</div>
+						</div>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+
+
+
+
+</div>
