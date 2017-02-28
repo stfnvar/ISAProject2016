@@ -123,11 +123,11 @@ insert into rating(rating, waiter_id) values (9, 10);
 
 
 --Persons for guests
-insert into person(email, name, password, surname, username) values ('a@a.com', 'Aladin', 'aa', 'Aleksic', 'a@a.com');
-insert into person(email, name, password, surname, username) values ('b@b.com', 'Aladin', 'bb', 'Aleksic', 'b@b.com');
-insert into person(email, name, password, surname, username) values ('c@c.com', 'Aladin', 'cc', 'Aleksic', 'c@c.com');
-insert into person(email, name, password, surname, username) values ('d@d.com', 'Aladin', 'dd', 'Aleksic', 'd@d.com');
-insert into person(email, name, password, surname, username) values ('e@e.com', 'Aladin', 'ee', 'Aleksic', 'e@e.com');
+insert into person(email, name, password, surname, username) values ('a@a.com', 'Aca', 'aa', 'Aleksic', 'a@a.com');
+insert into person(email, name, password, surname, username) values ('b@b.com', 'Miki', 'bb', 'Aleksic', 'b@b.com');
+insert into person(email, name, password, surname, username) values ('c@c.com', 'Srdjan', 'cc', 'Aleksic', 'c@c.com');
+insert into person(email, name, password, surname, username) values ('d@d.com', 'Steva', 'dd', 'Aleksic', 'd@d.com');
+insert into person(email, name, password, surname, username) values ('e@e.com', 'pera', 'ee', 'Aleksic', 'e@e.com');
 
 --Guests
 insert into guest(id, active) values ('18', '1');
@@ -151,3 +151,9 @@ INSERT INTO `git`.`table_table` (`id`, `restaurant_id`, `restaurant_segment_id`)
 INSERT INTO `git`.`table_table` (`id`, `restaurant_id`, `restaurant_segment_id`) VALUES ('3', '1', '2');
 INSERT INTO `git`.`table_table` (`id`, `restaurant_id`, `restaurant_segment_id`) VALUES ('4', '2', '1');
 INSERT INTO `git`.`table_table` (`id`, `restaurant_id`, `restaurant_segment_id`) VALUES ('5', '2', '2');
+--rezervacije za stolove
+INSERT INTO `git`.`reservation` (`id`, `reservation_ends`, `reservation_starts`, `guest_id`, `tables_id`) VALUES ('1', '2015-05-12 15:00:00', '2015-05-12 13:00:00', '18', '2');
+INSERT INTO `git`.`reservation` (`id`, `reservation_ends`, `reservation_starts`, `guest_id`, `tables_id`) VALUES ('2', '2015-05-12 15:00:00', '2015-05-12 13:00:00', '19', '2');
+INSERT INTO `git`.`reservation` (`id`, `reservation_ends`, `reservation_starts`, `guest_id`, `tables_id`) VALUES ('3', '2015-05-12 15:00:00', '2015-05-12 13:00:00', '20', '2');
+
+
