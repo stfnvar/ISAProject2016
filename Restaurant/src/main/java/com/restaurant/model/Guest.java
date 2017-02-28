@@ -5,28 +5,34 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import javax.persistence.JoinColumn;
 
 @Entity
 public class Guest extends Person{
-
-		@OneToMany(fetch = FetchType.LAZY, targetEntity=FriendshipTable.class, mappedBy = "user")
-		private Set<FriendshipTable> friends;
-		
+/*
+	@ManyToMany
+	 @JoinTable(name="FriendshipTable", 
+			 	joinColumns=@JoinColumn(name="G1_ID", referencedColumnName="ID"),
+  		  inverseJoinColumns=@JoinColumn(name="G2_ID", referencedColumnName="ID")
+    )   private Set<Person> friends;
+	*/	
+		  
 		@Column(nullable = false)
 		private int active;
 		
 		public Guest(){
 			super();
 		}
-		
-		public Set<FriendshipTable> getFriends() {
-			return friends;
-		}
-
-		public void setFriends(Set<FriendshipTable> friends) {
-			this.friends = friends;
-		}
+	
 
 		public int getActive() {
 			return active;

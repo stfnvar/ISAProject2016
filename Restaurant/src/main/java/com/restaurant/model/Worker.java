@@ -1,7 +1,6 @@
 package com.restaurant.model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,48 +22,14 @@ public class Worker extends Person{
 	@Enumerated(EnumType.ORDINAL)
 	private WorkerType type;
 	
-	@Column(nullable = true)
+	@Column(nullable = false)
 	private int shift;
 	
-	@Column(nullable = true)
+	@Column(nullable = false)
 	private int workingHours;
-	
-	@Column(nullable = false)
-	private Date birthDate; 
-	
-	@Column(nullable = false)
-	private String shoeSize;   
-	
-	@Column(nullable = false)
-	private String wearSize;
 	
 	public WorkerType getType() {
 		return type;
-	}
-
-	public Date getBirthDate() {
-		return birthDate;
-	}
-
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
-	}
-
-
-	public String getShoeSize() {
-		return shoeSize;
-	}
-
-	public void setShoeSize(String shoeSize) {
-		this.shoeSize = shoeSize;
-	}
-
-	public String getWearSize() {
-		return wearSize;
-	}
-
-	public void setWearSize(String wearSize) {
-		this.wearSize = wearSize;
 	}
 
 	public void setType(WorkerType type) {

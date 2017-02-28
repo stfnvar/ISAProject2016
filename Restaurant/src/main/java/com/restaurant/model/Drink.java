@@ -64,7 +64,5 @@ public class Drink {
 		return price;
 	}
 
-	public DrinkCard getDrinkCard(){
-		return this.drinkCard;
-	}
+	
 }

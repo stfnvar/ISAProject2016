@@ -20,8 +20,6 @@ public class Rating {
 	@Column(nullable = true)
 	private int experience;
 	
-	@Column(nullable = true)
-	private Guest guest;
 
 	@ManyToOne(optional = true)
 	private Restaurant restaurant;

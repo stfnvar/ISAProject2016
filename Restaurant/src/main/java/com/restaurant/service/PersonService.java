@@ -12,6 +12,4 @@ public interface PersonService {
 	
 	Person save(Person person);
 	
-	Person findOne(Long id);
-	
 }

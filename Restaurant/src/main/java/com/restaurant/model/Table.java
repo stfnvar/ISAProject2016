@@ -21,63 +21,17 @@ public class Table {
 	@GeneratedValue
 	private Long id;
 	
-	@Column(nullable = false)
-	private boolean currentlyReserved;
-	
-	//@OneToMany(fetch = FetchType.LAZY, mappedBy = "reservation")
-	//private Set<Reservation> reservation;
-	
 	@ManyToOne(optional = false)
 	private RestaurantSegment restaurantSegment;
 	
 	@ManyToOne(optional = false)
 	private Restaurant restaurant;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "table")
+	@OneToMany(fetch = FetchType.LAZY, targetEntity=Order.class, mappedBy = "table")
 	private Set<Order> order;
-	/*
-    @OneToOne(optional=false,cascade=CascadeType.ALL, 
-    	       mappedBy="order",targetEntity=Invoice.class)
-    	       private Ord invoice; 
-    */
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public boolean isCurrentlyReserved() {
-		return currentlyReserved;
-	}
-
-	public void setCurrentlyReserved(boolean currentlyReserved) {
-		this.currentlyReserved = currentlyReserved;
-	}
-
-	public RestaurantSegment getRestaurantSegment() {
-		return restaurantSegment;
-	}
-
-	public void setRestaurantSegment(RestaurantSegment restaurantSegment) {
-		this.restaurantSegment = restaurantSegment;
-	}
-
-	public Restaurant getRestaurant() {
-		return restaurant;
-	}
-
-	public void setRestaurant(Restaurant restaurant) {
-		this.restaurant = restaurant;
-	}
-
-	public Set<Order> getOrder() {
-		return order;
-	}
-
-	public void setOrder(Set<Order> order) {
-		this.order = order;
-	}
+	
+    @OneToMany(mappedBy="tables",targetEntity=Reservation.class)
+    private Set<Reservation> reservations; 
+	
 }

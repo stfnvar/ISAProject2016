@@ -22,17 +22,13 @@ app.config(function($routeProvider) {
         templateUrl : "html/waiter.html"
     }).when("/admin", {
         templateUrl : "html/admin.html"
+    }).when("/friends", {
+        templateUrl : "html/friends.html"
+    }).when("/restaurants", {
+        templateUrl : "html/restaurants.html"
     }).when("/restmanager", {
-        templateUrl : "html/restaurant_manager.html"
-    }).when("/restmanager/menus/:menuId", {
-        templateUrl : "html/restmanager_menu.html"
-    }).when("/restmanager/cards/:menuId", {
-        templateUrl : "html/restmanager_card.html"
-    }).when("/restmanager/tables",{
-    	templateUrl : "html/restmanager_tables.html"
-    }).when("/restmanager/staff",{
-    	templateUrl : "html/restmanager_staff.html"
-    }).when("/restmanager/reports", {
-    	templateUrl : "html/restmanager_reports.html"
+        templateUrl : "html/restmanager.html"
+    }).when("/error", {
+        templateUrl : "html/error.html"
     });
 });

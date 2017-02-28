@@ -38,11 +38,6 @@ public class RestaurantSegment {
 	//private Set<Reservation> reservations;
 
 	
-	public void setRestaurant(Restaurant restaurant) {
-		this.restaurant = restaurant;
-	}
-
-
 	public RestaurantSegment() {
 		super();
 	}
@@ -55,16 +50,6 @@ public class RestaurantSegment {
 
 	public String getTypeOf() {
 		return typeOf;
-	}
-
-
-	public long getId() {
-		return id;
-	}
-
-
-	public void setId(long id) {
-		this.id = id;
 	}
 
 
