@@ -39,5 +39,23 @@ app.config(function($routeProvider) {
 		templateUrl : "html/restmanager_staff.html"
 	}).when("/restmanager/reports", {
 		templateUrl : "html/restmanager_reports.html"
-	});
+	}).when("/wprofile", {
+        templateUrl : "html/waiter.html"
+    }).when("/worders", {
+        templateUrl : "html/worders.html"
+    }).when("/newOrder",{
+    	templateUrl : "html/newOrder.html"
+    }).when("/bprofile",{
+    	templateUrl : "html/bartender.html"
+    }).when("/borders",{
+    	templateUrl : "html/borders.html"
+    }).when("/cprofile",{
+    	templateUrl : "html/cook.html"
+    }).when("/corders",{
+    	templateUrl : "html/corders.html"
+    }).when("/bschedule",{
+    	templateUrl : "html/bschedule.html"
+    }).when("/wschedule",{
+    	templateUrl : "html/wschedule.html"
+    });
 });

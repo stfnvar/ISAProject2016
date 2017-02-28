@@ -1,0 +1,55 @@
+<div ng-cloak ng-controller="orderController">
+
+<!-- 
+<div class="container">
+	<table id="allOrders" class="table">
+		<thead>
+			<tr>
+				<th>Order</th>
+				<th>Table</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="x in allOrders">
+				<td></td>
+				<td></td>
+				<td><button type="button" class="btn btn-primary btn-xs" ng-click="createBill(x)">Ready</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+ -->
+<div>
+<div class="container">
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<td>Table: </td>
+				<td><select id="selectStolovi">
+				</select></td>
+			</tr>
+			<tr>
+				<td>How many meals: </td>
+				<td><input ng-model="mealsmodel" type="number" id="meals" ng-change="funcChangeMeal()"></td>
+			</tr>
+			<tr>
+				<td>How many drinks: </td>
+				<td><input ng-model="drinksmodel" type="number" id="drinks" ng-change="funcChangeDrink()"></td>
+			</tr>
+		</tbody>
+	</table>
+	<div >
+		<table id="appendujMeal" class="table">
+		</table>
+		<br><br><br>
+		<table id="appendujDrink" class="table">
+		</table>
+		
+		<button  ng-click="confirmOrder()" type="submit" name="confirmOrder" id="confirmOrder" class="btn btn-primary btn-md">Confirm order </button>
+		
+	</div>
+	
+	</div>
+
+</div>

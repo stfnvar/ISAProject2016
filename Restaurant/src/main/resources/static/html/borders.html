@@ -1,0 +1,39 @@
+<div ng-cloak ng-controller="bartenderController">
+<div ng-cloak ng-controller="borderController">
+
+<ul>
+  <li><a href="#/bprofile">My profile</a></li>
+  <li><a href="#bschedule">Schedule</a></li>
+  <li><a href="#/borders">Orders</a></li> 
+  <li style="float:right"><a class="logout" ng-click="OdjavaFunc()" href="#">LOGOUT</a></li>
+  <li style="float:right"><a class="active" href="#">{{email}}</a></li>
+</ul>
+
+<div class="container">
+
+	 <table id="orderedDrinks"  class="table">
+	    <thead>
+	      <tr>
+	        <th>Name</th>
+	        <th>Price</th>
+	        <th>Order number</th>
+	       	<th>Quantity</th>
+	       	<th>Ready</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr ng-repeat="x in orderedDrinks">
+	        <td>{{x.drink.name}}</td>
+	       	<td>{{x.drink.price}}</td>
+	        <td>{{x.order.id}}</td>
+	       	<td>{{x.quantity}}</td>
+	       	<td>{{x.ready}}</td>
+	        <td><button type="button" class="btn btn-primary btn-xs" ng-click="signalize(x)">Ready</button></td>
+	      </tr>
+	  
+	    </tbody>
+	  </table>
+	</div>
+
+</div>
+</div>

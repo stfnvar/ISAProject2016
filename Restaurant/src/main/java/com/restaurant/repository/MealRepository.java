@@ -25,4 +25,7 @@ public interface MealRepository extends JpaRepository<Meal, Long>{
 	
 	@Query("select avg(r.rating) from Meal m join m.ratings r where lower(m.name) like ?1 and m.menu.restaurant.id = ?3")
 	Double mealRating(String name, String surname, Long id);
+	
+	@Query("select m from Meal as m where m.name=?1 and m.menu.restaurant.id=?2")
+	public Meal findByName(String name, Long id);
 }

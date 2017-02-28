@@ -12,6 +12,22 @@ waiterService.factory('waiterService', function($http) {
 		return $http.get('/account/logout');
 	}
 	
+	temp.checkFirstTime = function(id){
+		return $http.get('/waiter/checkFirstTime/'+id);
+	}
+	
+	temp.ftChangePW = function(id, pw){
+		return $http.post('/waiter/ftChangePW/'+id+"/"+pw);
+	}
+	
+	temp.updateWaiter = function(waiter){
+		return $http.post('/waiter/updateWaiter', waiter);
+	}
+	
+	temp.getOnDutyDay = function(date){
+		return $http.post('/waiter/getOnDutyDay', date);
+	}
+	
 	return temp;
 	
 })

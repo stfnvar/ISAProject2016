@@ -1,0 +1,42 @@
+<div ng-cloak ng-controller="cookController">
+<div ng-cloak ng-controller="cordersController">
+
+<ul>
+  <li><a href="#/cprofile">My profile</a></li>
+  <li><a href="#cschedule">Schedule</a></li>
+  <li><a href="#/corders">Orders</a></li> 
+  <li style="float:right"><a class="logout" ng-click="OdjavaFunc()" href="#">LOGOUT</a></li>
+  <li style="float:right"><a class="active" href="#">{{email}}</a></li>
+</ul>
+
+<div class="container">
+
+	 <table id="orderedMeals"  class="table">
+	    <thead>
+	      <tr>
+	        <th>Name</th>
+	        <th>Price</th>
+	        <th>Order number</th>
+	       	<th>Quantity</th>
+	       	<th>Status</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      <tr ng-repeat="x in orderedMeals">
+	        <td>{{x.meal.name}}</td>
+	       	<td>{{x.meal.price}}</td>
+	        <td>{{x.order.id}}</td>
+	       	<td>{{x.quantity}}</td>
+	       	<td>{{x.acceptedMeal}}</td>
+	       	<!--<td><button ng-show="x.showButton" type="button" class="btn btn-primary btn-xs" ng-click="signalizeAccept(x)">Accept</button></td>
+	       	 -->
+	       	<td><button type="button" class="btn btn-primary btn-xs" ng-click="signalizeAccept(x, $event)">Accept</button></td>
+	        <td><button type="button" class="btn btn-primary btn-xs" ng-click="signalizeReady(x)">Ready</button></td>
+	      </tr>
+	  
+	    </tbody>
+	  </table>
+	</div>
+	
+
+</div></div>

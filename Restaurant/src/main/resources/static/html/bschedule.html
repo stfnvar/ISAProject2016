@@ -1,0 +1,53 @@
+<div ng-cloak ng-controller="bartenderController">
+
+<ul>
+  <li><a href="#/bprofile">My profile</a></li>
+  <li><a href="#/bschedule">Schedule</a></li>
+  <li><a href="#/borders">Orders</a></li> 
+  <li style="float:right"><a class="logout" ng-click="OdjavaFunc()" href="#">LOGOUT</a></li>
+  <li style="float:right"><a class="active" href="#">{{email}}</a></li>
+</ul>
+
+<div id='calendar'></div>
+
+<md-dialog class="modal" id="workModal" tabindex="-1"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">
+					<i class="text-danger fa fa-times"></i>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					<i class="text-muted fa fa-shopping-cart"></i>On duty<strong></strong>
+				</h4>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Surname</th>
+							<th>Email</th>
+							<th>Segment</th>
+							<th>Start</th>
+							<th>End</th>
+							<th>Shift</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="w in onDuty" class="rmMenuModal">
+							<td>{{w.worker.name}}</td>
+							<td>{{w.worker.surname}}</td>
+							<td>{{w.worker.email}}</td>
+							<td>{{w.segment.name}}</td>
+							<td>{{w.start}}</td>
+							<td>{{w.end}}</td>
+							<td>{{w.shift}}</td>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	</md-dialog>

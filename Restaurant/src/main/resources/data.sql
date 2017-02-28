@@ -78,12 +78,12 @@ insert into drink (name, description, price, drink_card_id) values ("Vino", "vin
 insert into drink (name, description, price, drink_card_id) values ("Rakija", "rakija", 150, 1);
 
 --POdaci za radnike
-insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date) values(3, 0, 7, 7, 1, '43', '45', '1979-11-11 00:00:00');
-insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date) values(3, 0, 8, 8, 1, '42', '43', '1966-11-11 00:00:00');
-insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date) values(3, 1, 9, 9, 1, '41', '42', '1970-11-11 00:00:00');
-insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date) values(3, 1, 10, 10, 1, '44', '41', '1980-11-11 00:00:00');
-insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date) values(3, 2, 11, 11, 1, '45', '40', '1982-11-11 00:00:00');
-insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date) values(3, 2, 12, 12, 1, '41', '46', '1969-11-11 00:00:00');
+insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date ,first_time_changepw) values(3, 0, 7, 7, 1, '43', '45', '1979-11-11 00:00:00', 0);
+insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date,first_time_changepw) values(3, 0, 8, 8, 1, '42', '43', '1966-11-11 00:00:00',0);
+insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date,first_time_changepw) values(3, 2, 9, 9, 1, '41', '42', '1970-11-11 00:00:00', 0);
+insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date,first_time_changepw) values(3, 2, 10, 10, 1, '44', '41', '1980-11-11 00:00:00', 0);
+insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date,first_time_changepw) values(3, 1, 11, 11, 1, '45', '40', '1982-11-11 00:00:00', 0);
+insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date,first_time_changepw) values(3, 1, 12, 12, 1, '41', '46', '1969-11-11 00:00:00', 0);
 
 --Podaci za kuvare
 insert into cook (uloga, id) values ('pekac', 7);

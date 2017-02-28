@@ -11,5 +11,9 @@ var service = angular.module('restaurantApp.service', ['restaurantApp.registerSe
 													 'restaurantApp.restmanager_tablesService',
 													 'restaurantApp.restmanager_staffService',
 													 'restaurantApp.restmanager_reportsService',
+
 													 'restaurantApp.restaurantService'
+
+													 'restaurantApp.orderService',
+
 													 ]);
