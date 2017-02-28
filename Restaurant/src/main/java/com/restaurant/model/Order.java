@@ -16,6 +16,15 @@ import javax.persistence.OneToOne;
 @javax.persistence.Table(name="ORDER_order")
 public class Order {
 	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+	private Set<OrderedDrink> orderedDrinks;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+	private Set<OrderedMeal> orderedMeals;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+	private Set<Bill> bills;
+	
 	
 	@Id
 	@GeneratedValue
@@ -31,7 +40,17 @@ public class Order {
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY, targetEntity=Meal.class, mappedBy = "order")
 	private Set<Meal> meals;
 	
-	
+	public Long getId() {
+		return id;
+	}
+
+	public Table getTable() {
+		return table;
+	}
+
+	public void setTable(Table table) {
+		this.table = table;
+	}
 
 	
 	public Order(){}

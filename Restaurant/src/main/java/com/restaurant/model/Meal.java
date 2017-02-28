@@ -14,7 +14,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class Meal {
 	
-
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "meal")
+	private Set<OrderedMeal> orderedMeals;
 
 	@Id
 	@GeneratedValue

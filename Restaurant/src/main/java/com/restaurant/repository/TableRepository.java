@@ -1,5 +1,6 @@
 package com.restaurant.repository;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -30,4 +31,9 @@ public interface TableRepository extends JpaRepository<Table, Long>{
 	@Query("update Table set restaurant_segment_id=?1 where id=?2")
 	@Modifying
 	void updateTable(Long id, Long id2);
+	
+	@Query("select t from Table as t where t.restaurant.id=?1")
+	public ArrayList<Table> findAll(Long id);
+
+	public Table findOne(Long id);
 }

@@ -12,6 +12,30 @@ bartenderService.factory('bartenderService', function($http) {
 		return $http.get('/account/logout');
 	}
 	
+	temp.checkFirstTime = function(id){
+		return $http.get('/bartender/checkFirstTime/'+id);
+	}
+	
+	temp.ftChangePW = function(id, pw){
+		return $http.post('/bartender/ftChangePW/'+id+"/"+pw);
+	}
+	
+	temp.updateBart = function(bart){
+		return $http.post('/bartender/updateBartender', bart);
+	}
+	
+	temp.getAllOrderedDrinks = function() {
+		return $http.get('/orderedDrinks/getAll');
+	}
+	
+	temp.drinkIsReady = function(id){
+		return $http.post('/orderedDrinks/updateReady/'+id);
+	}
+	
+	temp.getOnDutyDay = function(date){
+		return $http.post('/bartender/getOnDutyDay', date);
+	}
+	
 	return temp;
 	
 })
