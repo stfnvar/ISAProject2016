@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Drink {
 	
+
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -63,6 +64,11 @@ public class Drink {
 	public double getPrice() {
 		return price;
 	}
+	
+	public DrinkCard getDrinkCard() {
+		return drinkCard;
+	}
+
 
 	
 }

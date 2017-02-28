@@ -24,14 +24,38 @@ public class Table {
 	@ManyToOne(optional = false)
 	private RestaurantSegment restaurantSegment;
 	
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+	public RestaurantSegment getRestaurantSegment() {
+		return restaurantSegment;
+	}
+
+
+	public void setRestaurantSegment(RestaurantSegment restaurantSegment) {
+		this.restaurantSegment = restaurantSegment;
+	}
+
+
 	@ManyToOne(optional = false)
 	private Restaurant restaurant;
 	
-	@OneToMany(fetch = FetchType.LAZY, targetEntity=Order.class, mappedBy = "table")
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY, targetEntity=Order.class, mappedBy = "table")
 	private Set<Order> order;
 
 	
-    @OneToMany(mappedBy="tables",targetEntity=Reservation.class)
-    private Set<Reservation> reservations; 
+    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true,mappedBy="tables",targetEntity=Reservation.class)
+    private Set<Reservation> reservations;
+
+	public void setRestaurant(Restaurant restaurant) {
+		this.restaurant = restaurant;
+	} 
 	
 }

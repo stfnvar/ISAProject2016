@@ -3,6 +3,7 @@ package com.restaurant.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,10 +30,10 @@ public class Offer {
 	@ManyToOne(optional = false)
 	private RestaurantManager restaurantManager;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "offer")
+	@OneToMany(cascade=CascadeType.ALL, targetEntity=Grocery.class, orphanRemoval=true, fetch = FetchType.LAZY, mappedBy = "offer")
 	private Set<Grocery> groceries;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "offer")
+	@OneToMany(cascade=CascadeType.ALL, targetEntity=Drink.class, orphanRemoval=true, fetch = FetchType.LAZY, mappedBy = "offer")
 	private Set<Drink> drinks;
 	
 	@ManyToOne(optional = false)

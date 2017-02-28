@@ -2,6 +2,7 @@ package com.restaurant.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -11,7 +12,7 @@ import javax.persistence.OneToMany;
 public class Offerer extends Person{
 	
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "offerer")
+	@OneToMany(cascade=CascadeType.ALL, targetEntity=Offer.class, orphanRemoval=true, fetch = FetchType.LAZY, mappedBy = "offerer")
 	private Set<Offer> offers;
 	
 	@Column(nullable = true)

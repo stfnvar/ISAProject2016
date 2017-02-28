@@ -1,0 +1,13 @@
+select * from meal;
+
+--Unosi rejtinga za jela
+insert into rating(rating, meal_id) values (8, 1);
+
+select * from rating;
+
+
+select * from rating;
+
+select * from meal;
+
+select * from person left outer join waiter on person.id = waiter.id where waiter.id is not null;

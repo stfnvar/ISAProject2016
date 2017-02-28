@@ -2,6 +2,7 @@ package com.restaurant.model;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,6 +14,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class Meal {
 	
+
+
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -32,7 +35,11 @@ public class Meal {
 	@ManyToOne(optional = true)
 	private Order order;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "meal")
+	public Long getId() {
+		return id;
+	}
+
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, targetEntity=Rating.class, orphanRemoval=true, mappedBy = "meal")
 	private Set<Rating> ratings;
 	
 	public Meal() {
@@ -63,7 +70,7 @@ public class Meal {
 		this.price = price;
 	}
 	
-	
-	
-	
+	public Menu getMenu() {
+		return menu;
+	}
 }

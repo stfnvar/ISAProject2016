@@ -10,4 +10,8 @@ public class Cook extends Worker{
 	
 	public Cook(){}
 
+	public String getUloga() {
+		return uloga;
+	}
+
 }
