@@ -19,6 +19,7 @@ import com.restaurant.model.Bartender;
 import com.restaurant.model.Cook;
 import com.restaurant.model.Drink;
 import com.restaurant.model.Meal;
+import com.restaurant.model.Order;
 import com.restaurant.model.OrderedDrink;
 import com.restaurant.model.OrderedMeal;
 import com.restaurant.model.Waiter;
@@ -86,6 +87,25 @@ public class OrderedMealsController {
 		orderedMealServiceImpl.save(om);
 		
 		return om;
+	}
+	
+	@Transactional
+	@RequestMapping(value = "/checkAcceptedMeal", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public int checkAcceptedMeal(@RequestBody Order o){
+		
+		ArrayList<OrderedMeal> meals = orderedMealServiceImpl.findByOrderId(o.getId());
+		boolean flag = false;
+		if(!meals.isEmpty()){
+			for(int i = 0; i < meals.size(); i++){
+				if(meals.get(i).getAcceptedMeal() == 0){
+					flag = true;
+				}
+			}
+		}
+		if(flag == true)
+			return 1;
+		else 
+			return 0;
 	}
 	
 	
