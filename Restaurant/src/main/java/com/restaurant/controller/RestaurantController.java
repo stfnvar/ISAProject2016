@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.restaurant.miscel.MessageWithObj;
 import com.restaurant.service.RestaurantServiceImpl;
+import com.restaurant.service.TableServiceImpl;
 
 @RestController
 @RequestMapping("/restaurant")
@@ -19,6 +20,8 @@ public class RestaurantController {
 	@Autowired
 	RestaurantServiceImpl restaurantServiceImpl;
 	
+	@Autowired
+	TableServiceImpl tableServiceImpl;
 	
 	@RequestMapping(value = "/getRestaurants")
 	public MessageWithObj getAllRestaurants() {
@@ -34,15 +37,34 @@ public class RestaurantController {
 		System.out.println(Long.parseLong(ends));
 		System.out.println(idrest);
 		
+		long idresta = Long.parseLong(idrest);
+		
 		long d= Long.parseLong(starts);
 		java.sql.Timestamp stamp = new java.sql.Timestamp(d);
 		  Date date = new Date(stamp.getTime());
 		  
 		  SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		  String sql = formatter.format(date);
+		  String sqlstart = formatter.format(date);
 		  
-		  System.out.println(sql);
-		return new MessageWithObj("adfasdf", true, null);
+		  d= Long.parseLong(ends);
+		  stamp = new java.sql.Timestamp(d);
+		  date = new Date(stamp.getTime());
+		  formatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		  String sqlend = formatter.format(date);
+		  
+		  System.out.println(sqlstart);
+		  System.out.println(sqlend);
+		  
+		 
+		return new MessageWithObj("banned tables", true, tableServiceImpl.getBannedTables(idresta, sqlstart, sqlend));
+	}
+	
+	@RequestMapping(value = "/getAllDesks/{idrest}")
+	public MessageWithObj getAllDesksForRest(@PathVariable("idrest") String idrest){
+		
+		long id = Long.parseLong(idrest);
+		
+		return new MessageWithObj("stolovi", true, tableServiceImpl.getTablesByRestId(id));
 	}
 	
 	

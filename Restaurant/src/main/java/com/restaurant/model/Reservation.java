@@ -25,6 +25,8 @@ public class Reservation {
 	private Date reservationEnds;
 	
 	@ManyToOne(optional = true)
-   	private Table tables; 
+   	private Table tables;
+	@ManyToOne(optional = false)
+	private Guest guest;
 	
 }

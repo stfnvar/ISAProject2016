@@ -1,9 +1,11 @@
 package com.restaurant.repository;
 
-import java.util.ArrayList;
-import java.util.Set;
 
-import javax.transaction.Transactional;
+import java.util.List;
+
+import java.util.ArrayList;
+
+import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -36,8 +38,16 @@ public interface TableRepository extends JpaRepository<Table, Long>{
 	@Modifying
 	void updateTable(Long id, Long id2);
 	
+
+	@Query(value="select distinct  tables_id as id from (SELECT reservation_starts, reservation_ends, tables_id FROM reservation where tables_id in (select id from table_table where restaurant_id=?1))as v where (?2 between v.reservation_starts and v.reservation_ends ) or(?2 not between v.reservation_starts and v.reservation_ends  and ?3 between  v.reservation_starts and v.reservation_ends ) or(?2 <v.reservation_starts and ?3>v.reservation_ends)", nativeQuery=true)
+	List<Integer> getWrongTables(long id, String start, String finale);
+
 	@Query("select t from Table as t where t.restaurant.id=?1")
 	public ArrayList<Table> findAll(Long id);
 
 	public Table findOne(Long id);
+	
+
+
+
 }

@@ -71,8 +71,25 @@ restaurantController.controller('restaurantController', function($scope,$window,
 			var json = JSON.stringify(intervalObj);
 			console.log(json);
 			
+			restaurantService.getAllDesks($scope.toReserveId).success(function(data){
+				var stolovi =data.obj;
+				var len = stolovi.length;
+				var tables = $('#tablesContainer');
+				
+				for(var i=0; i<len; i++){
+					tables.append('<div data-sid='+stolovi[i].id+' ng-click=reserveTable('+stolovi[i].id+') class=square>'+stolovi[i].id+'<div>');
+				}
+				
+				$compile($('#tablesContainer'))($scope);
+			});
+			
+			
+			$scope.reserveTable = function(id){
+				alert('reservet this '+id)
+			}
+			
 			restaurantService.getAvailableDesks(dStart, dEnd, $scope.toReserveId).success(function(){
-				alert('stigli stolovi');
+				alert('zabranjeni stolovi');
 			});
 			
 			$scope.dateres = $('#datepicker').val();

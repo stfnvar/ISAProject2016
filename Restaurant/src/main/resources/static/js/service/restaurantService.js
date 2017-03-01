@@ -14,9 +14,15 @@ restaurantService.factory('restaurantService', function($http) {
 		return $http.get('/restaurant/getRestaurants');
 	}
 	
+	temp.getAllDesks = function(id){
+		return $http.get('/restaurant/getAllDesks/'+id);
+	}
+	
+	
 	temp.getAvailableDesks = function(s, e, id){
 		return $http.get('/restaurant/getAvailableDesks/'+s+'/'+e+'/'+id);
 	}
+	
 	
 	return temp;
 })

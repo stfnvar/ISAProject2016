@@ -29,6 +29,9 @@ public class Guest extends Person{
 		@Column(nullable = false)
 		private int active;
 		
+		@OneToMany(mappedBy = "guest", targetEntity = Reservation.class)
+		private Set<Reservation> reservations;
+		
 		public Guest(){
 			super();
 		}

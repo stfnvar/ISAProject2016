@@ -1,6 +1,7 @@
 package com.restaurant.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.Query;
@@ -19,5 +20,9 @@ public interface TableService {
 	ArrayList<Table> findTablesInRestaurantSegments(Long id);
 
 	ArrayList<RestaurantSegment> findRestaurantSegmentsByWorker(Long id);
+
+	Set<Table> getTablesByRestId(long id);
+	
+	List<Integer> getBannedTables(long id, String start, String end);
 	
 }

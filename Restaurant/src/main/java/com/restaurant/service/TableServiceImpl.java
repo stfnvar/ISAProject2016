@@ -1,6 +1,7 @@
 package com.restaurant.service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,18 @@ public class TableServiceImpl implements TableService {
 	public ArrayList<RestaurantSegment> findRestaurantSegmentsByWorker(Long id) {
 		// TODO Auto-generated method stub
 		return restaurantSegment.findRestaurantSegmentsByWorker(id);
+	}
+	
+	@Override
+	public Set<Table> getTablesByRestId(long id) {
+		
+		return tableRepository.findByRestaurantId(id);
+	}
+
+	@Override
+	public List<Integer> getBannedTables(long id, String start, String end) {
+		
+		return tableRepository.getWrongTables(id, start, end);
 	}
 
 }
