@@ -255,6 +255,7 @@ public class LoginRegisterController {
 		 guestServiceImpl.removeOneFriendship(id2, id1);
 
 	}
+	//SS
 	@RequestMapping(value = "/notfriends")
 	public MessageWithObj notFriends( HttpServletRequest req) {
 		
