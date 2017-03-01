@@ -127,6 +127,16 @@ public class LoginRegisterController {
 					return new MessageWithObj("radnik", true, worker);
 				}
 				
+				Offerer of = offererServiceImpl.findOne(person.getId());
+				
+				if(of != null){
+					if(of.isFirstTime()){
+						return new MessageWithObj("offerer", true, of);
+					}else{
+						return new MessageWithObj("offerer", false, of);
+					}
+				}
+				
 				Guest guest = guestServiceImpl.findOneById(person.getId());
 				
 				//dodatna provera za goste

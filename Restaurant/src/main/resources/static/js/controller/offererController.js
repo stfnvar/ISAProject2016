@@ -13,7 +13,7 @@ offererController.controller('offererController', function($scope, $location,
 	
 	offererService.whoIsLogged().success(function(data) {
 
-		if (data.message == 'U sesiji') {
+		if (data.message == 'offerer') {
 			if (data.obj.firstTime == true) {
 				$scope.showChange = true;
 				$scope.showProfile = false;
