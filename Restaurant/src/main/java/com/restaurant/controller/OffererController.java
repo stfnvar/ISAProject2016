@@ -103,15 +103,13 @@ public class OffererController {
 	@RequestMapping(method = RequestMethod.POST, value = "/addOffer", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public MessageWithObj registerOfferer(@RequestBody Offer of, HttpServletRequest req) {
 		if (req.getSession().getAttribute("guest") instanceof Offerer) {
-			/*
 			Announcement announ = announcementServiceImpl.findOne(of.getAnnouncement().getId());
-			if (announ.isAccepted()) {
+			if (announ.isAccepted())
 				return new MessageWithObj("BAD2", false, null);
-			}
 
 			Offer k = offerServiceImpl.save(of);
 			return new MessageWithObj("OK", true, k);
-			*/
+
 		}
 		return new MessageWithObj("BAD3", false, null);
 	}
