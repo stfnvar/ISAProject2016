@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
@@ -16,6 +19,9 @@ import javax.persistence.OneToMany;
 public class Drink {
 	
 
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "drink")
+	private Set<OrderedDrink> orderedDrinks;
+	
 	@Id
 	@GeneratedValue
 	private Long id;
@@ -42,25 +48,17 @@ public class Drink {
 		super();
 	}
 
-
-
 	public Long getId() {
 		return id;
 	}
-
-
 
 	public String getName() {
 		return name;
 	}
 
-
-
 	public String getDescription() {
 		return description;
 	}
-
-
 
 	public double getPrice() {
 		return price;
@@ -68,6 +66,10 @@ public class Drink {
 	
 	public DrinkCard getDrinkCard() {
 		return drinkCard;
+	}
+
+	public void setDrinkCard(DrinkCard drinkCard) {
+		this.drinkCard = drinkCard;
 	}
 	
 }

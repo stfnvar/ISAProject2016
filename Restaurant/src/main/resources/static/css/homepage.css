@@ -58,3 +58,38 @@ li a:hover:not(.active) {
 	
 }
 
+
+/*za stolove*/
+
+
+div.square {
+  height: 40px;
+  width: 40px;
+  background: tomato;
+  display: inline-block;
+  text-align: center;
+  line-height: 40px;
+  font-size: 12px;
+  margin-left: -4px;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+
+div.square:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: inherit;
+  width: inherit;
+  background: rgba(200, 200, 200, 0.6);
+  transition: all 0.4s;
+}
+div.square:hover:before {
+  background: rgba(200, 200, 200, 0);
+}
+
+

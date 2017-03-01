@@ -105,11 +105,6 @@ public class RestaurantManagerServiceImpl implements RestaurantManagerService {
 	}
 
 	@Override
-	public Set<RestaurantSegment> getRestaurantSegments(Long id) {
-		return restaurantSegmentRepository.findByRestaurant_Id(id);
-	}
-
-	@Override
 	public Set<Menu> getRestaurantMenu(Long id) {
 		return menuRepository.findByRestaurant_Id(id);
 	}
@@ -356,5 +351,10 @@ public class RestaurantManagerServiceImpl implements RestaurantManagerService {
 	@Override
 	public List<Drink> getAllDrinks() {
 		return drinkRepository.findAll();
+	}
+	@Override
+	public Set<RestaurantSegment> getRestaurantSegments(Long id) {
+		// TODO Auto-generated method stub
+		return restaurantSegmentRepository.findByRestaurant_Id(id);
 	}
 }

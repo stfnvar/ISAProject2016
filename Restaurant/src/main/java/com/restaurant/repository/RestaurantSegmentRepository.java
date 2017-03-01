@@ -1,5 +1,6 @@
 package com.restaurant.repository;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,4 +18,11 @@ public interface RestaurantSegmentRepository extends JpaRepository<RestaurantSeg
 	@Query("update RestaurantSegment rs set rs.name=?1, rs.typeOf = ?2 where rs.id=?3")
 	@Modifying
 	void updateSegment(String name, String typeOf, Long id);
+	
+	
+	@Query("select rs from RestaurantSegment as rs where rs.restaurant.id=?1")
+	ArrayList<RestaurantSegment> findRestaurantSegmentsInRestaurant(Long id);
+	
+	@Query("select rs.segment from WorkingSchedule as rs where rs.worker.id=?1")
+	ArrayList<RestaurantSegment> findRestaurantSegmentsByWorker(Long id);
 }

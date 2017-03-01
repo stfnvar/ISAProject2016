@@ -22,6 +22,13 @@ import javax.persistence.OneToMany;
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Worker extends Person {
+	
+	@Column(nullable = false)
+	private int firstTimeChangePW;
+	
+	public int getFirstTimeChangePW() {
+		return firstTimeChangePW;
+	}
 
 	@Column(nullable = false)
 	@Enumerated(EnumType.ORDINAL)

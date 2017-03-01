@@ -4,8 +4,25 @@ loginController.controller('loginController', function($scope, $location, loginS
 
 	loginService.whoIsLogged().success(function(data){
 		
-		if(data.obj != null)
-			$location.path('/homepage');
+		if(data.obj != null){
+    			
+    			if(data.message=='gost'){
+    				$location.path('/homepage');
+    			}else if(data.message=='rmanager'){
+    				$location.path('/restmanager');
+    			}else if(data.message=='admin'){
+    				$location.path('/admin');
+    			}else if(data.message=='radnik'){
+    				if(data.obj.type == 'BARTENDER'){
+    					$location.path('/bartender');
+    				}else if(data.obj.type == 'COOK'){
+    					$location.path('/cook');
+    				}else if(data.obj.type == 'WAITER'){
+    					$location.path('/waiter');
+    				}
+    			}
+    			
+    		}else $location.path('/login');
 		
 			
 

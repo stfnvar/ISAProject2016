@@ -1,12 +1,133 @@
 <div ng-cloak ng-controller="cookController">
 
-<ul>
-  <li><a href="#home">COOK_M1</a></li>
-  <li><a href="#news">COOK_M2</a></li>
-  <li><a href="#contact">COOK_M3</a></li> 
-  <li style="float:right"><a class="logout" ng-click="OdjavaFunc()" href="#">LOGOUT</a></li>
-  <li style="float:right"><a class="active" href="#">{{email}}</a></li>
-</ul>
+	<ul id="cookNavigationBar">
+		<li><a href="#/cprofile">My profile</a></li>
+		<li><a href="#cschedule">Schedule</a></li>
+		<li><a href="#/corders">Orders</a></li>
+		<li style="float: right"><a class="logout"
+			ng-click="OdjavaFunc()" href="#">LOGOUT</a></li>
+		<li style="float: right"><a class="active" href="#">{{email}}</a></li>
+	</ul>
+
+
+	<div class="cnt">
+
+		<div hidden id="firstTimeChange" class="ftc">
+			<div class="row">
+				<div class="col-md-5  toppad  pull-right col-md-offset-12 "></div>
+				<div
+					class="col-xs-12 col-sm-12 col-md-10 col-lg-5 col-xs-offset-10 col-sm-offset-10 col-md-offset-12 col-lg-offset-3 toppad">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<h3 class="panel-title">You've logged in for the first time.
+								Change password:</h3>
+						</div>
+						<div class="panel-body">
+							<div class="row">
+								<div class=" col-md-12 col-lg-12 ">
+
+
+									<input ng-model="cookPassword" type="password" name="cookPW"
+										id="cookPW" placeholder="Password">
+									<button class="btn btn-default" ng-click="cookFTChangePWFun()" type="submit"
+										name="cookFTChange" id="cookFTChange">Confirm</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div id="cprofil">
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-5 ">
+
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h4>Cook Profile</h4>
+						</div>
+						<div class="panel-body">
+
+							<div id="info-form" class="box box-info">
+
+								<div class="box-body">
+									<div class="col-sm-6">
+										<div align="center">
+											<img alt="Cook Pic"
+												src="https://x1.xingassets.com/assets/frontend_minified/img/users/nobody_m.original.jpg"
+												id="profile-image1" class="img-circle img-responsive">
+
+											<input id="profile-image-upload" class="hidden" type="file">
+											<div style="color: #999;">click here to change profile
+												image</div>
+											<!--Upload Image Js And Css-->
+
+										</div>
+
+										<br>
+
+										<!-- /input-group -->
+									</div>
+									<div class="col-sm-6">
+										<h4 style="color: #00b1b1;">{{name}} {{surname}}</h4>
+										<span><p>Cook</p></span>
+									</div>
+									<div class="clearfix"></div>
+									<hr style="margin: 5px 0 5px 0;">
+
+
+
+									<div class="col-sm-5 col-xs-6 tital ">First Name:</div>
+									<div id="name" class="col-sm-7 col-xs-6 "></div>
+									<div class="clearfix"></div>
+									<div class="bot-border"></div>
+
+
+
+									<div class="col-sm-5 col-xs-6 tital ">Last Name:</div>
+									<div id="surname" class="col-sm-7"></div>
+									<div class="clearfix"></div>
+									<div class="bot-border"></div>
+
+									<div class="col-sm-5 col-xs-6 tital ">Email</div>
+									<div id="email" class="col-sm-7"></div>
+
+									<div class="clearfix"></div>
+									<div class="bot-border"></div>
+
+									<div class="col-sm-5 col-xs-6 tital ">Password</div>
+									<div id="sifra" class="col-sm-7"></div>
+
+									<div class="clearfix"></div>
+									<div class="bot-border"></div>
+
+
+									<div class="col-sm-5 col-xs-6 tital "></div>
+									<div id="btnDiv" class="col-sm-7">
+										<button id="changeInfoBtn" type="button"
+											class="btn btn-primary btn-xs" ng-click="ChangeInfoFun()">Change
+											info</button>
+									</div>
+
+									<div class="clearfix"></div>
+									<div class="bot-border"></div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
 
 
 </div>

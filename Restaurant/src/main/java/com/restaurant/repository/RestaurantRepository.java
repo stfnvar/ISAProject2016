@@ -14,5 +14,5 @@ public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 	
 	//@Query(value="select id, name from restaurant", nativeQuery=true)
 	List<Restaurant> findAll();
-
+	
 }

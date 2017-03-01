@@ -61,9 +61,9 @@ insert into menu(restaurant_id) values (4);
 insert into menu(restaurant_id) values (5);
 
 --Podaci za meni restorana id = 1
-insert into meal(name, description, price, menu_id) values ("Sarma", "MEAT", 400, 1);
-insert into meal(name, description, price, menu_id) values ("Supa", "VEGAN", 200, 1);
-insert into meal(name, description, price, menu_id) values ("Кumpijeri", "MEAT", 100, 1);
+insert into meal(name, description, price, menu_id, typeM) values ("Sarma", "MEAT", 400, 1, 1);
+insert into meal(name, description, price, menu_id, typeM) values ("Supa", "VEGAN", 200, 1, 1);
+insert into meal(name, description, price, menu_id, typeM) values ("Кumpijeri", "MEAT", 100, 1, 2);
 
 --Kartice pica za restorane
 insert into drink_card(restaurant_id) values (1);
@@ -78,16 +78,16 @@ insert into drink (name, description, price, drink_card_id) values ("Vino", "vin
 insert into drink (name, description, price, drink_card_id) values ("Rakija", "rakija", 150, 1);
 
 --POdaci za radnike
-insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date) values(3, 0, 7, 7, 1, '43', '45', '1979-11-11 00:00:00');
-insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date) values(3, 0, 8, 8, 1, '42', '43', '1966-11-11 00:00:00');
-insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date) values(3, 1, 9, 9, 1, '41', '42', '1970-11-11 00:00:00');
-insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date) values(3, 1, 10, 10, 1, '44', '41', '1980-11-11 00:00:00');
-insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date) values(3, 2, 11, 11, 1, '45', '40', '1982-11-11 00:00:00');
-insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date) values(3, 2, 12, 12, 1, '41', '46', '1969-11-11 00:00:00');
+insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date ,first_time_changepw) values(3, 0, 7, 7, 1, '43', '45', '1979-11-11 00:00:00', 0);
+insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date,first_time_changepw) values(3, 0, 8, 8, 1, '42', '43', '1966-11-11 00:00:00',0);
+insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date,first_time_changepw) values(3, 2, 9, 9, 1, '41', '42', '1970-11-11 00:00:00', 0);
+insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date,first_time_changepw) values(3, 2, 10, 10, 1, '44', '41', '1980-11-11 00:00:00', 0);
+insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date,first_time_changepw) values(3, 1, 11, 11, 1, '45', '40', '1982-11-11 00:00:00', 0);
+insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date,first_time_changepw) values(3, 1, 12, 12, 1, '41', '46', '1969-11-11 00:00:00', 0);
 
 --Podaci za kuvare
-insert into cook (uloga, id) values ('pekac', 7);
-insert into cook (uloga, id) values ('sekac', 8);
+insert into cook (uloga, id, typeC) values ('pekac', 7, 1);
+insert into cook (uloga, id, typeC) values ('sekac', 8, 2);
 
 --Podaci za kuvare
 insert into waiter (id) values (9);
@@ -123,11 +123,11 @@ insert into rating(rating, waiter_id) values (9, 10);
 
 
 --Persons for guests
-insert into person(email, name, password, surname, username) values ('a@a.com', 'Aladin', 'aa', 'Aleksic', 'a@a.com');
-insert into person(email, name, password, surname, username) values ('b@b.com', 'Aladin', 'bb', 'Aleksic', 'b@b.com');
-insert into person(email, name, password, surname, username) values ('c@c.com', 'Aladin', 'cc', 'Aleksic', 'c@c.com');
-insert into person(email, name, password, surname, username) values ('d@d.com', 'Aladin', 'dd', 'Aleksic', 'd@d.com');
-insert into person(email, name, password, surname, username) values ('e@e.com', 'Aladin', 'ee', 'Aleksic', 'e@e.com');
+insert into person(email, name, password, surname, username) values ('a@a.com', 'Aca', 'aa', 'Aleksic', 'a@a.com');
+insert into person(email, name, password, surname, username) values ('b@b.com', 'Miki', 'bb', 'Aleksic', 'b@b.com');
+insert into person(email, name, password, surname, username) values ('c@c.com', 'Srdjan', 'cc', 'Aleksic', 'c@c.com');
+insert into person(email, name, password, surname, username) values ('d@d.com', 'Steva', 'dd', 'Aleksic', 'd@d.com');
+insert into person(email, name, password, surname, username) values ('e@e.com', 'pera', 'ee', 'Aleksic', 'e@e.com');
 
 --Guests
 insert into guest(id, active) values ('18', '1');
@@ -152,9 +152,13 @@ INSERT INTO `git`.`table_table` (`id`, `restaurant_id`, `restaurant_segment_id`)
 INSERT INTO `git`.`table_table` (`id`, `restaurant_id`, `restaurant_segment_id`) VALUES ('4', '2', '1');
 INSERT INTO `git`.`table_table` (`id`, `restaurant_id`, `restaurant_segment_id`) VALUES ('5', '2', '2');
 
-
-
 --insert into person(id, email, name, password, surname, username) values ('101', 'o1@gmail.com', 'Milos', 'milos', 'Nisic', 'milos');
 --insert into person(id, email, name, password, surname, username) values ('102', 'o2@gmail.com', 'Marko', 'marko', 'Kljajic', 'kljajic');
 --insert into person(id, email, name, password, surname, username) values ('103', 'o3@gmail.com', 'Milan', 'milan', 'Gvero', 'gvero');
 --insert into person(id, email, name, password, surname, username) values ('104', 'o3gmail.com', 'Milan', 'milan', 'Gvero', 'gvero');
+--rezervacije za stolove
+INSERT INTO `git`.`reservation` (`id`, `reservation_ends`, `reservation_starts`, `guest_id`, `tables_id`) VALUES ('1', '2015-05-12 15:00:00', '2015-05-12 13:00:00', '18', '2');
+INSERT INTO `git`.`reservation` (`id`, `reservation_ends`, `reservation_starts`, `guest_id`, `tables_id`) VALUES ('2', '2015-05-12 15:00:00', '2015-05-12 13:00:00', '19', '2');
+INSERT INTO `git`.`reservation` (`id`, `reservation_ends`, `reservation_starts`, `guest_id`, `tables_id`) VALUES ('3', '2015-05-12 15:00:00', '2015-05-12 13:00:00', '20', '2');
+
+

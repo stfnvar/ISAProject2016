@@ -1,0 +1,27 @@
+<div ng-cloak ng-controller="waiterController">
+<div ng-cloak ng-controller="wtablesController">
+
+
+
+<ul id="waiterNavigationBar">
+  <li><a href="#/wprofile">Profile</a></li>
+  <li><a href="#/wschedule">Schedule</a></li>
+  <li><a href="#/wtables">Tables</a></li> 
+  <li><a href="#/worders">Orders</a></li> 
+  <li style="float:right"><a class="logout" ng-click="OdjavaFunc()" href="#">LOGOUT</a></li>
+  <li style="float:right"><a class="active" href="#">{{email}}</a></li>
+</ul>
+
+		<canvas id="canvas" width="1000" height="400"
+			stype="border:1px solid #000000">
+		</canvas>
+
+	<table>
+			<tr>
+				<td>{{table.restaurantSegment.name}}</td>
+				<td>{{table.restaurantSegment.typeOf}}</td>
+				<td>{{table.currentlyReserved}}</td>
+			</tr>
+	</table>
+	
+</div></div>

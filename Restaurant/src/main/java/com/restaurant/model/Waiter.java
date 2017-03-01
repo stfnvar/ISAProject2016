@@ -14,5 +14,8 @@ public class Waiter extends Worker {
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval=true, targetEntity=Rating.class, mappedBy = "waiter")
 	private Set<Rating> ratings;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "waiter")
+	private Set<Bill> bills;
 
 }
