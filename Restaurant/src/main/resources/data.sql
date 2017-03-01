@@ -151,6 +151,11 @@ INSERT INTO `git`.`table_table` (`id`, `restaurant_id`, `restaurant_segment_id`)
 INSERT INTO `git`.`table_table` (`id`, `restaurant_id`, `restaurant_segment_id`) VALUES ('3', '1', '2');
 INSERT INTO `git`.`table_table` (`id`, `restaurant_id`, `restaurant_segment_id`) VALUES ('4', '2', '1');
 INSERT INTO `git`.`table_table` (`id`, `restaurant_id`, `restaurant_segment_id`) VALUES ('5', '2', '2');
+
+--insert into person(id, email, name, password, surname, username) values ('101', 'o1@gmail.com', 'Milos', 'milos', 'Nisic', 'milos');
+--insert into person(id, email, name, password, surname, username) values ('102', 'o2@gmail.com', 'Marko', 'marko', 'Kljajic', 'kljajic');
+--insert into person(id, email, name, password, surname, username) values ('103', 'o3@gmail.com', 'Milan', 'milan', 'Gvero', 'gvero');
+--insert into person(id, email, name, password, surname, username) values ('104', 'o3gmail.com', 'Milan', 'milan', 'Gvero', 'gvero');
 --rezervacije za stolove
 INSERT INTO `git`.`reservation` (`id`, `reservation_ends`, `reservation_starts`, `guest_id`, `tables_id`) VALUES ('1', '2015-05-12 15:00:00', '2015-05-12 13:00:00', '18', '2');
 INSERT INTO `git`.`reservation` (`id`, `reservation_ends`, `reservation_starts`, `guest_id`, `tables_id`) VALUES ('2', '2015-05-12 15:00:00', '2015-05-12 13:00:00', '19', '2');

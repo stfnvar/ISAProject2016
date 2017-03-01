@@ -1,5 +1,9 @@
 package com.restaurant.model;
 
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -7,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -36,37 +41,24 @@ public class Drink {
 	@ManyToOne(optional = true)
 	private Order order;
 	
-	@ManyToOne(optional = true)
-	private Offer offer;
+	@OneToMany(targetEntity=WantedDrink.class, cascade=CascadeType.ALL, mappedBy="drink", orphanRemoval=true)
+	private Set<WantedDrink> wantedDrinks;
 	
-	@ManyToOne(optional = true)
-	private WantedItems wantedItems;
-	
-	
-
 	public Drink() {
 		super();
 	}
-
-
 
 	public Long getId() {
 		return id;
 	}
 
-
-
 	public String getName() {
 		return name;
 	}
 
-
-
 	public String getDescription() {
 		return description;
 	}
-
-
 
 	public double getPrice() {
 		return price;

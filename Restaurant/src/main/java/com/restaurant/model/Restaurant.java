@@ -38,6 +38,9 @@ public class Restaurant implements Serializable {
 
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY, targetEntity = Table.class, mappedBy = "restaurant")
 	private Set<Table> tables;
+	
+	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY, targetEntity = Invite.class, mappedBy = "rest")
+	private Set<Invite> invite;
 
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY, mappedBy = "restaurant", targetEntity=Rating.class)
 	private Set<Rating> ratings;

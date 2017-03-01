@@ -1,9 +1,13 @@
 var orderController = angular.module('restaurantApp.orderController',[]);
 
-orderController.controller('orderController', function($scope, $location, $window, $compile, orderService){
+orderController.controller('orderController', function($scope, $location, $window,loginService, $compile, orderService){
 	
 	var drinkNumber;
 	var mealNumber;
+	
+	
+	
+	
 	
 	$scope.funcChangeDrink = function(){
 		temp = $('#drinks').val();
@@ -84,6 +88,8 @@ orderController.controller('orderController', function($scope, $location, $windo
 		
     	orderService.addOrder(str).success(function (data){
     		alert("Order added!");
+    		
+    		
     		$location.path('/worders');
     	});
     	

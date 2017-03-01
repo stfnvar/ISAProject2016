@@ -47,6 +47,8 @@ public interface TableRepository extends JpaRepository<Table, Long>{
 
 	public Table findOne(Long id);
 	
+	
+	
 
 
 

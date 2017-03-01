@@ -12,6 +12,53 @@
 <div class="container" >
     <div class="row" id="restSection">
     
+    
+     <div id="initationTable" class="col-md-7">
+  <h2>My invitations</h2>
+  
+  <table class="table" >
+    <thead>
+      <tr>
+      
+        <th>Restaurant</th>
+          <th>Start</th>
+          <th>End</th>
+          <th>From</th>
+          <td>Action</td>
+      </tr>
+    </thead>
+    <tbody id="inviteBody">
+     <tr data-invid={{x.id}}   ng-repeat="x in myinv">
+	<td >{{x.rest.name}}</td>
+	<td class="times">{{x.start}}</td>
+	<td class="times">{{x.end}}</td>
+	<td>{{x.from.name}}</td>
+	<td ng-if="x.accept==0">
+	
+	</td>
+	
+	<td ng-if="x.accepted==1">
+	<input class="btn btn-info btn-xs" data-iid={{x.id}} type="button" value="cancel" ng-click="cancelInv(x.id, x.from.id)" >
+	<input class="btn btn-info btn-xs" data-oid={{x.id}} type="button" value="order" ng-click="orderNow( x.from.id, x.start,x.end)" >
+	</td>
+	
+	<td  ng-if="x.accepted==0">
+	<input class="btn btn-info btn-xs"  data-iid={{x.id}} type="button" value="accept" ng-click="acceptInv(x.id, x.from.id)" >
+	</td>
+	
+	</tr>
+ 
+   
+    </tbody>
+  </table>
+  </div>
+    
+    
+    
+    
+    
+    
+    
     <div id="restaurantsTable" class="col-md-5">
   <h2>Restaurants reservation - Choose restaurant</h2>
   
@@ -28,7 +75,7 @@
         <td data-rid="{{x.id}}" ng-click="firstStepReserve(x.id, x.name)"><a href="#" onclick="return false;"><b>{{x.name}}</b></a></td>
       	<td >{{x.description}}</td>
 
-  </div>
+ 
       </tr>
    
     </tbody>
@@ -80,6 +127,51 @@
   </div>
   </div>
   
+   <div hidden id="finalStep" class="col-md-5">
+  	 <table class="table" >
+    <thead>
+ 	<tr></tr>
+    </thead>
+    <tbody id="finalStepBody">
+      <tr data-rid="{{toReserveId}}">
+        <td>Restaurant</td>
+      	<td><b>{{toReserveName}}</b></td>
+	  </tr>
+	   <tr >
+        <td>Date</td>
+      	<td><b>{{dateres}}</b></td>
+	  </tr>
+	   <tr >
+        <td>Hours</td>
+      	<td><b>{{hours}}</b></td>
+	  </tr>
+	   </tr>
+	   <tr >
+        <td>Reserved tables</td>
+      	<td><b>{{tablesReserved}}</b></td>
+	  </tr>
+   
+    </tbody>
+  </table>
+  
+   <table id="friends"  class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody id="friendsBody">
+      <tr ng-repeat="x in friends | orderBy:['name','surname']">
+        <td>{{x.name}}</td>
+        <td>{{x.surname}}</td>
+        <td><button data-bid="{{x.id}}" type="button" class="btn btn-primary btn-xs" ng-click="invite(x.id)" >invite</button></td>
+      </tr>
+  
+    </tbody>
+  </table>
+ 
   
 </div>
 </div>

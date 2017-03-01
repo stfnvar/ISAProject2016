@@ -25,7 +25,7 @@ orderService.factory('orderService', function($http) {
 	}
 	
 	temp.getAllRestaurants = function(){
-		return $http.get('/restaurant/getRestaurants');
+		return $http.get('/restaurant/getHistoryTables');
 	}
 	
 	temp.giveRatingToRestaurant = function(id, rating){
@@ -70,6 +70,7 @@ orderService.factory('orderService', function($http) {
 	temp.editOrderMEALS = function(ordiMeals){
 		return $http.post('/waiter/editOrderMeals', ordiMeals);
 	}
+
 	
 	temp.findara = function(){
 		return $http.post('/tables/getAllAndWaitersTables');

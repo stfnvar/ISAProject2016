@@ -19,12 +19,14 @@ import com.restaurant.miscel.MessageWithObj;
 import com.restaurant.miscel.SendMail;
 import com.restaurant.model.Administrator;
 import com.restaurant.model.Guest;
+import com.restaurant.model.Offerer;
 import com.restaurant.model.Person;
 import com.restaurant.model.RestaurantManager;
 import com.restaurant.model.Worker;
 import com.restaurant.service.AdminServiceImpl;
 import com.restaurant.service.Friendship;
 import com.restaurant.service.GuestServiceImpl;
+import com.restaurant.service.OffererServiceImpl;
 import com.restaurant.service.PersonServiceImpl;
 import com.restaurant.service.RestaurantManagerServiceImpl;
 import com.restaurant.service.WorkerServiceImpl;
@@ -44,6 +46,8 @@ public class LoginRegisterController {
 	RestaurantManagerServiceImpl restManagerServiceImpl;
 	@Autowired
 	GuestServiceImpl guestServiceImpl;
+	@Autowired
+	OffererServiceImpl offererServiceImpl;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public MessageWithObj getUser(Model model,
@@ -62,7 +66,16 @@ public class LoginRegisterController {
 				return new MessageWithObj("radnik", true, worker);
 			}
 				
-		
+			Offerer offerer = offererServiceImpl.findOne(person.getId());
+			
+			if(offerer != null){
+				req.getSession().setAttribute("guest", person);
+				if(offerer.isFirstTime()){
+					return new MessageWithObj("offerer", true, offerer);
+				}else{
+					return new MessageWithObj("offerer", false, offerer);
+				}
+			}
 			
 			Guest guest = guestServiceImpl.findOneById(person.getId());
 			
@@ -96,6 +109,65 @@ public class LoginRegisterController {
 		}
 	return new MessageWithObj("error",false , null);
 	}
+	
+	//proverava ko je trenutno u sesiji
+	@RequestMapping(value = "/loggedin")
+	public MessageWithObj whoIsLogged(HttpServletRequest req) {
+		Person p=(Person)req.getSession().getAttribute("guest");
+		if(p!=null){
+			Person person = personServiceImpl.findOneByEmailAndPassword(p.getEmail().trim(), p.getPassword().trim());
+			
+			if(person != null){
+				
+				Worker worker = workerServiceImpl.findOneById(person.getId());
+				
+				if(worker != null){
+					
+					req.getSession().setAttribute("guest", person);
+					return new MessageWithObj("radnik", true, worker);
+				}
+				
+				Offerer of = offererServiceImpl.findOne(person.getId());
+				
+				if(of != null){
+					if(of.isFirstTime()){
+						return new MessageWithObj("offerer", true, of);
+					}else{
+						return new MessageWithObj("offerer", false, of);
+					}
+				}
+				
+				Guest guest = guestServiceImpl.findOneById(person.getId());
+				
+				//dodatna provera za goste
+				if(guest != null){
+					if(guest.getActive() == 1){
+						req.getSession().setAttribute("guest", person);
+						return new MessageWithObj("gost", true, person);
+					}else
+						return new MessageWithObj("gost", false, person);
+					
+				//znaci da nije gost, mogucnosti jos admin i restmanager	
+				}else if(guest == null) {
+					
+					Administrator admin = adminServiceImpl.findOneById(person.getId());
+					
+					if(admin!=null){
+						
+						req.getSession().setAttribute("guest", person);
+						return new MessageWithObj("admin", true, person);
+					}else{
+						RestaurantManager rm = restManagerServiceImpl.findOneById(person.getId());
+						req.getSession().setAttribute("guest", person);
+						return new MessageWithObj("rmanager", true, person);
+					}
+			}
+			
+		}
+	}
+		 return new MessageWithObj("Sesija prazna", false, null);
+		
+}
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public MessageWithObj registerGuest(Model model, @RequestBody Guest person) {
@@ -110,15 +182,7 @@ public class LoginRegisterController {
 		
 		return new MessageWithObj("Uspesno kreiran", true, person);
 	}
-	//proverava ko je trenutno u sesiji
-	@RequestMapping(value = "/loggedin")
-	public MessageWithObj whoIsLogged(HttpServletRequest req) {
-		
-		if(req.getSession().getAttribute("guest")!=null){
-			return new MessageWithObj("U sesiji", true, req.getSession().getAttribute("guest"));
-			
-		}else return new MessageWithObj("Sesija prazna", false, null);
-	}
+
 	
 	@RequestMapping(value = "/logout")
 	public MessageWithObj logout(HttpServletRequest req) {
@@ -191,6 +255,7 @@ public class LoginRegisterController {
 		 guestServiceImpl.removeOneFriendship(id2, id1);
 
 	}
+	//SS
 	@RequestMapping(value = "/notfriends")
 	public MessageWithObj notFriends( HttpServletRequest req) {
 		

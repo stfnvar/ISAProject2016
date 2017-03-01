@@ -13,4 +13,6 @@ public interface RestaurantManagerRepository extends JpaRepository<RestaurantMan
 
 	@Query("select rm from RestaurantManager as rm where restaurant_id = ?1")
 	Set<RestaurantManager> getRestaurantManagersByRestaurantId(Long id);
+	
+	
 }

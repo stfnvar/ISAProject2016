@@ -14,4 +14,5 @@ public interface WorkingScheduleRepository extends JpaRepository<WorkingSchedule
 	Set<WorkingSchedule> getOnDutyDay(Date startDay);
 	
 	Set<WorkingSchedule> findByStartAfterAndEndBefore(Date start, Date end);
+
 }

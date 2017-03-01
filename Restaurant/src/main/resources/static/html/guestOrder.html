@@ -1,0 +1,36 @@
+<div ng-cloak ng-controller="guestorderController">
+
+<div>
+<div class="container">
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<td>Table: </td>
+				<td><select id="selectStolovi">
+				</select></td>
+			</tr>
+			<tr>
+				<td>How many meals: </td>
+				<td><input ng-model="mealsmodel" type="number" id="meals" ng-change="funcChangeMeal()"></td>
+			</tr>
+			<tr>
+				<td>How many drinks: </td>
+				<td><input ng-model="drinksmodel" type="number" id="drinks" ng-change="funcChangeDrink()"></td>
+			</tr>
+		</tbody>
+	</table>
+	<div >
+		<table id="appendujMeal" class="table">
+		</table>
+		<br><br><br>
+		<table id="appendujDrink" class="table">
+		</table>
+		
+		<button  ng-click="confirmOrder()" type="submit" name="confirmOrder" id="confirmOrder" class="btn btn-primary btn-md">Confirm order </button>
+		
+	</div>
+	
+	</div>
+
+</div>

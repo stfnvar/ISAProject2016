@@ -32,6 +32,12 @@ public class Guest extends Person{
 		@OneToMany(mappedBy = "guest", targetEntity = Reservation.class)
 		private Set<Reservation> reservations;
 		
+		@OneToMany(mappedBy = "from", targetEntity = Invite.class)
+		private Set<Invite> invites;
+		
+		@OneToMany(mappedBy = "to", targetEntity = Invite.class)
+		private Set<Invite> to;
+		
 		public Guest(){
 			super();
 		}
