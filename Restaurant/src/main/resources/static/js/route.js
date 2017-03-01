@@ -39,5 +39,7 @@ app.config(function($routeProvider) {
 		templateUrl : "html/restmanager_staff.html"
 	}).when("/restmanager/reports", {
 		templateUrl : "html/restmanager_reports.html"
+	}).when("/offerer", {
+		templateUrl : "html/offerer.html"
 	});
 });

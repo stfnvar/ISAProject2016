@@ -19,12 +19,14 @@ import com.restaurant.miscel.MessageWithObj;
 import com.restaurant.miscel.SendMail;
 import com.restaurant.model.Administrator;
 import com.restaurant.model.Guest;
+import com.restaurant.model.Offerer;
 import com.restaurant.model.Person;
 import com.restaurant.model.RestaurantManager;
 import com.restaurant.model.Worker;
 import com.restaurant.service.AdminServiceImpl;
 import com.restaurant.service.Friendship;
 import com.restaurant.service.GuestServiceImpl;
+import com.restaurant.service.OffererServiceImpl;
 import com.restaurant.service.PersonServiceImpl;
 import com.restaurant.service.RestaurantManagerServiceImpl;
 import com.restaurant.service.WorkerServiceImpl;
@@ -44,6 +46,8 @@ public class LoginRegisterController {
 	RestaurantManagerServiceImpl restManagerServiceImpl;
 	@Autowired
 	GuestServiceImpl guestServiceImpl;
+	@Autowired
+	OffererServiceImpl offererServiceImpl;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public MessageWithObj getUser(Model model,
@@ -62,7 +66,16 @@ public class LoginRegisterController {
 				return new MessageWithObj("radnik", true, worker);
 			}
 				
-		
+			Offerer offerer = offererServiceImpl.findOne(person.getId());
+			
+			if(offerer != null){
+				req.getSession().setAttribute("guest", person);
+				if(offerer.isFirstTime()){
+					return new MessageWithObj("offerer", true, offerer);
+				}else{
+					return new MessageWithObj("offerer", false, offerer);
+				}
+			}
 			
 			Guest guest = guestServiceImpl.findOneById(person.getId());
 			

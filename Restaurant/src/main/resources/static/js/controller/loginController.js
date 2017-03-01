@@ -38,7 +38,6 @@ loginController.controller('loginController', function($scope, $location, loginS
     			
     			  
     		}else{
-    			
     			if(data.message=='gost'){
     				$location.path('/homepage');
     			}else if(data.message=='rmanager'){
@@ -53,6 +52,8 @@ loginController.controller('loginController', function($scope, $location, loginS
     				}else if(data.obj.type == 'WAITER'){
     					$location.path('/waiter');
     				}
+    			}else if(data.message=='offerer'){
+    				$location.path('/offerer');
     			}
     			
     		}

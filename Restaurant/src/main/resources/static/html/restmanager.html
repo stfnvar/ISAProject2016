@@ -8,13 +8,16 @@
 			ng-click="showRestmanagerRestaurant()">{{info.restaurant.name}}</a></li>
 		<li style="float: right"><a class="active" href
 			ng-click="showRestmanagerProfile()">{{info.name}}</a></li>
+		<li style="float: right"><a class="active" href
+			ng-click="openRegisterOffererModal()">Register offerer</a></li>
 	</ul>
 
 	<!-- Restaurant Manager Profile -->
-	
+
 	<div class="container" ng-show="restmanagerProfile"
 		ng-hide="restmanagerRestaurant">
-		<div ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources"></div> 
+		<div ui-calendar="uiConfig.calendar" class="span8 calendar"
+			ng-model="eventSources"></div>
 		<div class="row">
 			<div class="col-md-5  toppad  pull-right col-md-offset-3 "></div>
 			<div
@@ -193,11 +196,138 @@
 				</div>
 			</div>
 		</div>
+
+
+
+		<!-- Offerers -->
+
+		<div class="container" style="border: 1px solid #cecece;">
+			<h1>
+				<i class="fa fa-shopping-cart"></i> Offerers <small></small> <input
+					id="mealIdInfo" type="hidden" />
+			</h1>
+			<hr>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Surname</th>
+						<th>Email</th>
+						<th>Company name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-click="openModal(meal)" ng-repeat="ofs in offerers"
+						class="rmMenuModal">
+						<td>{{ofs.name}}</td>
+						<td>{{ofs.surname}}</td>
+						<td>{{ofs.email}}</td>
+						<td>{{ofs.companyName}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="container" style="border: 1px solid #cecece;">
+			<form validate class="simple-form">
+				<div class="row">
+					<div ng-repeat="i in wantedItems">
+						<p ng-bind="i.name"></p>
+						<input type="number" required="required" ng-model="i.quantity">
+						<input type="button" class="btn btn-default"
+							ng-click="removeWanted(i)" value="Remove">
+					</div>
+					<input type="date" ng-model="addAnn.anStart" required="required">
+					<input type="date" ng-model="addAnn.anEnd" required="required">
+					<input class="btn btn-default" ng-click="addAnnoun(addAnn)"
+						type="submit" value="Announce necessities" />
+				</div>
+			</form>
+		</div>
+
+		<!-- End Part -->
+		<div class="container" style="border: 1px solid #cecece;">
+			<h1>
+				<i class="fa fa-shopping-cart"></i> Groceries <small></small> <input
+					id="mealIdInfo" type="hidden" />
+			</h1>
+			<hr>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="gro in groceries" class="rmMenuModal">
+						<td>{{gro.name}}</td>
+						<td><input type="button" class="btn btn-default"
+							ng-click="addToWanted(gro)" value="Add to wish list"></td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="row">
+				<form validate class="simple-form">
+					<p>Name</p>
+					<input type="text" ng-model="addGro.groNam" required="required">
+					<input class="btn btn-default" ng-click="addGrocery(addGro)"
+						type="submit" value="Create grocery" />
+				</form>
+			</div>
+		</div>
+
+		<div class="container" style="border: 1px solid #cecece;">
+			<h1>
+				<i class="fa fa-shopping-cart"></i> Drinks <small></small> <input
+					id="mealIdInfo" type="hidden" />
+			</h1>
+			<hr>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="dris in drins" class="rmMenuModal">
+						<td>{{gro.name}}</td>
+						<td><input type="button" class="btn btn-default"
+							ng-click="addToWantedDrink(dris)" value="Add to wish list"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+
+
+		<div class="container" style="border: 1px solid #cecece;">
+			<h1>
+				<i class="fa fa-shopping-cart"></i> Announcements <small></small> <input
+					id="mealIdInfo" type="hidden" />
+			</h1>
+			<hr>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Start</th>
+						<th>End</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="ae in announ" class="rmMenuModal">
+						<td>{{ae.start}}</td>
+						<td>{{ae.end}}</td>
+						<td><input type="button" class="btn btn-default"
+							ng-click="seeOffers(ae)" value="Offers"></td>
+						<td><input type="button" class="btn btn-default"
+							ng-click="seeItems(ae)" value="Items contained"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
-
-	<!-- End Part -->
-
-
 	<!-- Restaurant Manager Restaurant Basic Info And Structure -->
 
 	<div class="container" ng-show="restmanagerRestaurant"
@@ -384,7 +514,8 @@
 								<b>Staff</b><br> Change the structure of the Staff
 							</p>
 							<p>
-								<a href="#restmanager/staff" type="button" class="btn btn-default">Update</a>
+								<a href="#restmanager/staff" type="button"
+									class="btn btn-default">Update</a>
 							</p>
 						</div>
 					</div>
@@ -402,7 +533,8 @@
 								Configuration
 							</p>
 							<p>
-								<a href="#restmanager/tables" type="button" class="btn btn-default">Update</a>
+								<a href="#restmanager/tables" type="button"
+									class="btn btn-default">Update</a>
 							</p>
 						</div>
 					</div>
@@ -419,7 +551,8 @@
 								<b>Reports</b><br> Access annual, weekly and daily status.
 							</p>
 							<p>
-								<a href="#restmanager/reports" type="button" class="btn btn-default">Show</a>
+								<a href="#restmanager/reports" type="button"
+									class="btn btn-default">Show</a>
 							</p>
 						</div>
 					</div>
@@ -471,8 +604,131 @@
 			</div>
 		</div>
 	</div>
+	<md-dialog class="modal" id="offererModal" tabindex="-1"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">
+					<i class="text-danger fa fa-times"></i>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					<i class="text-muted fa fa-shopping-cart"></i>Meal Info<strong></strong>
+				</h4>
+			</div>
+			<div class="modal-body">
+				<form validate class="simple-form">
+					<div class="clearfix"></div>
+					<h4>Company name</h4>
+					<input required="required" type="text"
+						ng-model="offererRegister.companyName">
+
+					<h4>Name</h4>
+					<input required="required" type="text"
+						ng-model="offererRegister.name">
+
+					<div class="clearfix"></div>
+					<h4>Surname</h4>
+					<input required="required" type="text"
+						ng-model="offererRegister.surname">
+
+					<h4>Email</h4>
+					<input required="required" type="email"
+						ng-model="offererRegister.email">
+
+					<h4>Password</h4>
+					<input required="required" type="password"
+						ng-model="offererRegister.password">
+
+					<div class="text-right pull-right col-md-3">
+						<input type="submit" class="btn btn-default pull-right"
+							ng-click="registerOfferer($event, offererRegister)"
+							value="Register" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	</md-dialog>
+
+
+	<md-dialog class="modal" id="itemsModal" tabindex="-1"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">
+					<i class="text-danger fa fa-times"></i>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					<i class="text-muted fa fa-shopping-cart"></i>Wanted items<strong></strong>
+				</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Quanity</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="i in currentWantedItems"
+						class="rmMenuModal">
+						<td>{{i.grocery.name}}</td>
+						<td>{{i.quantity}}</td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+	</md-dialog>
 	<!-- End Part -->
+	
+	
+	
+	<md-dialog class="modal" id="offersModal" tabindex="-1"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">
+					<i class="text-danger fa fa-times"></i>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					<i class="text-muted fa fa-shopping-cart"></i>Wanted items<strong></strong>
+				</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Offerer name</th>
+						<th>Offerer email</th>
+						<th>Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="i in currentOffersA"
+						class="rmMenuModal">
+						<td>{{i.offerer.name}}</td>
+						<td>{{i.offerer.email}}</td>
+						<td>{{i.price}}</td>
+						<td><input type="button" ng-click="acceptOffer(i)" value="Accept"></td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		</div>
+	</div>
+	</md-dialog>
+	<!-- End Part -->
+
+
+
+
 </div>
-
-
-

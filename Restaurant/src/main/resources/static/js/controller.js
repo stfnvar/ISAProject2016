@@ -11,5 +11,6 @@ var controller = angular.module('restaurantApp.controller', ['restaurantApp.regi
 															'restaurantApp.restmanager_cardController',
 															'restaurantApp.restmanager_tablesController',
 															'restaurantApp.restmanager_staffController',
-															'restaurantApp.restmanager_reportsController'
+															'restaurantApp.restmanager_reportsController',
+															'restaurantApp.offererController'
 															]);

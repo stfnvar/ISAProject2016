@@ -125,4 +125,6 @@ public interface RestaurantManagerService {
     
     void removeManager(Long id);
     
+    List<Drink> getAllDrinks();
+    
 }
