@@ -1,5 +1,6 @@
 package com.restaurant.repository;
 
+import java.util.Date;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,8 +10,13 @@ import org.springframework.data.repository.query.Param;
 
 import com.restaurant.model.Cook;
 import com.restaurant.model.Waiter;
+import com.restaurant.model.WorkingSchedule;
 
 public interface CookRepository extends JpaRepository<Cook, Long>{
+	
+	@Query("select dutified from WorkingSchedule as dutified where date(start) = date(?1) and dutified.worker.id = ?2")
+	Set<WorkingSchedule> getOnDutyDay(Date startDay, Long id);
+	
 	@Query("select cooks from Cook as cooks where restaurant_id=?1")
 	Set<Cook> getRestaurantStaffCooks(Long id);
 	

@@ -15,7 +15,7 @@ orderController.controller('orderController', function($scope, $location, $windo
 		$('#appendujDrink').empty();
 		//$scope.prom = $('#drinks').val();
 		for(i = 0; i<temp; i++){
-			$('#appendujDrink').append('<tr><td>Drink '+i+'</td><td><input data-drinkkk=' + i + 'ng-model="drinkk' + i + '" type="text" class="form-control" id="pice" > </td>'
+			$('#appendujDrink').append('<tr><td>Drink '+(i+1)+'</td><td><input data-drinkkk=' + i + 'ng-model="drinkk' + i + '" type="text" class="form-control" id="pice" > </td>'
 					+'<td><input ng-model="drinksquantity" type="number" id="drinksquantity""></td></tr>');
 		}
 	}
@@ -26,7 +26,7 @@ orderController.controller('orderController', function($scope, $location, $windo
 		//$scope.prom = $('#meals').val();
 		$('#appendujMeal').empty();
 		for(i = 0; i<temp; i++){
-			$('#appendujMeal').append('<tr><td>Meal '+i+'</td><td><input ng-model="meall" type="text" class="form-control" id="hrana"> </td>'
+			$('#appendujMeal').append('<tr><td>Meal '+ (i+1) +'</td><td><input ng-model="meall" type="text" class="form-control" id="hrana"> </td>'
 					+'<td><input ng-model="mealsquantity" type="number" id="mealsquantity""></td></tr>');
 		}
 	}

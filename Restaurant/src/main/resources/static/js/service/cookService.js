@@ -36,6 +36,10 @@ cookService.factory('cookService', function($http) {
 		return $http.post('/orderedMeals/makeMeal/' + id);
 	}
 	
+	temp.getOnDutyDay = function(date){
+		return $http.post('/cook/getOnDutyDay', date);
+	}
+	
 	return temp;
 	
 })

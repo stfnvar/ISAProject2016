@@ -91,5 +91,7 @@ public class RestaurantSegment {
 	public void setWorkingSchedules(Set<WorkingSchedule> workingSchedules) {
 		this.workingSchedules = workingSchedules;
 	}
+	
+	
 
 }

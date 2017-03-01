@@ -5,6 +5,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,6 +15,18 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Meal {
+	
+	public CookType getTypeM() {
+		return typeM;
+	}
+
+	public void setTypeM(CookType typeM) {
+		this.typeM = typeM;
+	}
+
+	@Column(nullable = false)
+	@Enumerated(EnumType.ORDINAL)
+	private CookType typeM;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "meal")
 	private Set<OrderedMeal> orderedMeals;

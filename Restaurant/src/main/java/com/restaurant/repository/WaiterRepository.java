@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 public interface WaiterRepository extends JpaRepository<Waiter, Long>  {
-	
+
 	@Query("select dutified from WorkingSchedule as dutified where date(start) = date(?1) and dutified.worker.id = ?2")
 	Set<WorkingSchedule> getOnDutyDay(Date startDay, Long id);
 

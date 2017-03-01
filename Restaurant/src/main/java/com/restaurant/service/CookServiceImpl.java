@@ -1,9 +1,13 @@
 package com.restaurant.service;
 
+import java.util.Date;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.restaurant.model.Cook;
+import com.restaurant.model.WorkingSchedule;
 import com.restaurant.repository.CookRepository;
 
 @Service
@@ -11,7 +15,7 @@ public class CookServiceImpl implements CookService{
 	
 	@Autowired
 	CookRepository cookRepository;
-
+	
 	@Override
 	public Cook findOneById(Long id) {
 		// TODO Auto-generated method stub
@@ -34,6 +38,12 @@ public class CookServiceImpl implements CookService{
 	public void updateOneCook(long id, String name, String surname, String email, String pass) {
 		// TODO Auto-generated method stub
 		cookRepository.updateCook(id, name, surname, email, pass);
+	}
+
+	@Override
+	public Set<WorkingSchedule> getOnDutyDay(Date startDay, Long id) {
+		// TODO Auto-generated method stub
+		return cookRepository.getOnDutyDay(startDay, id);
 	}
 
 }

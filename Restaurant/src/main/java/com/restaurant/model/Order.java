@@ -16,10 +16,10 @@ import javax.persistence.OneToOne;
 @javax.persistence.Table(name="ORDER_order")
 public class Order {
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+	@OneToMany(cascade=CascadeType.ALL, targetEntity=OrderedDrink.class, orphanRemoval=true, fetch = FetchType.LAZY, mappedBy = "order")
 	private Set<OrderedDrink> orderedDrinks;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")
+	@OneToMany(cascade=CascadeType.ALL, targetEntity=OrderedDrink.class, orphanRemoval=true, fetch = FetchType.LAZY, mappedBy = "order")
 	private Set<OrderedMeal> orderedMeals;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "order")

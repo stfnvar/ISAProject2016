@@ -2,6 +2,7 @@ package com.restaurant.service;
 
 import java.util.ArrayList;
 
+import com.restaurant.model.CookType;
 import com.restaurant.model.OrderedDrink;
 import com.restaurant.model.OrderedMeal;
 
@@ -21,6 +22,6 @@ public interface OrderedMealService {
 	
 	public void updateMealName(long idMeal, long id);
 	
-	public ArrayList<OrderedMeal> findAllOrderedMeals(Long id);
+	public ArrayList<OrderedMeal> findAllOrderedMeals(Long id, CookType typeC);
 
 }

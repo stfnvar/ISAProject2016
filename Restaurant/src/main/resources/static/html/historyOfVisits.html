@@ -1,0 +1,74 @@
+<div ng-cloak ng-controller="historyOfVisitsController">
+
+
+	<div class="container">
+
+		<table id="historyOfVisits" class="table">
+			<thead>
+				<tr>
+					<th>Restaurant ID</th>
+					<th>Name</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="x in restaurants">
+					<td>{{x.id}}</td>
+					<td>{{x.name}}</td>
+					<td>{{x.description}}</td>
+					<td><button type="button" class="btn btn-primary btn-xs"
+							ng-click="restaurantRatings(x)">Ratings</button></td>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
+
+
+	<md-dialog class="modal" id="ratingsModal" tabindex="-1"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">
+					<i class="text-danger fa fa-times"></i>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">
+					<i class="text-muted fa fa-shopping-cart"></i>Edit<strong></strong>
+				</h4>
+			</div>
+			<div class="modal-body">
+				<form validate class="simple-form">
+					<h4>Restaurant ID</h4>
+					<p ng-bind="restaurant.id"></p>
+					<h4>Restaurant name</h4>
+					<p ng-bind="restaurant.name"></p>
+
+					<h4>Restaurant rating</h4>
+					<input type="number" ng-model="giveRestaurantRating"> <input
+						value="Give rating to restaurant" type="button" class="btn btn-default"
+						ng-click="giveRatingClick(giveRestaurantRating)" />
+					<p ng-bind="restaurant.rating"></p>
+
+					<h4>Meals rating</h4>
+					<input type="number" ng-model="giveMealsRating">
+					<input
+						value="Give rating to meals" type="button" class="btn btn-default"
+						ng-click="giveRatingMealsClick(giveMealsRating)" />
+					<p ng-bind="meals.rating"></p>
+
+					<h4>Service rating</h4>
+					<input type="number" ng-model="giveServiceRating">
+					<input
+						value="Give rating to service" type="button" class="btn btn-default"
+						ng-click="giveRatingServiceClick(giveServiceRating)" />
+					<p ng-bind="service.rating"></p>
+
+				</form>
+			</div>
+		</div>
+	</div>
+	</md-dialog>
+
+</div>

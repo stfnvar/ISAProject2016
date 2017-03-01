@@ -41,9 +41,10 @@ wordersController.controller('wordersController', function($scope, $location, $w
 	
 	
 	$scope.orderEdit={};
-	
+	var ajdi;
 	$scope.edit = function(x){
 		$scope.orderEdit.id = x.id;
+		ajdi = x.id;
 		$scope.orderEdit.table = x.table;
 		$scope.orderEdit.table.id = x.table.id;
 		orderService.getDrinksByOrder(x.id).success(function (data){
@@ -51,6 +52,13 @@ wordersController.controller('wordersController', function($scope, $location, $w
 		});
 		orderService.getMealsByOrder(x.id).success(function (data){
 			$scope.orderEdit.meals = data;
+		});
+		
+		orderService.getDrinksRestaurant().success(function(data){
+			$scope.allDrinks = data;
+		});
+		orderService.getMealsRestaurant().success(function(data){
+			$scope.allMeals = data;
 		});
 		
 		$('#editModal').modal('show');
@@ -105,6 +113,51 @@ wordersController.controller('wordersController', function($scope, $location, $w
     	
 	} 
 	
+	orderEdit = {};
+	orderEdit.table = {};
 	
+	$scope.addDri = function(o, q){
+		var nesto = this.drinksToAdd;
+		var od = {
+			drink : {
+				id : nesto.id
+			},
+			order : {
+				id : $scope.orderEdit.id
+			},
+
+			quantity : q 
+		}
+		
+		json = JSON.stringify(od);
+		
+		orderService.addDri(json).success(function(data){
+			orderService.getDrinksByOrder(ajdi).success(function (data){
+				$scope.orderEdit.drinks = data;
+			});
+			alert("joj");
+		});
+	}
+	
+	
+	$scope.addMea = function(o, q){
+		var nesto2 = this.mealsToAdd;
+		var od = {
+			meal : {
+				id : nesto2.id
+			},order : {
+				id : $scope.orderEdit.id
+			},
+			quantity : q 
+		}
+		
+		json = JSON.stringify(od);
+		
+		orderService.addMea(json).success(function(data){
+			orderService.getMealsByOrder(ajdi).success(function (data){
+				$scope.orderEdit.meals = data;
+			});
+		});
+	}
 	
 })
