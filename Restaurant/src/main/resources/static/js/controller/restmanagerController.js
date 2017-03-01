@@ -219,15 +219,27 @@ $scope.addGrocery = function(g){
 }
 
 $scope.seeOffers = function(ae){
-	var ann = ae;
+	var ann = {
+			id : ae.id
+	}
 	json = JSON.stringify(ann);
-	restmanagerService.getOffersForA(ae).success(function(data){
+	restmanagerService.getOffersForA(json).success(function(data){
 		$scope.currentOffersA = data;
 	});
 	$("#offersModal").modal('show');
 	
 	
 }
+
+$scope.acceptOffer = function (i){
+	var acc = i;
+	json = JSON.stringify(acc);
+	
+	restmanagerService.acceptOffer(json).success(function(data){
+		$("#offersModal").modal('hide');
+	});
+}
+
 
 $scope.seeItems = function(ae){
 	var ann = {

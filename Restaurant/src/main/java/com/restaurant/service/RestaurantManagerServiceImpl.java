@@ -259,8 +259,7 @@ public class RestaurantManagerServiceImpl implements RestaurantManagerService {
 
 	@Override
 	public Set<WorkingSchedule> getOnDuty(Date date) {
-		Date end = date;
-		return workingScheduleRepository.findByStartAfterAndEndBefore(date, end);
+		return workingScheduleRepository.getOnDutyDay(date);
 	}
 
 	@Override
@@ -326,7 +325,7 @@ public class RestaurantManagerServiceImpl implements RestaurantManagerService {
 
 	@Override
 	public Set<WorkingSchedule> getOnDutyPeriod(Date start, Date end) {
-		return workingScheduleRepository.findByStartAfterAndEndBefore(start, end);
+		return workingScheduleRepository.findByStartBeforeAndEndAfter(start, end);
 	}
 
 	@Override

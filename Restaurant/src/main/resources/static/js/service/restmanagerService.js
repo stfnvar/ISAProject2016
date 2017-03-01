@@ -67,6 +67,10 @@ restmanagerService.factory('restmanagerService', function($http) {
 		return $http.post('/restaurantManager/getWantedItemsForAnn', ae);
 	}
 	
+	temp.acceptOffer = function(ae){
+		return $http.post('/restaurantManager/acceptOffer', ae);
+	}
+	
 	
 	temp.getOffersForA = function(id){
 		return $http.post('/restaurantManager/getOffersForAnnoun', id);

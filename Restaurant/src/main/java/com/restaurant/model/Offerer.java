@@ -24,10 +24,6 @@ public class Offerer extends Person{
 	@Column(nullable = false)
 	private boolean firstTime;
 
-	public Set<Offer> getOffers() {
-		return offers;
-	}
-
 	public void setOffers(Set<Offer> offers) {
 		this.offers = offers;
 	}
