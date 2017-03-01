@@ -10,7 +10,7 @@ import com.restaurant.model.CookType;
 import com.restaurant.model.OrderedDrink;
 import com.restaurant.model.OrderedMeal;
 
-public interface OrderedMealRepository extends JpaRepository<OrderedMeal, Long> {
+public interface OrderedMealRepository extends JpaRepository<OrderedMeal, Long> { 
 	
 	@Modifying
 	@Query("update OrderedMeal om set om.acceptedMeal=1 where om.id=?1")

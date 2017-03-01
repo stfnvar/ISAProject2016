@@ -131,10 +131,12 @@ public class WaiterController {
 			return null;
 		}
 		
-		Rating r = new Rating();
-		r.setMeal(list.get(0));
-		r.setRating(rating);
-		ratingServiceImpl.save(r);
+		for(int i = 0; i<list.size();i++){
+			Rating r = new Rating();
+			r.setMeal(list.get(i));
+			r.setRating(rating);
+			ratingServiceImpl.save(r);
+		}
 		
 		return restaurantManagerServiceImpl.getMealRating(list.get(0).getName(), list.get(0).getId());
 	}
@@ -174,10 +176,12 @@ public class WaiterController {
 			return null;
 		}
 		
-		Rating r = new Rating();
-		r.setWaiter(list.get(0));
-		r.setRating(rating);
-		ratingServiceImpl.save(r);
+		for(int i = 0; i<list.size();i++){
+			Rating r = new Rating();
+			r.setWaiter(list.get(i));
+			r.setRating(rating);
+			ratingServiceImpl.save(r);
+		}
 		
 		return restaurantManagerServiceImpl.getWaiterRating(list.get(0).getName(), list.get(0).getSurname(), list.get(0).getId());
 	}
