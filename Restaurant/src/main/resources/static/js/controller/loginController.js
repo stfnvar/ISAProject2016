@@ -21,7 +21,7 @@ loginController.controller('loginController', function($scope, $location,
 				} else if (data.obj.type == 'WAITER') {
 					$location.path('/waiter');
 				}
-			} else if (data.obj. == 'offerer') {
+			} else if (data.obj == 'offerer') {
 				$location.path('/offerer');
 			}
 
