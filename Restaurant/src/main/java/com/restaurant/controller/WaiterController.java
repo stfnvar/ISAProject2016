@@ -31,6 +31,7 @@ import com.restaurant.miscel.MessageWithObj;
 import com.restaurant.model.Bartender;
 import com.restaurant.model.Bill;
 import com.restaurant.model.Drink;
+import com.restaurant.model.Guest;
 import com.restaurant.model.Meal;
 import com.restaurant.model.Order;
 import com.restaurant.model.OrderedDrink;
@@ -282,8 +283,9 @@ public class WaiterController {
 	
 	@RequestMapping(value = "/addOrder", method = RequestMethod.POST)
 	public MessageWithObj addOrder(@RequestBody DrinkMeal drinkMeal, HttpServletRequest req){
+
 		
-		if(req.getSession().getAttribute("guest") instanceof Waiter){
+		if(req.getSession().getAttribute("guest") instanceof Waiter ){
 
 			Waiter waiter = (Waiter) req.getSession().getAttribute("guest");
 			

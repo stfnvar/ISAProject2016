@@ -26,6 +26,13 @@ public class RestaurantServiceImpl implements RestaurantService{
 		// TODO Auto-generated method stub
 		return restaurantRepository.findOne(id);
 	}
+
+
+	@Override
+	public List<Restaurant> getForHistory(long id) {
+	
+		return restaurantRepository.getForHistory(id);
+	}
 	
 	
 

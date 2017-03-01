@@ -44,6 +44,10 @@ restaurantService.factory('restaurantService', function($http) {
 	temp.getTablesForReservation = function(start, end, id){
 		return $http.get('/restaurant/getOrderTables/'+start+'/'+end+'/'+id);
 	}
+	
+	temp.addToSessionRest = function( id){
+		return $http.get('/restaurant/addRestToSession/'+id);
+	}
 
 	
 	

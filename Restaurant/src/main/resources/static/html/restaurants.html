@@ -39,7 +39,7 @@
 	
 	<td ng-if="x.accepted==1">
 	<input class="btn btn-info btn-xs" data-iid={{x.id}} type="button" value="cancel" ng-click="cancelInv(x.id, x.from.id)" >
-	<input class="btn btn-info btn-xs" data-oid={{x.id}} type="button" value="order" ng-click="orderNow( x.from.id, x.start,x.end)" >
+	<input class="btn btn-info btn-xs" data-oid={{x.id}} type="button" value="order" ng-click="orderNow( x.from.id, x.start,x.end, x.rest.id)" >
 	</td>
 	
 	<td  ng-if="x.accepted==0">
@@ -74,7 +74,8 @@
       <tr class="likeLinks"  ng-repeat="x in restaurants">
         <td data-rid="{{x.id}}" ng-click="firstStepReserve(x.id, x.name)"><a href="#" onclick="return false;"><b>{{x.name}}</b></a></td>
       	<td >{{x.description}}</td>
-
+		<td><button ng-click="findR(x)"></button></td>
+		
  
       </tr>
    
@@ -176,6 +177,8 @@
 </div>
 </div>
 
+<div id="googleMap" style="width:100%;height:400px;"></div>
+<button ng-click="findR({{$scope.toReserveId})"></button>
 
 </div>
 

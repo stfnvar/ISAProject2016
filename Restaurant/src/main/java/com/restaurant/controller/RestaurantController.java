@@ -9,13 +9,28 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.restaurant.miscel.DrinkMeal;
 import com.restaurant.miscel.MessageWithObj;
 import com.restaurant.miscel.SendMail;
+import com.restaurant.model.Drink;
+import com.restaurant.model.Guest;
+import com.restaurant.model.Meal;
+import com.restaurant.model.Order;
+import com.restaurant.model.OrderedDrink;
+import com.restaurant.model.OrderedMeal;
 import com.restaurant.model.Person;
+import com.restaurant.model.Table;
+import com.restaurant.service.DrinkServiceImpl;
 import com.restaurant.service.InviteServiceImpl;
+import com.restaurant.service.MealServiceImpl;
+import com.restaurant.service.OrderServiceImpl;
+import com.restaurant.service.OrderedDrinkServiceImpl;
+import com.restaurant.service.OrderedMealServiceImpl;
 import com.restaurant.service.ReservationServiceImpl;
 import com.restaurant.service.RestaurantServiceImpl;
 import com.restaurant.service.TableServiceImpl;
@@ -30,6 +45,8 @@ public class RestaurantController {
 	
 	@Autowired
 	TableServiceImpl tableServiceImpl;
+	@Autowired
+	MealServiceImpl mealServiceImpl;
 	
 	@Autowired
 	ReservationServiceImpl reservationServiceImpl;
@@ -37,10 +54,28 @@ public class RestaurantController {
 	@Autowired
 	InviteServiceImpl inviteServiceImpl;
 	
+	@Autowired
+	DrinkServiceImpl drinkServiceImpl;
+	@Autowired
+	OrderedMealServiceImpl orderedMealServiceImpl;
+	@Autowired
+	OrderedDrinkServiceImpl orderedDrinkServiceImpl;
+	@Autowired
+	OrderServiceImpl orderServiceImpl;
 	@RequestMapping(value = "/getRestaurants")
-	public MessageWithObj getAllRestaurants() {
+	public MessageWithObj getAllRestaurants(HttpServletRequest req) {
+		
+		long id = ((Guest)req.getSession().getAttribute("guest")).getId();
 		
 		return new MessageWithObj("Svi restorani", true, restaurantServiceImpl.getAllRestaurants());
+	}
+	
+	@RequestMapping(value = "/getRestaurantsHistory")
+	public MessageWithObj getAllRestaurantsHistory(HttpServletRequest req) {
+		
+		long id = ((Guest)req.getSession().getAttribute("guest")).getId();
+		
+		return new MessageWithObj("Svi restorani", true, restaurantServiceImpl.getForHistory(id));
 	}
 	
 	@RequestMapping(value = "/getAvailableDesks/{starts}/{ends}/{idrest}")
@@ -80,7 +115,7 @@ public class RestaurantController {
 		
 		return new MessageWithObj("stolovi", true, tableServiceImpl.getTablesByRestId(id));
 	}
-	
+
 	@Transactional
 	@RequestMapping(value = "/reserveTables/{start}/{end}/{arrt}/{restid}")
 	public MessageWithObj reserveTables(@PathVariable("start") String start,
@@ -196,6 +231,14 @@ String surname = ((Person)req.getSession().getAttribute("guest")).getSurname();
 		
 		
 	}
+	@RequestMapping(value = "/addRestToSession/{restid}")
+	public MessageWithObj addRestorantoSession(@PathVariable("restid") String restid,
+			HttpServletRequest req){
+		req.getSession().setAttribute("restoran", Long.parseLong(restid));
+		
+		return new MessageWithObj("restoran temp u sesiji", true,(long)req.getSession().getAttribute("restoran"));
+		
+	}
 	
 	@RequestMapping(value = "/getOrderTables/{start}/{end}/{rezervant}")
 	public MessageWithObj getTablesForOrder(@PathVariable("rezervant") String rezervant, @PathVariable("start") String start,
@@ -224,6 +267,70 @@ String surname = ((Person)req.getSession().getAttribute("guest")).getSurname();
 		req.getSession().setAttribute("stoloviRezervacije",rezervisaniStolovi );
 		return new MessageWithObj("stolovi za taj termin", true, rezervisaniStolovi);
 		
+	}
+	
+	@RequestMapping(value = "/addOrder", method = RequestMethod.POST)
+	public MessageWithObj addOrder(@RequestBody DrinkMeal drinkMeal, HttpServletRequest req){
+
+		long restid = (long)req.getSession().getAttribute("restoran");
+		if(req.getSession().getAttribute("guest") instanceof Guest ){
+
+			Guest waiter = (Guest) req.getSession().getAttribute("guest");
+			
+			Table table = tableServiceImpl.findOneTable(drinkMeal.getTableId());
+			
+			Order order = new Order();
+			
+			order.setTable(table);
+			
+			orderServiceImpl.save(order);
+			
+			int br = 0;
+			
+			if(drinkMeal.getDrinks() != null){
+				for(String temp : drinkMeal.getDrinks()){
+					Drink drink = drinkServiceImpl.findByName(temp,restid );
+					if(drink == null){
+						continue;
+					}
+					OrderedDrink od = new OrderedDrink();
+					od.setDrink(drink);
+					od.setOrder(order);
+					od.setReady(0);
+					od.setQuantity(drinkMeal.getQuantityDrinks().get(br));
+					orderedDrinkServiceImpl.save(od);
+					br++;
+				}
+			}
+			//if(br == 0){
+			//	orderServiceImpl.delete(order.getId());
+			//}
+			
+			int br2 = 0;
+			
+			if(drinkMeal.getMeals() != null){
+				for(String temp : drinkMeal.getMeals()){
+					Meal meal = mealServiceImpl.findByName(temp,restid);
+					if(meal == null){
+						continue;
+					}
+					OrderedMeal om = new OrderedMeal();
+					om.setMeal(meal);
+					om.setOrder(order);
+					om.setReady(0);
+					om.setAcceptedMeal(0);
+					//om.setQuantity(3);
+					om.setQuantity(drinkMeal.getQuantityMeals().get(br2));
+					orderedMealServiceImpl.save(om);
+					br2++;
+				}	
+			}
+			if(br == 0 && br2==0 ){
+				orderServiceImpl.delete(order.getId());
+			}
+			return new MessageWithObj("Order added", true, null);
+		}
+		return new MessageWithObj("Order not added", false, null);
 	}
 	
 	

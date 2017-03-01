@@ -5,7 +5,8 @@ guestorderService.factory('guestorderService', function($http) {
 	var temp = {};
 	
 	temp.addOrder = function(drinkMeal){
-		return $http.post('/waiter/addOrder', drinkMeal);
+		
+		return $http.post('/restaurant/addOrder', drinkMeal);
 	}
 	
 	

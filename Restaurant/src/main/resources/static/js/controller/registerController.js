@@ -47,4 +47,19 @@ registerController.controller('registerController', function($scope, registerSer
     		
 		});
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 })

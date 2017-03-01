@@ -216,5 +216,10 @@ guestController.controller('guestController', function($scope, $location,$window
 	$scope.redirToMyProfile = function(){
 		guestService.redirMyProfile();
 	}
+	
+
+	
+	
+	
 
 })

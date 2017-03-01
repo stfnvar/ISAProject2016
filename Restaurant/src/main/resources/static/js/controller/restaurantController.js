@@ -75,7 +75,11 @@ restaurantController.controller('restaurantController', function($scope,$window,
 			
 		});
 	}
-	$scope.orderNow = function(fromid,start, end){
+	$scope.orderNow = function(fromid,start, end,restid){
+		
+		restaurantService.addToSessionRest(restid).success(function(data){
+			alert('added to session rest id '+data.obj);
+		});
 		
 		restaurantService.getTablesForReservation(start, end, fromid).success(function(){
 			$location.path("/guestorder");
@@ -230,6 +234,15 @@ restaurantController.controller('restaurantController', function($scope,$window,
 	$scope.refresh = function(){
 		 $window.location.reload();
 	}
+	
+	
+	
+
+	
+	
+	
+	
+	
 
 	
 })

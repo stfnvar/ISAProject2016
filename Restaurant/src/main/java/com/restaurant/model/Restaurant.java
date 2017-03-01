@@ -23,6 +23,8 @@ public class Restaurant implements Serializable {
 
 	@Column(nullable = false)
 	private String description;
+	
+
 
 	@OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch = FetchType.LAZY, targetEntity = RestaurantManager.class, mappedBy = "restaurant")
 	private Set<RestaurantManager> restaurantManagers;
