@@ -325,7 +325,7 @@ public class RestaurantManagerServiceImpl implements RestaurantManagerService {
 
 	@Override
 	public Set<WorkingSchedule> getOnDutyPeriod(Date start, Date end) {
-		return workingScheduleRepository.findByStartAfterAndEndBefore(start, end);
+		return workingScheduleRepository.findByStartBeforeAndEndAfter(start, end);
 	}
 
 	@Override
@@ -347,6 +347,10 @@ public class RestaurantManagerServiceImpl implements RestaurantManagerService {
 		restaurantManagerRepository.delete(id);
 	}
 
+	@Override
+	public List<Drink> getAllDrinks() {
+		return drinkRepository.findAll();
+	}
 	@Override
 	public Set<RestaurantSegment> getRestaurantSegments(Long id) {
 		// TODO Auto-generated method stub

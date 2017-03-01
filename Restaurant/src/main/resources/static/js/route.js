@@ -39,6 +39,8 @@ app.config(function($routeProvider) {
 		templateUrl : "html/restmanager_staff.html"
 	}).when("/restmanager/reports", {
 		templateUrl : "html/restmanager_reports.html"
+	}).when("/offerer", {
+		templateUrl : "html/offerer.html"
 	}).when("/wprofile", {
         templateUrl : "html/waiter.html"
     }).when("/worders", {
@@ -56,17 +58,14 @@ app.config(function($routeProvider) {
     }).when("/bschedule",{
     	templateUrl : "html/bschedule.html"
     }).when("/wschedule",{
-
     	templateUrl : "html/wschedule.html"
     }).when("/guestorder",{
     	templateUrl : "html/guestOrder.html"
-
     }).when("/cschedule",{
     	templateUrl : "html/cschedule.html"
     }).when("/wtables",{
     	templateUrl : "html/wtables.html"
     }).when("/historyOfVisits",{
     	templateUrl : "html/historyOfVisits.html"
-
     });
 });

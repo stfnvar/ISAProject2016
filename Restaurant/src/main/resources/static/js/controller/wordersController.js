@@ -9,6 +9,7 @@ wordersController.controller('wordersController', function($scope, $location, $w
 	$scope.billDetails={};
 	
 	$scope.createBill = function(x){
+		var idd = x.id;
 		orderService.createBill(x).success(function(data){
 			alert("uspesno kreiran racun");
 			$scope.billDetails.id = data.order.id;
@@ -65,6 +66,28 @@ wordersController.controller('wordersController', function($scope, $location, $w
 	}
 	
 	$scope.editOrder = function(orderEdit){
+		orderService.checkAcceptedMeal(orderEdit).success(function(data){
+			if(data==0){
+				if(orderEdit.meals.length != 0){
+					alert("Cook already accepted meal, you can't change");
+					flag = true;
+				}
+			} else {
+				for(var i = 0; i < orderEdit.meals.length; i++){
+					nizM.push(orderEdit.meals[i].quantity);
+					MEALLL.push(orderEdit.meals[i].name);
+					li.push(orderEdit.meals[i].id);
+					
+					var ordiMeals = orderEdit.meals;
+			    	var strD = JSON.stringify(ordiMeals);
+			    	orderService.editOrderMEALS(strD).success(function (data){
+			    		alert("Order meals edited!");
+			    	});
+				}
+				
+				
+			}
+		});
 		var nizM = [];
 		var nizD = [];
 		var li = [];
@@ -72,11 +95,11 @@ wordersController.controller('wordersController', function($scope, $location, $w
 		var MEALLL = [];
 		var DRINKK = [];
 		
-		for(var i = 0; i < orderEdit.meals.length; i++){
+		/*for(var i = 0; i < orderEdit.meals.length; i++){
 			nizM.push(orderEdit.meals[i].quantity);
 			MEALLL.push(orderEdit.meals[i].name);
 			li.push(orderEdit.meals[i].id);
-		}
+		}*/
 		for(var i = 0; i < orderEdit.drinks.length; i++){
 			nizD.push(orderEdit.drinks[i].quantity);
 			DRINKK.push(orderEdit.drinks[i].name);
@@ -105,11 +128,11 @@ wordersController.controller('wordersController', function($scope, $location, $w
     		alert("Order drinks edited!");
     	});	
     	
-    	var ordiMeals = orderEdit.meals;
+    	/*var ordiMeals = orderEdit.meals;
     	var strD = JSON.stringify(ordiMeals);
     	orderService.editOrderMEALS(strD).success(function (data){
     		alert("Order meals edited!");
-    	});	
+    	});*/	
     	
 	} 
 	

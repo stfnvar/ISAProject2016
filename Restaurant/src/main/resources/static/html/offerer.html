@@ -1,0 +1,246 @@
+<div ng-cloak ng-controller="offererController">
+
+	<ul>
+		<li style="float: right"><a class="logout"
+			ng-click="OdjavaFunc()" href="#">LOGOUT</a></li>
+		<li style="float: right"><a class="active" href="#offerer">{{info.name}}</a></li>
+	</ul>
+
+
+	<div class="container" ng-show="showProfile" ng-hide="showChange">
+		<div ui-calendar="uiConfig.calendar" class="span8 calendar"
+			ng-model="eventSources"></div>
+		<div class="row">
+			<div class="col-md-5  toppad  pull-right col-md-offset-3 "></div>
+			<div
+				class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xs-offset-0 col-sm-offset-0 col-md-offset-2 col-lg-offset-1 toppad">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h3 class="panel-title">Profile Overview</h3>
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class=" col-md-12 col-lg-12 ">
+								<table class="table table-user-information">
+									<tbody>
+										<tr>
+											<td colspan="3" class="table-headlines">Basic info</td>
+										</tr>
+										<tr>
+											<td>Name</td>
+											<td>{{info.name}}</td>
+											<td><a href ng-click="refreshName()">Edit</a></td>
+										</tr>
+										<tr ng-show="editName">
+											<td colspan="3">
+												<div class=" col-md-9 col-lg-9 " id="divEditName">
+													<form class="form-horizontal">
+														<fieldset>
+															<div class="control-group">
+																<label class="control-label" for="editName">New
+																	name</label>
+																<div class="controls">
+																	<input id="editName" name="editName" type="text"
+																		placeholder="" class="input-xlarge" required=""
+																		ng-model="infoEditing.name">
+																</div>
+															</div>
+															<!-- Button (Double) -->
+															<div class="control-group">
+																<label class="control-label" for="buttonSaveName"></label>
+																<div class="row">
+																	<button id="buttonSaveName" name="buttonSaveName"
+																		class="btn btn-primary" ng-click="saveName()">Save</button>
+																	<button id="buttonCancelName" name="buttonCancelName"
+																		class="btn btn-default" ng-click="refreshName()">Cancel</button>
+																</div>
+															</div>
+														</fieldset>
+													</form>
+
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td>Surname:</td>
+											<td>{{info.surname}}</td>
+											<td><a href ng-click="refreshSurname()">Edit</a></td>
+										</tr>
+										<tr ng-show="editSurname">
+											<td colspan="3">
+												<div class=" col-md-9 col-lg-9 " id="divEditSurname">
+													<form class="form-horizontal">
+														<fieldset>
+															<div class="control-group">
+																<label class="control-label" for="editSurname">New
+																	surname</label>
+																<div class="controls">
+																	<input id="editSurname" name="surname" type="text"
+																		placeholder="" class="input-xlarge" required=""
+																		ng-model="infoEditing.surname">
+																</div>
+															</div>
+															<!-- Button (Double) -->
+															<div class="control-group">
+																<label class="control-label" for="buttonSaveSurname"></label>
+																<div class="row">
+																	<button id="buttonSaveSurname" name="buttonSaveSurname"
+																		class="btn btn-primary" ng-click="saveSurname()">Save</button>
+																	<button id="buttonCancelSurname"
+																		name="buttonCancelSurname" class="btn btn-default"
+																		ng-click="refreshSurname()">Cancel</button>
+																</div>
+															</div>
+														</fieldset>
+													</form>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td colspan="3"><a href ng-click="applyProfileChanges()"
+												class="btn btn-primary">Apply Changes</a>
+										</tr>
+										<tr>
+											<td colspan="3" class="table-headlines">Security
+												settings</td>
+										</tr>
+										<tr>
+											<td>Password:</td>
+											<td>Hidden Propery</td>
+											<td><a href ng-click="editPassword = !editPassword">Edit</a></td>
+										</tr>
+										<tr ng-show="editPassword">
+											<td colspan="3">
+												<div class=" col-md-9 col-lg-9 " id="divEditSurname">
+													<form class="form-horizontal" name="passwordForm">
+														<fieldset>
+															<div class="control-group">
+																<label class="control-label" for="editPassword">Old
+																	password</label>
+																<div class="controls">
+																	<input id="editPassword" name="password"
+																		type="password" placeholder="" class="input-xlarge"
+																		required="" ng-model="pass.op">
+																</div>
+																</br> <label class="control-label" for="editPasswordNew">New
+																	password</label>
+																<div class="controls">
+																	<input id="editPasswordNew" name="passwordNew"
+																		type="password" placeholder="" required=""
+																		ng-model="pass.np" ng-minlength="8" />
+																	<div ng-messages="passwordForm.passwordNew.$error">
+																		<p ng-message="minlength">Minimum 8 characters</p>
+																	</div>
+																</div>
+
+																<label class="control-label"
+																	for="editPasswordNewConfirm">Confirm password</label>
+																<div class="controls">
+																	<input id="editPasswordNewConfirm"
+																		name="passwordNewConfirm" type="password"
+																		placeholder="" class="input-xlarge" required=""
+																		ng-model="pass.cp" ng-minlength="8" />
+																</div>
+
+															</div>
+															<div class="control-group">
+																<label class="control-label" for="buttonSavePassword"></label>
+																<div class="row">
+																	<button id="buttonSavePassword"
+																		name="buttonSavePassword" class="btn btn-primary"
+																		ng-click="changePassword()" ng-disabled="clear()">Confirm
+																		change</button>
+																</div>
+																<p ng-show="changeStatus == 1"
+																	ng-hide="changeStatus != 1">Successfull change!</p>
+																<p ng-show="changeStatus == 2"
+																	ng-hide="changeStatus != 2">Previous password is
+																	invalid!</p>
+																<p ng-show="changeStatus == 3"
+																	ng-hide="changeStatus != 3">New password and
+																	confirmation don't match!</p>
+																<p ng-show="changeStatus == 4"
+																	ng-hide="changeStatus != 4">Password is minimum 8
+																	characters!</p>
+															</div>
+														</fieldset>
+													</form>
+												</div>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="container" style="border: 1px solid #cecece;">
+				<h1>
+					<i class="fa fa-shopping-cart"></i> Announcements <small></small> <input
+						id="mealIdInfo" type="hidden" />
+				</h1>
+				<hr>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Announcement</th>
+							<th>Restaurant manager</th>
+							<th>Contact email</th>
+							<th>Start</th>
+							<th>End</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-click="openModal(meal)" ng-repeat="an in ans"
+							class="rmMenuModal">
+							<td>{{an.id}}</td>
+							<td>{{an.restaurantManager.name}}</td>
+							<td>{{an.restaurantManager.email}}</td>
+							<td>{{an.starts}}</td>
+							<td>{{an.ends}}</td>
+							<td><input type="number" ng-model="an.price"></td>
+							<td><input type="button" ng-click="bid(an)" value="Bid offer" class="btn btn-default"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div class="container" style="border: 1px solid #cecece;">
+				<h1>
+					<i class="fa fa-shopping-cart"></i> Offers <small></small> <input
+						id="mealIdInfo" type="hidden" />
+				</h1>
+				<hr>
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Restaurant manager</th>
+							<th>Restaurant</th>
+							<th>Price offered</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-click="openModal(meal)" ng-repeat="of in ofs"
+							class="rmMenuModal">
+							<td>{{of.announcement.id}}</td>
+							<td>{{of.announcement.restaurant_manager.name}}</td>
+							<td>{{of.announcement.restaurant_manager.restaurant.name}}</td>
+							<td>{{of.price}}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="container" ng-show="showChange" ng-hide="showProfile">
+		<h2>You must set your password the first time you log in!</h2>
+		<form validate class="simple-form">
+			<input required="required" type="password" ng-model="firstPassword">
+			<input type="submit" ng-click="firstChange()">
+		</form>
+	</div>
+</div>

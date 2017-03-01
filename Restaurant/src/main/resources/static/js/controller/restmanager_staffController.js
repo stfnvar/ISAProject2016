@@ -164,7 +164,7 @@ restmanager_staffController.controller('restmanager_staffController', function(
 			wearSize : w.wearSize,
 			birthDate : w.birthDate,
 			email : w.email,
-			password : w.password,
+			password : w.passwgord,
 			restaurant : {
 				id : $scope.info.restaurant.id
 			},
@@ -181,6 +181,7 @@ restmanager_staffController.controller('restmanager_staffController', function(
 	}
 
 	$scope.createC = function(c) {
+		var uloga = "unknown";
 		var cook = {
 			username : c.email,
 			name : c.name,
@@ -190,11 +191,12 @@ restmanager_staffController.controller('restmanager_staffController', function(
 			birthDate : c.birthDate,
 			email : c.email,
 			password : c.password,
-			uloga : c.type,
+			uloga : uloga,
 			restaurant : {
 				id : $scope.info.restaurant.id
 			},
-			type : 0
+			type : 0,
+			typeC : c.typeC
 		}
 
 		var json = JSON.stringify(cook);

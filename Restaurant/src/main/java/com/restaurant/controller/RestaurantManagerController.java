@@ -1,6 +1,5 @@
 package com.restaurant.controller;
 
-
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -20,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,24 +28,36 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.restaurant.miscel.MessageWithObj;
+import com.restaurant.miscel.SendOfferMail;
 import com.restaurant.model.Administrator;
+import com.restaurant.model.Announcement;
 import com.restaurant.model.Bartender;
 import com.restaurant.model.Cook;
 import com.restaurant.model.Drink;
 import com.restaurant.model.DrinkCard;
+import com.restaurant.model.Grocery;
 import com.restaurant.model.Meal;
 import com.restaurant.model.Menu;
+import com.restaurant.model.Offer;
+import com.restaurant.model.Offerer;
 import com.restaurant.model.Person;
 import com.restaurant.model.Restaurant;
 import com.restaurant.model.RestaurantManager;
 import com.restaurant.model.RestaurantSegment;
 import com.restaurant.model.Table;
 import com.restaurant.model.Waiter;
+import com.restaurant.model.WantedItems;
 import com.restaurant.model.Worker;
+import com.restaurant.model.WorkerType;
 import com.restaurant.model.WorkingSchedule;
 import com.restaurant.service.AdminServiceImpl;
+import com.restaurant.service.AnnouncementServiceImpl;
+import com.restaurant.service.GroceryServiceImpl;
+import com.restaurant.service.OfferServiceImpl;
+import com.restaurant.service.OffererServiceImpl;
 import com.restaurant.service.PersonServiceImpl;
 import com.restaurant.service.RestaurantManagerServiceImpl;
+import com.restaurant.service.WantedItemsServiceImpl;
 
 @RestController
 @Controller
@@ -60,6 +72,21 @@ public class RestaurantManagerController {
 
 	@Autowired
 	private AdminServiceImpl adminServiceImpl;
+
+	@Autowired
+	private OffererServiceImpl offererServiceImpl;
+
+	@Autowired
+	private GroceryServiceImpl groceryServiceImpl;
+
+	@Autowired
+	private AnnouncementServiceImpl announcementServiceImpl;
+
+	@Autowired
+	private WantedItemsServiceImpl wantedItemsServiceImpl;
+
+	@Autowired
+	private OfferServiceImpl offerServiceImpl;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/menu")
 	@ResponseBody
@@ -329,6 +356,7 @@ public class RestaurantManagerController {
 			RestaurantManager rm = (RestaurantManager) req.getSession().getAttribute("guest");
 			if (rm.getRestaurant().getId() == cook.getRestaurant().getId()) {
 				if (personServiceImpl.findOneByEmail(cook.getEmail()) == null) {
+					cook.setType(WorkerType.COOK);
 					restaurantManagerServiceImpl.addCook(cook);
 					return new MessageWithObj("Created", true, null);
 				}
@@ -346,6 +374,7 @@ public class RestaurantManagerController {
 			RestaurantManager rm = (RestaurantManager) req.getSession().getAttribute("guest");
 			if (waiter.getRestaurant().getId() == rm.getRestaurant().getId()) {
 				if (personServiceImpl.findOneByEmail(waiter.getEmail()) == null) {
+					waiter.setType(WorkerType.WAITER);
 					restaurantManagerServiceImpl.addWaiter(waiter);
 					return new MessageWithObj("Created", true, null);
 				}
@@ -363,6 +392,7 @@ public class RestaurantManagerController {
 			RestaurantManager rm = (RestaurantManager) req.getSession().getAttribute("guest");
 			if (bartender.getRestaurant().getId() == rm.getRestaurant().getId()) {
 				if (personServiceImpl.findOneByEmail(bartender.getEmail()) == null) {
+					bartender.setType(WorkerType.BARTENDER);
 					restaurantManagerServiceImpl.addBartender(bartender);
 					return new MessageWithObj("Created", true, null);
 				}
@@ -372,10 +402,9 @@ public class RestaurantManagerController {
 		}
 		return new MessageWithObj("Unauthorized attempt", false, null);
 	}
-	
-	
+
 	@Transactional
-	@RequestMapping(method = RequestMethod.POST, value="/removeWorker", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method = RequestMethod.POST, value = "/removeWorker", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public MessageWithObj removeWorker(@RequestBody Cook cook, HttpServletRequest req) {
 		if (req.getSession().getAttribute("guest") instanceof RestaurantManager) {
 			RestaurantManager rm = (RestaurantManager) req.getSession().getAttribute("guest");
@@ -389,7 +418,7 @@ public class RestaurantManagerController {
 			return new MessageWithObj("Unauthorized attempt", false, null);
 		}
 		return new MessageWithObj("Unauthorized attempt", false, null);
-	}	
+	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/getOnDutyDay", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Set<WorkingSchedule>> getOnDutyDay(@RequestBody String s, HttpServletRequest req) {
@@ -417,7 +446,7 @@ public class RestaurantManagerController {
 	public MessageWithObj removeAdmin(HttpServletRequest req, @RequestBody Administrator admin) {
 		if (req.getSession().getAttribute("guest") instanceof Administrator) {
 			Administrator aa = (Administrator) req.getSession().getAttribute("guest");
-			if (aa.isSupreme() && (aa.getId() != admin.getId()) ) {
+			if (aa.isSupreme() && (aa.getId() != admin.getId())) {
 				restaurantManagerServiceImpl.removeAdmin(admin);
 				return new MessageWithObj("Removed", true, null);
 			}
@@ -583,9 +612,9 @@ public class RestaurantManagerController {
 	@RequestMapping(method = RequestMethod.POST, value = "/addSchedule", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public MessageWithObj addSchedule(@RequestBody WorkingSchedule ws, HttpServletRequest req) {
 		if (req.getSession().getAttribute("guest") instanceof RestaurantManager) {
-			if(ws.getStart().before(ws.getEnd())){
-			restaurantManagerServiceImpl.saveSchedule(ws);
-			return new MessageWithObj("Saved", true, null);
+			if (ws.getStart().before(ws.getEnd())) {
+				restaurantManagerServiceImpl.saveSchedule(ws);
+				return new MessageWithObj("Saved", true, null);
 			}
 			return new MessageWithObj("Starting date must be before ending date", false, null);
 		}
@@ -600,6 +629,144 @@ public class RestaurantManagerController {
 					HttpStatus.OK);
 		}
 		return new ResponseEntity<List<Worker>>(HttpStatus.UNAUTHORIZED);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/getOfferers")
+	public ResponseEntity<List<Offerer>> getOfferers(HttpServletRequest req) {
+		if (req.getSession().getAttribute("guest") instanceof RestaurantManager) {
+			return new ResponseEntity<List<Offerer>>(offererServiceImpl.getOfferers(), HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Offerer>>(HttpStatus.UNAUTHORIZED);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/registerOfferer", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public MessageWithObj registerOfferer(@RequestBody Offerer of, HttpServletRequest req) {
+		if (req.getSession().getAttribute("guest") instanceof RestaurantManager) {
+			if (personServiceImpl.findOneByEmail(of.getEmail()) == null) {
+				of.setFirstTime(true);
+				offererServiceImpl.addOfferer(of);
+				return new MessageWithObj("OK", true, null);
+			} else {
+				return new MessageWithObj("EMAIL EXISTS", true, null);
+			}
+		}
+		return new MessageWithObj("BAD", false, null);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/getGroceries")
+	public ResponseEntity<List<Grocery>> getGroceries(HttpServletRequest req) {
+		if (req.getSession().getAttribute("guest") instanceof RestaurantManager) {
+			return new ResponseEntity<List<Grocery>>(groceryServiceImpl.getAllGroceries(), HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Grocery>>(HttpStatus.UNAUTHORIZED);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/addGrocery", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public MessageWithObj addAnnoun(@RequestBody Grocery g, HttpServletRequest req) {
+		if (req.getSession().getAttribute("guest") instanceof RestaurantManager) {
+			Grocery gr = groceryServiceImpl.addGrocery(g);
+			return new MessageWithObj("uspesno", true, gr);
+		}
+		return new MessageWithObj("neuspesno", false, null);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/addAnnoun", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public MessageWithObj getAnnoun(@RequestBody Announcement a, HttpServletRequest req) {
+		if (req.getSession().getAttribute("guest") instanceof RestaurantManager) {
+			RestaurantManager rm = (RestaurantManager) req.getSession().getAttribute("guest");
+			a.setRestaurantManager(rm);
+			Announcement aa = announcementServiceImpl.addOne(a);
+			return new MessageWithObj("uspesno", true, aa);
+		}
+		return new MessageWithObj("neuspesno", false, null);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/getAnnoun")
+	public ResponseEntity<List<Announcement>> getAnnoun(HttpServletRequest req) {
+		if (req.getSession().getAttribute("guest") instanceof RestaurantManager) {
+			List<Announcement> rm = announcementServiceImpl.getAllAnnouncements();
+			return new ResponseEntity<List<Announcement>>(rm, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Announcement>>(HttpStatus.UNAUTHORIZED);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/getMyAnnoun")
+	public ResponseEntity<Set<Announcement>> getMyAnnoun(HttpServletRequest req) {
+		if (req.getSession().getAttribute("guest") instanceof RestaurantManager) {
+			RestaurantManager rma = (RestaurantManager) req.getSession().getAttribute("guest");
+			Set<Announcement> rm = announcementServiceImpl.getAnnouncementRestaurantManager(rma.getId());
+			return new ResponseEntity<Set<Announcement>>(rm, HttpStatus.OK);
+		}
+		return new ResponseEntity<Set<Announcement>>(HttpStatus.UNAUTHORIZED);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/getOffersForAnnoun", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Offer>> getOffersFroAnnoun(HttpServletRequest req, @RequestBody Announcement aa) {
+		if (req.getSession().getAttribute("guest") instanceof RestaurantManager) {
+			List<Offer> ofs = offerServiceImpl.getAllOffersForAnnouncement(aa.getId());
+			return new ResponseEntity<List<Offer>>(ofs, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Offer>>(HttpStatus.UNAUTHORIZED);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/acceptOffer", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Offer>> acceptOffer(HttpServletRequest req, @RequestBody Offer aa) {
+		if (req.getSession().getAttribute("guest") instanceof RestaurantManager) {
+			List<Offer> ofs = offerServiceImpl.getAllOffersForAnnouncement(aa.getAnnouncement().getId());
+			aa.setAccepted(true);
+			for (int i = 0; i < ofs.size(); i++) {
+				if (ofs.get(i).getId() != aa.getId()) {
+					SendOfferMail som = new SendOfferMail(aa.getOfferer().getEmail(), "noLink",
+							"vasa ponuda je odbijena", aa.getAnnouncement().getId().toString());
+				} else {
+					SendOfferMail som = new SendOfferMail(aa.getOfferer().getEmail(), "noLink",
+							"vasa ponuda je prihvacena", aa.getAnnouncement().getId().toString());
+				}
+			}
+			return new ResponseEntity<List<Offer>>(ofs, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Offer>>(HttpStatus.UNAUTHORIZED);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/getOffers")
+	public ResponseEntity<List<Offer>> getOffers(HttpServletRequest req) {
+		if (req.getSession().getAttribute("guest") instanceof RestaurantManager) {
+			RestaurantManager rm = (RestaurantManager) req.getSession().getAttribute("guest");
+			List<Offer> ofs = offerServiceImpl.getAllRelevantOffersForRestaurant(rm.getRestaurant().getId());
+			return new ResponseEntity<List<Offer>>(ofs, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Offer>>(HttpStatus.UNAUTHORIZED);
+	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/drinksForAnnoun")
+	public ResponseEntity<List<Drink>> getOffersFroAnnoun(HttpServletRequest req) {
+		if (req.getSession().getAttribute("guest") instanceof RestaurantManager) {
+			List<Drink> ofs = restaurantManagerServiceImpl.getAllDrinks();
+			return new ResponseEntity<List<Drink>>(ofs, HttpStatus.OK);
+		}
+		return new ResponseEntity<List<Drink>>(HttpStatus.UNAUTHORIZED);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/addWantedItems/{id}")
+	public MessageWithObj addWantedItems(@PathVariable("id") String id, HttpServletRequest req,
+			@RequestBody WantedItems wi) {
+		if (req.getSession().getAttribute("guest") instanceof RestaurantManager) {
+			System.out.println(wi.getAnnouncement().getId());
+			wi.getAnnouncement().setId(Long.parseLong(id));
+			wantedItemsServiceImpl.save(wi);
+			return new MessageWithObj("uspesno", true, null);
+		}
+		return new MessageWithObj("neuspesno", false, null);
+	}
+
+	@RequestMapping(method = RequestMethod.POST, value = "/getWantedItemsForAnn", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<WantedItems>> getWantedItems(@RequestBody Announcement a, HttpServletRequest req) {
+		if (req.getSession().getAttribute("guest") instanceof RestaurantManager) {
+			return new ResponseEntity<List<WantedItems>>(wantedItemsServiceImpl.getAllForAnnouncement(a.getId()),
+					HttpStatus.OK);
+
+		}
+		return new ResponseEntity<List<WantedItems>>(HttpStatus.UNAUTHORIZED);
 	}
 
 }

@@ -92,7 +92,9 @@ orderService.factory('orderService', function($http) {
 		return $http.post('/orderedDrinks/addToOrder', m);
 	}
 	
-	
+	temp.checkAcceptedMeal = function(order){
+		return $http.post('/orderedMeals/checkAcceptedMeal', order);
+	}
 	
 	return temp;
 })

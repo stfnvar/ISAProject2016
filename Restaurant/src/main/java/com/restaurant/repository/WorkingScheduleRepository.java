@@ -13,5 +13,6 @@ public interface WorkingScheduleRepository extends JpaRepository<WorkingSchedule
 	@Query("select dutified from WorkingSchedule as dutified where date(start) = date(?1)")
 	Set<WorkingSchedule> getOnDutyDay(Date startDay);
 	
-	Set<WorkingSchedule> findByStartAfterAndEndBefore(Date start, Date end);
+	Set<WorkingSchedule> findByStartBeforeAndEndAfter(Date start, Date end);
+
 }
