@@ -61,9 +61,9 @@ insert into menu(restaurant_id) values (4);
 insert into menu(restaurant_id) values (5);
 
 --Podaci za meni restorana id = 1
-insert into meal(name, description, price, menu_id) values ("Sarma", "MEAT", 400, 1);
-insert into meal(name, description, price, menu_id) values ("Supa", "VEGAN", 200, 1);
-insert into meal(name, description, price, menu_id) values ("Кumpijeri", "MEAT", 100, 1);
+insert into meal(name, description, price, menu_id, typeM) values ("Sarma", "MEAT", 400, 1, 1);
+insert into meal(name, description, price, menu_id, typeM) values ("Supa", "VEGAN", 200, 1, 1);
+insert into meal(name, description, price, menu_id, typeM) values ("Кumpijeri", "MEAT", 100, 1, 2);
 
 --Kartice pica za restorane
 insert into drink_card(restaurant_id) values (1);
@@ -86,8 +86,8 @@ insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wea
 insert into worker(shift, type, working_hours, id, restaurant_id, shoe_size, wear_size, birth_date,first_time_changepw) values(3, 1, 12, 12, 1, '41', '46', '1969-11-11 00:00:00', 0);
 
 --Podaci za kuvare
-insert into cook (uloga, id) values ('pekac', 7);
-insert into cook (uloga, id) values ('sekac', 8);
+insert into cook (uloga, id, typeC) values ('pekac', 7, 1);
+insert into cook (uloga, id, typeC) values ('sekac', 8, 2);
 
 --Podaci za kuvare
 insert into waiter (id) values (9);

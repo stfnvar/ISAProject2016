@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.restaurant.model.CookType;
 import com.restaurant.model.OrderedMeal;
 import com.restaurant.repository.OrderedMealRepository;
 
@@ -39,9 +40,9 @@ public class OrderedMealServiceImpl implements OrderedMealService {
 	}
 
 	@Override
-	public ArrayList<OrderedMeal> findAllOrderedMeals(Long id) {
+	public ArrayList<OrderedMeal> findAllOrderedMeals(Long id, CookType typeC) {
 		// TODO Auto-generated method stub
-		return orderedMealRepository.findAll(id);
+		return orderedMealRepository.findAll(id, typeC);
 	}
 
 	@Override

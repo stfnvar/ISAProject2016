@@ -1,40 +1,46 @@
 <div ng-cloak ng-controller="waiterController">
-<div ng-cloak ng-controller="wordersController">
+	<div ng-cloak ng-controller="wordersController">
 
-<ul id="waiterNavigationBar">
-  <li><a href="#/wprofile">Profile</a></li>
-  <li><a href="#wschedule">Schedule</a></li>
-  <li><a href="#wtables">Tables</a></li> 
-  <li><a href="#/worders">Orders</a></li> 
-  <li style="float:right"><a class="logout" ng-click="OdjavaFunc()" href="#">LOGOUT</a></li>
-  <li style="float:right"><a class="active" href="#">{{email}}</a></li>
-</ul>
+		<ul id="waiterNavigationBar">
+			<li><a href="#/wprofile">Profile</a></li>
+			<li><a href="#wschedule">Schedule</a></li>
+			<li><a href="#wtables">Tables</a></li>
+			<li><a href="#/worders">Orders</a></li>
+			<li style="float: right"><a class="logout"
+				ng-click="OdjavaFunc()" href="#">LOGOUT</a></li>
+			<li style="float: right"><a class="active" href="#">{{email}}</a></li>
+		</ul>
 
-<div class="container">
+		<div class="container">
 
- 	<table id="orders"  class="table">
-    	<thead>
-    	  <tr>
-        	<th>Order id</th>
-	        <th>Table</th>
-      	 </tr>
-    	</thead>
-    	<tbody>
-      	  <tr ng-repeat="x in allOrders">
-	        <td>{{x.id}}</td>
-	       	<td>{{x.table.id}}</td>
-	       	<td><button type="button" class="btn btn-primary btn-xs" ng-click="details(x)">Details</button></td>      
-	        <td><button type="button" class="btn btn-primary btn-xs" ng-click="edit(x)">Edit</button></td>
-     	    <td><button type="button" class="btn btn-primary btn-xs" ng-click="createBill(x)">Create bill</button></td>      
-      	</tr>
-  
-    	</tbody>
-  	</table>
-</div>
+			<table id="orders" class="table">
+				<thead>
+					<tr>
+						<th>Order id</th>
+						<th>Table</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="x in allOrders">
+						<td>{{x.id}}</td>
+						<td>{{x.table.id}}</td>
+						<td><button type="button" class="btn btn-primary btn-xs"
+								ng-click="details(x)">Details</button></td>
+						<td><button type="button" class="btn btn-primary btn-xs"
+								ng-click="edit(x)">Edit</button></td>
+						<td><button type="button" class="btn btn-primary btn-xs"
+								ng-click="createBill(x)">Create bill</button></td>
+					</tr>
 
-<div class="col-md-14 text-center"> 
+				</tbody>
+			</table>
+		</div>
 
-<button class="btn btn-primary btn-lg" ng-click="waiterNewOrder()" type="button" name="waiterNewOrder" id="waiterNewOrder" >New order </button>
+		<div class="col-md-14 text-center">
+
+			<button class="btn btn-primary btn-lg" ng-click="waiterNewOrder()"
+				type="button" name="waiterNewOrder" id="waiterNewOrder">New
+				order</button>
 
 
 			<md-dialog class="modal" id="detailsModal" tabindex="-1"
@@ -56,27 +62,27 @@
 							<p ng-bind="orderDetails.id"></p>
 							<h4>Table ID</h4>
 							<p ng-bind="orderDetails.table.id"></p>
-							
+
 							<h4>Drinks</h4>
 							<div ng-repeat="drinkDetails in orderDetails.drinks">
 								<div>Name: {{drinkDetails.drink.name}}</div>
 								<div>Price: {{drinkDetails.drink.price}}</div>
-								<div>Quantity: {{drinkDetails.quantity}}</div>								
+								<div>Quantity: {{drinkDetails.quantity}}</div>
 							</div>
-							
+
 							<h4>Meals</h4>
 							<div ng-repeat="mealDetails in orderDetails.meals">
 								<div>Name: {{mealDetails.meal.name}}</div>
 								<div>Price: {{mealDetails.meal.price}}</div>
-								<div>Quantity: {{mealDetails.quantity}}</div>															
+								<div>Quantity: {{mealDetails.quantity}}</div>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
 			</md-dialog>
-			
-			
+
+
 			<md-dialog class="modal" id="editModal" tabindex="-1"
 				aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -96,27 +102,55 @@
 							<p ng-bind="orderEdit.id"></p>
 							<h4>Table ID</h4>
 							<p ng-bind="orderEdit.table.id"></p>
-							
+
 							<h4>Drinks</h4>
 							<div ng-repeat="drinkEdit in orderEdit.drinks">
-								<div>Name: <input ng-model="drinkEdit.drink.name"></div>
-								<div>Quantity: <input ng-model="drinkEdit.quantity"></div>
+								<div>
+									Name: <input ng-model="drinkEdit.drink.name">
+								</div>
+								<div>
+									Quantity: <input ng-model="drinkEdit.quantity">
+								</div>
 							</div>
-							
+
 							<h4>Meals</h4>
 							<div ng-repeat="mealEdit in orderEdit.meals">
-								<div>Name: <input ng-model="mealEdit.meal.name"></div>
-								<div>Quantity: <input ng-model="mealEdit.quantity"></div>
+								<div>
+									Name: <input ng-model="mealEdit.meal.name">
+								</div>
+								<div>
+									Quantity: <input ng-model="mealEdit.quantity">
+								</div>
 							</div>
-							<input type="submit" class="btn btn-default pull-right"
-    						   ng-click="editOrder(orderEdit)" value="Modify" />
+							<input type="submit" class="btn btn-default pulled-right"
+								ng-click="editOrder(orderEdit)" value="Modify" />
+							<div class="modal-body">
+								<div class="row">
+									<div class="col-md-5">
+										<p>Drinks</p>
+										<select ng-model="drinksToAdd"
+											ng-options="o.name for o in allDrinks"></select> <input
+											type="number" ng-model="dtaQuantity" /> <input
+											value="Add drink" type="button" class="btn btn-default"
+											ng-click="addDri(o, dtaQuantity)" /> -
+									</div>
+									<div class="col-md-5">
+										<p>Meals</p>
+										<select ng-model="mealsToAdd"
+											ng-options="o.name for o in allMeals"></select> <input
+											type="number" ng-model="mtaQuantity" /> <input
+											value="Add meal" type="button" class="btn btn-default"
+											ng-click="addMea(o, mtaQuantity)" />
+									</div>
+								</div>
+							</div>
 						</form>
 					</div>
 				</div>
 			</div>
 			</md-dialog>
-			
-			
+
+
 			<md-dialog class="modal" id="createBillModal" tabindex="-1"
 				aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -136,22 +170,22 @@
 							<p ng-bind="billDetails.id"></p>
 							<h4>Table ID</h4>
 							<p ng-bind="billDetails.table.id"></p>
-							
+
 							<h4>Total price</h4>
 							<p ng-bind="billDetails.totalPrice"></p>
-							
+
 							<h4>Drinks</h4>
 							<div ng-repeat="drinkDetails in billDetails.drinks">
 								<div>Name: {{drinkDetails.drink.name}}</div>
 								<div>Price: {{drinkDetails.drink.price}}</div>
-								<div>Quantity: {{drinkDetails.quantity}}</div>								
+								<div>Quantity: {{drinkDetails.quantity}}</div>
 							</div>
-							
+
 							<h4>Meals</h4>
 							<div ng-repeat="mealDetails in billDetails.meals">
 								<div>Name: {{mealDetails.meal.name}}</div>
 								<div>Price: {{mealDetails.meal.price}}</div>
-								<div>Quantity: {{mealDetails.quantity}}</div>															
+								<div>Quantity: {{mealDetails.quantity}}</div>
 							</div>
 						</form>
 					</div>

@@ -1,8 +1,17 @@
 package com.restaurant.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Set;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +23,7 @@ import com.restaurant.miscel.MessageWithObj;
 import com.restaurant.model.Cook;
 import com.restaurant.model.Person;
 import com.restaurant.model.Waiter;
+import com.restaurant.model.WorkingSchedule;
 import com.restaurant.service.CookServiceImpl;
 import com.restaurant.service.PersonServiceImpl;
 
@@ -26,6 +36,29 @@ public class CookController {
 	
 	@Autowired
 	PersonServiceImpl personServiceImpl;
+	
+	public static Date parseDate(String date) {
+		try {
+			DateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+			return f.parse(date);
+		} catch (ParseException e) {
+			return null;
+		}
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/getOnDutyDay", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Set<WorkingSchedule>> getOnDutyDay(@RequestBody String s, HttpServletRequest req) {
+		
+		Cook w = (Cook) req.getSession().getAttribute("guest");
+		
+		s = s.replace("\"", "");
+		Date date = parseDate(s);
+		if (req.getSession().getAttribute("guest") instanceof Cook) {
+			return new ResponseEntity<Set<WorkingSchedule>>(cookServiceImpl.getOnDutyDay(date, w.getId()),
+					HttpStatus.OK);
+		}
+		return new ResponseEntity<Set<WorkingSchedule>>(HttpStatus.UNAUTHORIZED);
+	}
 	
 	@RequestMapping(value = "/checkFirstTime/{id}", method = RequestMethod.GET)
 	public Cook checkFirstTime(@PathVariable long id){

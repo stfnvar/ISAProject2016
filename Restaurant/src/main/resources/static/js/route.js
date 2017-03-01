@@ -56,6 +56,12 @@ app.config(function($routeProvider) {
     }).when("/bschedule",{
     	templateUrl : "html/bschedule.html"
     }).when("/wschedule",{
-    	templateUrl : "html/wschedule.html"
+    	templateUrl : "html/wschedule.html" 
+    }).when("/cschedule",{
+    	templateUrl : "html/cschedule.html"
+    }).when("/wtables",{
+    	templateUrl : "html/wtables.html"
+    }).when("/historyOfVisits",{
+    	templateUrl : "html/historyOfVisits.html"
     });
 });

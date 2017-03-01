@@ -4,6 +4,41 @@ cookController.controller('cookController', function($scope, $location, $window,
 	
 	var cId;
 	
+	$('#calendar').fullCalendar({
+		dayClick : function(date, jsEvent, view) {
+			$('#workModal').modal("show");
+			var date = date;
+			$scope.date = date;
+			var json = JSON.stringify(date);
+			cookService.getOnDutyDay(json).success(function(data) {
+				$scope.onDuty = data;
+				if(data.length == null){
+					$scope.noDutified = 'No one on duty on this day!';
+				} else {
+					$scope.noDutified = '';
+				}
+			});
+		},
+		selectHelper : true,
+		selectable : true,
+		default : true,
+		/*
+		select: function(start, end, id, allDay) {
+			$('#workModal').modal("show");
+			var date = start;
+			var end = end;
+			$scope.date = date;
+			var st = JSON.stringify(date);
+			var en = JSON.stringify(end);
+			var d = st.concat(en);
+			restmanager_staffService.getOnDuty(d).success(function(data) {
+				$scope.onDuty = data;
+			});
+		}
+		*/
+
+	})
+	
 	cookService.whoIsLogged().success(function(data){
 		
 		if(data.obj != null){

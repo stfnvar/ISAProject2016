@@ -9,9 +9,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import com.restaurant.model.RestaurantSegment;
 import com.restaurant.model.Table;
 
 public interface TableRepository extends JpaRepository<Table, Long>{
+
+	@Query("select t from Table as t where t.restaurantSegment.id=?1")
+	ArrayList<Table> findTablesInRestaurantSegments(Long id);
 
 	@Query("select table from Table as table where id=?1")
 	Table findById(Long id);

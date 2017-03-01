@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -35,6 +36,9 @@ import com.restaurant.model.Order;
 import com.restaurant.model.OrderedDrink;
 import com.restaurant.model.OrderedMeal;
 import com.restaurant.model.Person;
+import com.restaurant.model.Rating;
+import com.restaurant.model.Restaurant;
+import com.restaurant.model.RestaurantManager;
 import com.restaurant.model.Table;
 import com.restaurant.model.Waiter;
 import com.restaurant.model.WorkingSchedule;
@@ -46,6 +50,9 @@ import com.restaurant.service.OrderServiceImpl;
 import com.restaurant.service.OrderedDrinkServiceImpl;
 import com.restaurant.service.OrderedMealServiceImpl;
 import com.restaurant.service.PersonServiceImpl;
+import com.restaurant.service.RatingServiceImpl;
+import com.restaurant.service.RestaurantManagerServiceImpl;
+import com.restaurant.service.RestaurantServiceImpl;
 import com.restaurant.service.TableServiceImpl;
 import com.restaurant.service.WaiterServiceImpl;
 import org.springframework.ui.Model;
@@ -80,6 +87,123 @@ public class WaiterController {
 	
 	@Autowired
 	BillServiceImpl billServiceImpl;
+	
+	@Autowired
+	RestaurantServiceImpl restaurantServiceImpl;
+	
+	@Autowired
+	RatingServiceImpl ratingServiceImpl;
+	
+	@Autowired
+	RestaurantManagerServiceImpl restaurantManagerServiceImpl;
+	
+	@RequestMapping(value = "/getMealRating", method = RequestMethod.POST)
+	public Double getMealRating(HttpServletRequest req, @RequestBody Restaurant restaurant){
+		
+		Set<Meal> meals = mealServiceImpl.findByRestaurant(restaurant.getId());
+		ArrayList<Meal> list = new ArrayList<Meal>();
+		
+		for (Meal w : meals) {
+			list.add(w);
+		}
+		System.out.println("OOO"+list.size());
+		if(list.isEmpty()){
+			return null;
+		}
+		
+		return restaurantManagerServiceImpl.getMealRating(list.get(0).getName().toLowerCase(), list.get(0).getId());
+	}
+	
+	@Transactional
+	@RequestMapping(value = "/giveRatingToMeal/{id}/{rating}", method = RequestMethod.POST)
+	public Double giveRatingToMeal(@PathVariable("id") long id, @PathVariable("rating") double rating, HttpServletRequest req){
+
+		System.out.println(id);
+		Set<Meal> meals = mealServiceImpl.findByRestaurant(id);
+		
+		ArrayList<Meal> list = new ArrayList<Meal>();
+		
+		for (Meal w : meals) {
+			list.add(w);
+		}
+		
+		if(list.isEmpty()){
+			return null;
+		}
+		
+		Rating r = new Rating();
+		r.setMeal(list.get(0));
+		r.setRating(rating);
+		ratingServiceImpl.save(r);
+		
+		return restaurantManagerServiceImpl.getMealRating(list.get(0).getName(), list.get(0).getId());
+	}
+	
+	@RequestMapping(value = "/getWaiterRating", method = RequestMethod.POST)
+	public Double getWaiterRating(HttpServletRequest req, @RequestBody Restaurant restaurant){
+		
+		Set<Waiter> waiters = restaurantManagerServiceImpl.getWaiters(restaurant.getId());
+		
+		ArrayList<Waiter> list = new ArrayList<Waiter>();
+		
+		for (Waiter w : waiters) {
+			list.add(w);
+		}
+		
+		if(list.isEmpty()){
+			return null;
+		}
+		
+		return restaurantManagerServiceImpl.getWaiterRating(list.get(0).getName(), list.get(0).getSurname(), list.get(0).getId());
+	}
+	
+	@Transactional
+	@RequestMapping(value = "/giveRatingToWaiter/{id}/{rating}", method = RequestMethod.POST)
+	public Double giveRatingToWaiter(@PathVariable("id") long id, @PathVariable("rating") double rating, HttpServletRequest req){
+
+		System.out.println(id);
+		Set<Waiter> waiters = restaurantManagerServiceImpl.getWaiters(id);
+		
+		ArrayList<Waiter> list = new ArrayList<Waiter>();
+		
+		for (Waiter w : waiters) {
+			list.add(w);
+		}
+		
+		if(list.isEmpty()){
+			return null;
+		}
+		
+		Rating r = new Rating();
+		r.setWaiter(list.get(0));
+		r.setRating(rating);
+		ratingServiceImpl.save(r);
+		
+		return restaurantManagerServiceImpl.getWaiterRating(list.get(0).getName(), list.get(0).getSurname(), list.get(0).getId());
+	}
+	
+	
+	@RequestMapping(value = "/getRestaurantRating", method = RequestMethod.POST)
+	public Double getRestaurantRating(HttpServletRequest req, @RequestBody Restaurant restaurant){
+		
+		return restaurantManagerServiceImpl.getRestaurantRating(restaurant.getId());
+	}
+	
+	@Transactional
+	@RequestMapping(value = "/giveRatingToRestaurant/{id}/{rating}", method = RequestMethod.POST)
+	public Double giveRatingToRestaurant(@PathVariable("id") long id, @PathVariable("rating") double rating, HttpServletRequest req){
+
+		Restaurant restaurant = restaurantServiceImpl.findOne(id);
+		
+		Rating r = new Rating();
+		r.setRestaurant(restaurant);
+		r.setRating(rating);
+		ratingServiceImpl.save(r);
+		
+		return restaurantManagerServiceImpl.getRestaurantRating(restaurant.getId());
+	}
+	
+	
 	
 	public static Date parseDate(String date) {
 		try {

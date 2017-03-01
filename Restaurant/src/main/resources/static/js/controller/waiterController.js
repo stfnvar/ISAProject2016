@@ -22,20 +22,6 @@ waiterController.controller('waiterController', function($scope, $location, $win
 		selectHelper : true,
 		selectable : true,
 		default : true,
-		/*
-		select: function(start, end, id, allDay) {
-			$('#workModal').modal("show");
-			var date = start;
-			var end = end;
-			$scope.date = date;
-			var st = JSON.stringify(date);
-			var en = JSON.stringify(end);
-			var d = st.concat(en);
-			restmanager_staffService.getOnDuty(d).success(function(data) {
-				$scope.onDuty = data;
-			});
-		}
-		*/
 
 	})
 	

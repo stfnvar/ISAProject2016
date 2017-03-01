@@ -1,5 +1,7 @@
 package com.restaurant.service;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,12 @@ public class MealServiceImpl implements MealService {
 	public Meal findByName(String name, Long id) {
 		// TODO Auto-generated method stub
 		return mealRepository.findByName(name, id);
+	}
+
+	@Override
+	public Set<Meal> findByRestaurant(Long id) {
+		// TODO Auto-generated method stub
+		return mealRepository.findByRestaurant(id);
 	}
 
 

@@ -14,6 +14,9 @@ public interface DrinkRepository extends JpaRepository<Drink, Long> {
 	@Query("select drinks from Drink as drinks where drink_card_id = ?1")
 	Set<Drink> findByDrinkCard_Id(Long id);
 	
+	@Query("select drinks from Drink as drinks where drinks.drinkCard.restaurant.id = ?1")
+	Set<Drink> findByRestaurant(Long id);
+	
 	@Modifying
 	@Query("delete from Drink where id = ?1")
 	void removeById(Long id);

@@ -16,4 +16,6 @@ var controller = angular.module('restaurantApp.controller', ['restaurantApp.regi
 															'restaurantApp.borderController',
 															'restaurantApp.wordersController',
 															'restaurantApp.cordersController',
+															'restaurantApp.wtablesController',
+															'restaurantApp.historyOfVisitsController',
 															]);

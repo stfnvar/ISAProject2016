@@ -7,4 +7,6 @@ public interface RestaurantService {
 
 	
 	List<Restaurant> getAllRestaurants();
+	
+	Restaurant findOne(Long id);
 }
