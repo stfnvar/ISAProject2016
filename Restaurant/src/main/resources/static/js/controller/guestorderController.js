@@ -1,10 +1,22 @@
-var orderController = angular.module('restaurantApp.orderController',[]);
+var guestorderController = angular.module('restaurantApp.guestorderController',[]);
 
-orderController.controller('orderController', function($scope, $location, $window,loginService, $compile, orderService){
+guestorderController.controller('guestorderController', function($scope, $location, $window, $compile,guestorderService){
 	
 	var drinkNumber;
 	var mealNumber;
 	
+	guestorderService.getStoloviRezervacije().success(function(data){
+		if(data.ok==true){
+			var stolovi = data.obj;
+			var len = stolovi.length;
+			
+			for(var i=0; i<len;i++){
+				$('#selectStolovi').append('<option value="'+stolovi[i]+'">'+stolovi[i]+'</option>');
+			}
+			
+		}
+	
+	});
 	
 	
 	
@@ -30,14 +42,6 @@ orderController.controller('orderController', function($scope, $location, $windo
 					+'<td><input ng-model="mealsquantity" type="number" id="mealsquantity""></td></tr>');
 		}
 	}
-	
-	
-	orderService.findAllTables().success(function(data){
-		$("#selectStolovi").append('<option value=""></option>');
-		for(var i = 0; i < data.length; i++)
-			$("#selectStolovi").append('<option value="'+ data[i].id + '">' + data[i].id + '</option>');
-	});
-	
 	
 	$scope.confirmOrder = function(){
 		//for(var i = 0; i < drinkNumber; i++){
@@ -86,13 +90,13 @@ orderController.controller('orderController', function($scope, $location, $windo
 	    	    	
     	var str = JSON.stringify(drinkMeal);
 		
-    	orderService.addOrder(str).success(function (data){
+    	guestorderService.addOrder(str).success(function (data){
     		alert("Order added!");
-    		
-    		
-    		$location.path('/worders');
+    		$location.path('/homepage');
     	});
     	
 	}
+	
+	
 	
 })

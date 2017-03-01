@@ -42,6 +42,7 @@ orderService.factory('orderService', function($http) {
 	temp.editOrderMEALS = function(ordiMeals){
 		return $http.post('/waiter/editOrderMeals', ordiMeals);
 	}
+
 	
 	
 	return temp;

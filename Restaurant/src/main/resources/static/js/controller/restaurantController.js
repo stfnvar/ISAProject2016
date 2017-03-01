@@ -5,23 +5,38 @@ restaurantController.controller('restaurantController', function($scope,$window,
 	//globalne promenljive za rezervaciju
 	var toReserveId='';
 	var toReserveName='';
-	
+	var reserveTables=[];
+	var invitedFriends=[];
 	restaurantService.whoIsLogged().success(function(data){
 		
 		if(data.obj != null){
 			
 			$scope.email=data.obj.email;
+			$scope.idlogged = data.obj.id;
 		}else{
 			$location.path('/login');
 		}
 	});
+	
+	restaurantService.myinv().success(function(data){
+		if(data.obj != null){
+			$scope.myinv = data.obj;
+			
+			$compile($('#initationTable'))($scope);
+		}
+		
+		
+		
+	});
+	
+	
 	
 	restaurantService.getAllRestaurants().success(function(data){
 		if(data.ok==true ){
 			
 			$scope.restaurants = data.obj;
 			
-		
+			
 			
 		}else
 		   $location.path('/error');
@@ -44,6 +59,31 @@ restaurantController.controller('restaurantController', function($scope,$window,
 		$compile($('#secondStep'))($scope);
 	}
 	
+	$scope.cancelInv=function(id){
+		restaurantService.cancelInv(id).success(function(){
+			alert('sucessful canceled invitation');
+			
+			$('input[data-iid='+id+']').remove();
+		});
+	}
+	$scope.acceptInv=function(id){
+		restaurantService.acceptInv(id).success(function(){
+			alert('sucessful accepted invitation');
+			
+			$('input[data-iid='+id+']').remove();
+			
+			
+		});
+	}
+	$scope.orderNow = function(fromid,start, end){
+		
+		restaurantService.getTablesForReservation(start, end, fromid).success(function(){
+			$location.path("/guestorder");
+		});
+	}
+	
+	
+	
 	$scope.go3step = function(){
 		if($('#datepicker').val() == '' || $('#duration').val()==''){
 			$('#error').text('Date or hour format error...');
@@ -58,18 +98,11 @@ restaurantController.controller('restaurantController', function($scope,$window,
 			var d = new Date(dateParts[0], dateParts[1]-1, dateParts[2], timeParts[0], timeParts[1], 0,0);
 			var dStart = d.getTime();
 			var dEnd = d.getTime()+$scope.hours*3600000;
-			
-			var intervalObj = {};
-			intervalObj.starts = dStart;
-			intervalObj.ends = dEnd;
-			
-			
+		
 			console.log(dStart);
 			console.log(dEnd);
 			
-			
-			var json = JSON.stringify(intervalObj);
-			console.log(json);
+		
 			
 			restaurantService.getAllDesks($scope.toReserveId).success(function(data){
 				var stolovi =data.obj;
@@ -79,17 +112,112 @@ restaurantController.controller('restaurantController', function($scope,$window,
 				for(var i=0; i<len; i++){
 					tables.append('<div data-sid='+stolovi[i].id+' ng-click=reserveTable('+stolovi[i].id+') class=square>'+stolovi[i].id+'<div>');
 				}
-				
+				$('#tablesContainer').append('<tr><td></td><td><input class="btn btn-info" type="button" value="confirm reservation and call friends" ng-click="callFriends()" id="callFriendsBtn"></td></tr>');
 				$compile($('#tablesContainer'))($scope);
 			});
 			
+			$scope.callFriends  =  function(){
+				
+				if(reserveTables.length!=0){
+				$('#tablesContainer').hide();
+				$('#callFriendsBtn').remove();
+				
+				$scope.tablesReserved = reserveTables;
+				
+				$('#thirdStep').hide();
+				$('#finalStep').show();
+				
+				var t = $('#datepicker').val();
+				var dateTimeParts = t.split('T');
+				var  timeParts = dateTimeParts[1].split(':');
+				var  dateParts = dateTimeParts[0].split('-');
+				console.log(dateTimeParts);
+				var d = new Date(dateParts[0], dateParts[1]-1, dateParts[2], timeParts[0], timeParts[1], 0,0);
+				var dStart = d.getTime();
+				var dEnd = d.getTime()+$scope.hours*3600000;
+				
+				
+				
+				
+				
+				restaurantService.reserveTables(dStart, dEnd, reserveTables, $scope.toReserveId).success(function(data){
+					alert('success reserved tables');
+				});
+				
+				
+				restaurantService.getFriends().success(function(data){
+					if(data.obj!=null){
+						$scope.friends = data.obj;
+					}
+					
+					$compile($("friendsBody"))($scope);
+				});
+			}else {
+				alert('You have to choose table(s)');
+			}
+				
 			
-			$scope.reserveTable = function(id){
-				alert('reservet this '+id)
 			}
 			
-			restaurantService.getAvailableDesks(dStart, dEnd, $scope.toReserveId).success(function(){
-				alert('zabranjeni stolovi');
+			
+			
+		
+				
+				$scope.invite = function(to){
+					
+					var t = $('#datepicker').val();
+					var dateTimeParts = t.split('T');
+					var  timeParts = dateTimeParts[1].split(':');
+					var  dateParts = dateTimeParts[0].split('-');
+					console.log(dateTimeParts);
+					var d = new Date(dateParts[0], dateParts[1]-1, dateParts[2], timeParts[0], timeParts[1], 0,0);
+					var dStart = d.getTime();
+					var dEnd = d.getTime()+$scope.hours*3600000;
+					
+					
+					//invitedFriends.push(to);
+					
+					restaurantService.invite(dStart,dEnd, to, $scope.toReserveId).success(function(){
+						
+						alert('success invite');
+						$('button[data-bid='+to+']').remove();
+						
+					});
+				}
+				
+				
+			
+			
+			$scope.reserveTable = function(id){
+				var arr = $scope.blockedTables;
+				
+				if(jQuery.inArray(id,arr) == -1 ){
+					
+					if(jQuery.inArray(id,reserveTables) == -1){
+						reserveTables.push(id);
+						
+						$('div[data-sid='+id+']').css("background", "green");
+					}else {
+						var index = reserveTables.indexOf(id);
+						reserveTables.splice(index,1);
+						if(reserveTables.length!=0){
+						
+						}else{
+							alert('Currently reserved 0 tables');
+						}
+						$('div[data-sid='+id+']').css("background", "tomato");
+					}
+					
+				}else{
+				
+					alert("Table already reserved...");
+				}
+			}
+			
+			restaurantService.getAvailableDesks(dStart, dEnd, $scope.toReserveId).success(function(data){
+			
+				$scope.blockedTables=data.obj;
+				
 			});
 			
 			$scope.dateres = $('#datepicker').val();

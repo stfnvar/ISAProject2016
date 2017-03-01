@@ -57,5 +57,7 @@ app.config(function($routeProvider) {
     	templateUrl : "html/bschedule.html"
     }).when("/wschedule",{
     	templateUrl : "html/wschedule.html"
+    }).when("/guestorder",{
+    	templateUrl : "html/guestOrder.html"
     });
 });
